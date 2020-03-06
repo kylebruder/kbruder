@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<div class="container updates-bg">
+  <div class="container jumbotron headline-text" style="background-image:url('/media/{{ object.headline_img.image_file }}')">
+    <h1>{{ object.headline }}</h1>
+  </div>
+  <div class="container">
+    <h3>{{ object.title }}</h3>
+    <p>by {{ object.author }}</p>
+    <p class="updates-location-date"><i>{{ object.location }}, {{ object.publication_date|date:"M d, Y" }}</i><p>
+    <p class="updates-content class="updates-content"">{{ object.introduction }}</p>
+    <div class="container">
+      <img class="updates-featured-image" src="/media/{{ object.featured_img.image_file }}">
+      <p>{{ object.featured_img.caption }}</p>
+    </div>
+    <p class="updates-content">{{ object.content }}</p>
+    <p class="updates-content">{{ object.conclusion }}</p>
+  </div>
+</div>
+{% endblock %}

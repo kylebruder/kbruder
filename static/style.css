@@ -1,0 +1,27 @@
+
+.updates-bg{
+  background-color: #525754;
+  color: #f0f5f2;
+  border-radius: 0px 0px 25px 25px;
+}
+
+
+.updates-featured-image{
+  width: 100%;
+  height: auto;
+}
+
+.updates-location-date{
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.headline-text{
+  color: black;
+  text-shadow: 3px 2px white;
+  font-family: 'Permanent Marker', cursive;
+} 
+
+.updates-content{
+  font-family: 'Tajawal', sans-serif;
+  font-size: 20px;
+}
