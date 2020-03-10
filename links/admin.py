@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import Update
+from .models import Link
 # Register your models here.
-
-admin.site.register(Update)
+admin.site.register(Link)

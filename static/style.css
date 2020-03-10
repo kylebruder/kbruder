@@ -4,11 +4,18 @@
   color: #f0f5f2;
   border-radius: 0px 0px 25px 25px;
 }
+.updates-title{
+  font-family: 'Ibarra Real Nova', serif;
+  font-size: 2.5em;
+}
 
+.updates-author{
+  font-family: 'Ibarra Real Nova', serif;
+}
 
 .updates-featured-image{
-  width: 100%;
-  height: auto;
+  max-width: 100%;
+  max-height: auto;
 }
 
 .updates-location-date{
@@ -19,9 +26,11 @@
   color: black;
   text-shadow: 3px 2px white;
   font-family: 'Permanent Marker', cursive;
+  background-size: cover;
+  background-repeat: no-repeat;
 } 
 
 .updates-content{
   font-family: 'Tajawal', sans-serif;
-  font-size: 20px;
+  font-size: 1.25em;
 }

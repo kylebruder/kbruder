@@ -5,16 +5,18 @@
     <h1>{{ object.headline }}</h1>
   </div>
   <div class="container">
-    <h3>{{ object.title }}</h3>
-    <p>by {{ object.author }}</p>
+    <h3 class="updates-title">{{ object.title }}</h3>
+     <p class="updates-author">by {{ object.author }}</p>
     <p class="updates-location-date"><i>{{ object.location }}, {{ object.publication_date|date:"M d, Y" }}</i><p>
-    <p class="updates-content class="updates-content"">{{ object.introduction }}</p>
+    <p class="updates-content">{{ object.introduction|linebreaksbr }}</p>
     <div class="container">
       <img class="updates-featured-image" src="/media/{{ object.featured_img.image_file }}">
       <p>{{ object.featured_img.caption }}</p>
     </div>
-    <p class="updates-content">{{ object.content }}</p>
-    <p class="updates-content">{{ object.conclusion }}</p>
+    <p class="updates-content">{{ object.content|linebreaksbr }}</p>
+    <p class="updates-content">{{ object.conclusion|linebreaksbr }}</p>
+    <br>
   </div>
 </div>
+<br>
 {% endblock %}
