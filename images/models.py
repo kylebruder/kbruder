@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Image(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     creation_date = models.DateTimeField(default=timezone.now)
     image_file = models.ImageField(upload_to='images/%Y/%m/%d/')
     caption = models.CharField(max_length=256, default="a picture is worth a thousand words.")

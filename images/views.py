@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import(
 from django.views.generic.edit import CreateView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.generic.edit import FormView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -15,14 +16,15 @@ from .models import Image, Gallery
 
 # Create your views here.
 
-class ImagesCreateView(CreateView):
+class ImagesCreateView(LoginRequiredMixin, CreateView):
     model = Image
-    fields = ['image_file', 'caption',]
+    fields = ['image_file', 'caption', 'alt_text',]
     template_name_suffix = '_create_form'
+    success_url = reverse_lazy('images:images_list')
 
     def form_valid(self, form):
+        form.instance.creation_date = timezone.now()
         form.instance.user = self.request.user
-        alt_text = self.request.caption
         return super().form_valid(form)
 	
     def get_context_data(self, **kwargs):

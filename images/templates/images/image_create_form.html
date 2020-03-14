@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
-<!-- {% load bootstrap4 %} -->
 {% block body_block %}
-<form method="post">
+<form method="post" enctype="multipart/form-data">
   {% csrf_token %}
-  <!-- {% bootstrap_form form %} -->
+  {{ form.as_p }}
   <input type="submit" value="Upload" class="btn btn-default">
 </form>
 {% endblock %}
