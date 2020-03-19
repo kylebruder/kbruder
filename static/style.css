@@ -1,36 +1,101 @@
+.base-bg {
+  background-color: #111111;
+  /*background-image: url("/static/hexagon-pattern-2657990_960_720.jpg");*/
+  background-size: 200px;
+  padding-top: 70px;
+}
 
-.updates-bg{
+.base-footer {
+  background-color: #ffffff;
+  color: #222222;
+  font-size: 0.75em;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5px;
+} 
+.images-bg {
   background-color: #525754;
   color: #f0f5f2;
   border-radius: 0px 0px 25px 25px;
 }
-.updates-title{
+.images-caption {
+  text-align: center;
+}
+
+.images-image {
+  max-width: 100%;
+  max-height: auto;
+}  
+.index-bg {
+  background-color: #222222;
+  color: #eeeeee;
+  border-radius: 0px 0px 25px 25px;
+}
+.kbtech-title {
+  background-color: black;
+  color: white;
+  border-radius: 25px 25px 25px 25px;
+} 
+.kbtech-image {
+  max-width: 100%;
+  max-height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 25px;
+} 
+.kbtech-services {
+
+} 
+.kbtech-services-overview {
+
+} 
+.updates-bg {
+  background-color: #222222;
+  color: #eeeeee;
+  border-radius: 0px 0px 25px 25px;
+}
+.updates-list-item{
+  background-color: #222222;
+}
+.updates-list-jumbotron {
+  
+}
+.updates-list-link {
+  color: #eeeeee;
+  font-family: 'Yeseva One', cursive;
+  font-size: 1.25em;
+}
+.updates-title {
   font-family: 'Ibarra Real Nova', serif;
   font-size: 2.5em;
 }
 
-.updates-author{
+.updates-author {
   font-family: 'Ibarra Real Nova', serif;
+  font-size: 16px;
 }
 
-.updates-featured-image{
+.updates-featured-image {
   max-width: 100%;
   max-height: auto;
+  border-radius: 10px;
 }
 
-.updates-location-date{
+.updates-location-date {
   font-family: 'IBM Plex Mono', monospace;
 }
 
-.headline-text{
-  color: #6cf542;
-  text-shadow: 3px 2px white;
-  font-family: 'Permanent Marker', cursive;
+.headline-text {
+  color: white;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  font-family: 'Yeseva One', cursive;
   background-size: cover;
   background-repeat: no-repeat;
 } 
 
-.updates-content{
+.updates-content {
   font-family: 'Tajawal', sans-serif;
-  font-size: 1.25em;
 }
