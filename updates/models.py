@@ -67,3 +67,5 @@ class Update(models.Model):
     def __str__(self):
         return self.headline
 
+    def get_absolute_url(self):
+        return reverse('updates:update_detail', kwargs={'pk': self.pk})

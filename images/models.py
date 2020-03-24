@@ -14,9 +14,15 @@ class Image(models.Model):
     def __str__(self):
         return self.alt_text
 
+    def get_absolute_url(self):
+        return reverse('images:image_detail', kwargs={'pk': self.pk})
+
 class Gallery(models.Model):
     title = models.CharField(max_length=256, default="Untitled")
     pictures = models.ManyToManyField(Image)
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('images:gallery_detail', kwargs={'pk': self.pk})

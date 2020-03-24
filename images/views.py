@@ -16,11 +16,11 @@ from .models import Image, Gallery
 
 # Create your views here.
 
-class ImagesCreateView(LoginRequiredMixin, CreateView):
+class ImageCreateView(LoginRequiredMixin, CreateView):
+
     model = Image
     fields = ['image_file', 'caption', 'alt_text',]
     template_name_suffix = '_create_form'
-    success_url = reverse_lazy('images:images_list')
 
     def form_valid(self, form):
         form.instance.creation_date = timezone.now()
@@ -31,7 +31,8 @@ class ImagesCreateView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         return context
 
-class ImagesListView(ListView):
+class ImageListView(ListView):
+
     model = Image
     paginate_by = 32
     ordering = ['-creation_date']
@@ -40,33 +41,35 @@ class ImagesListView(ListView):
         context = super().get_context_data(**kwargs)
         return context
 
-class ImagesDetailView(DetailView):
+class ImageDetailView(DetailView):
+
     model = Image
-    paginate_by = 32
-    ordering = []
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
-class ImagesUpdateView(UpdateView):
+class ImageUpdateView(LoginRequiredMixin, UpdateView):
+
     model = Image
-    fields = []
-    #template_name_suffix = '_update_form'
+    fields = ['image_file', 'caption', 'alt_text',]
+    template_name_suffix = '_update_form'
 	
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 		
-class ImagesDeleteView(DeleteView):
+class ImageDeleteView(LoginRequiredMixin, DeleteView):
+
     model = Image
-    success_url = reverse_lazy('images:images_list')
+    success_url = reverse_lazy('images:image_list')
 	
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
 class GalleryCreateView(CreateView):
+
     model = Gallery
     fields = []
 
@@ -79,6 +82,7 @@ class GalleryCreateView(CreateView):
         return context
 
 class GalleryListView(ListView):
+
     model = Gallery
     paginate_by = 32
     ordering = ['-creation_date']
@@ -88,6 +92,7 @@ class GalleryListView(ListView):
         return context
 
 class GalleryDetailView(DetailView):
+
     model = Gallery
     paginate_by = 32
     ordering = []
@@ -97,6 +102,7 @@ class GalleryDetailView(DetailView):
         return context
 
 class GalleryUpdateView(UpdateView):
+
     model = Gallery
     fields = []
     #template_name_suffix = '_update_form'
@@ -106,6 +112,7 @@ class GalleryUpdateView(UpdateView):
         return context
 		
 class GalleryDeleteView(DeleteView):
+
     model = Gallery
     success_url = reverse_lazy('')
 	

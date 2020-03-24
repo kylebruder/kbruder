@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
-from .views import (ImagesCreateView, ImagesListView, ImagesDetailView,
-    ImagesUpdateView, ImagesDeleteView, GalleryCreateView, GalleryListView,
+from .views import (ImageCreateView, ImageListView, ImageDetailView,
+    ImageUpdateView, ImageDeleteView, GalleryCreateView, GalleryListView,
     GalleryDetailView, GalleryUpdateView, GalleryDeleteView)
 
 app_name = "images"
@@ -9,28 +9,28 @@ app_name = "images"
 urlpatterns = [
     path(
         'upload/',
-        ImagesCreateView.as_view(),
-        name='images_create'
+        ImageCreateView.as_view(),
+        name='image_create'
     ),
     path(
         '',
-        ImagesListView.as_view(),
-        name='images_list'
+        ImageListView.as_view(),
+        name='image_list'
     ),
     path(
         '<int:pk>/',
-        ImagesDetailView.as_view(),
-        name='images_detail'
+        ImageDetailView.as_view(),
+        name='image_detail'
     ),
     path(
         'modify/<int:pk>/',
-        ImagesUpdateView.as_view(),
-        name='images_update'
+        ImageUpdateView.as_view(),
+        name='image_update'
     ),
     path(
         'delete/',
-        ImagesDeleteView.as_view(),
-        name='images_delete'
+        ImageDeleteView.as_view(),
+        name='image_delete'
     ),
     path(
         'gallery/create/',
