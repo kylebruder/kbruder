@@ -8,11 +8,11 @@
     {% if object_list %}
       <ul class="list-group">
         {% for update in object_list %}
-          <li class="list-group-item"><a href="{% url 'updates:update_detail' update.slug %}">{{ update }}</a></li>
+          <li class="list-group-item updates-list-item"><a class="updates-list-link" href="{% url 'updates:update_detail' update.slug %}">{{ update }}</a></li>
         {% endfor %}
       </ul>
     {% else %}
-    <p>Coming Soon.</p>
+      <p>Coming Soon.</p>
     {% endif %}
   </div>  
 </div>

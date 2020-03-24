@@ -10,12 +10,21 @@ from django.contrib.auth.mixins import(
 from django.views.generic.edit import CreateView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.core.files.images import ImageFile
 from .models import Update
 
+class HomePageView(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['latest_update'] = Update.objects.all()[0]
+        return context
+      
 class UpdatesListView(ListView):
     model = Update
     paginate_by = 64

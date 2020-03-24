@@ -17,10 +17,14 @@ from django.contrib import admin
 from django.urls import include, path
 from . import settings
 from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
+from updates import views as updates
 
 urlpatterns = [
+    path('', updates.HomePageView.as_view(), name='home'), 
     path('admin/', admin.site.urls),
-    path('', include('updates.urls'))
+    path('updates/', include('updates.urls')),
+    path('images/', include('images.urls')),
+    path('links/', include('links.urls')),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

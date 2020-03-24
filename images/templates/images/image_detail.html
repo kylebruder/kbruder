@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block body_block %}
+<div class="container images-bg">
+  <img class="images-image" src="/media/{{ object.image_file }}" alt="object.alt_text">
+  <p class="images-caption">{{ object.caption }}</p>
+  <br>
+</div>
+
+{% endblock %}

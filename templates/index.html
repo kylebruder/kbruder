@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body_block %}
+<div class="container index-bg">
+  <div class="container">
+    <div class="container jumbotron headline-text" style="background-image:url('/media/{{ latest_update.headline_img.image_file }}')">
+      <h1>{{ latest_update.headline }}</h1>
+    </div>
+    <div class="container">
+      <h3 class="updates-title">{{ latest_update.title }}</h3>
+      <p class="updates-author">by {{ latest_update.author }}</p>
+      <p class="updates-location-date"><i>{{ latest_update.location }}, {{ latest_update.publication_date|date:"M d, Y" }}</i><p>
+      <p class="updates-content">{{ latest_update.introduction|linebreaksbr }}</p>
+      <div class="container">
+        <img class="updates-featured-image" src="/media/{{ latest_update.featured_img.image_file }}">
+        <p>{{ latest_update.featured_img.caption }}</p>
+      </div>
+      <p class="updates-content">{{ latest_update.content|linebreaksbr }}</p>
+      <p class="updates-content">{{ latest_update.conclusion|linebreaksbr }}</p>
+      <br>
+    </div>
+    <div class="container kbtech-title">
+      <br>
+      <div class="containter">
+        <div class="row">
+          <div class="col">
+            <h1>kbruder Tech</h1>
+            <h2 class="kbtech-subtitle">Information Technology Consulting</h2>
+            <p class="kbtech-services-overview">Cloud | IP networking | Infrastructure | Deployment | Cryptocurrency | Info Sec</p>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+            <p class="kbtech-services">Providing consultation and support to individuals and businesses requiring modern, secure, and cost-reducing IT solutions. Offering solution architecture, Information Security services and general information about emerging trends in Information Technology.</p>
+            <p class="kbtech-services">The biggest hurdle in IT services is trust. Begin a trust relationship with kbruder Tech. Send me a concise email message to <a href="mailto:help@kbruder.info">help@kbruder.info</a> today!</p>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>
+{% endblock %}
