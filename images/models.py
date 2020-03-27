@@ -27,6 +27,7 @@ class Image(models.Model):
 class Gallery(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     creation_date = models.DateTimeField(default=timezone.now)
+    publication_date = models.DateTimeField(default=timezone.now)
     title = models.CharField(max_length=256, default="Untitled")
     pictures = models.ManyToManyField(Image)
     caption = models.CharField(max_length=256, default="a curated collection of imagery")

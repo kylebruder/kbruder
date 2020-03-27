@@ -1,13 +1,18 @@
+from django.contrib.auth.models import User
+from django.utils import timezone
 from django.db import models
-from images import models as images
+from images.models import Image
+from tags.models import Tag
 # Create your models here.
 
 class Link(models.Model):
-    title = models.CharField(max_length=64, default="an external link")
-    description = models.CharField(max_length=256, blank=True)
-    #tags = models.ManyToManyField(tags.Tag)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    creation_date = models.DateTimeField(default=timezone.now)
+    title = models.CharField(max_length=64, default="a link to additional information")
+    image = models.ForeignKey(Image, on_delete=models.CASCADE, blank=True, null=True)
+    description = models.CharField(max_length=256, default="information you may find useful", blank=True)
+    tags = models.ManyToManyField(Tag, blank=True)
     url = models.URLField(max_length=200)
-    images = models.ManyToManyField(images.Image, blank=True)
 
     def __str__(self):
         return self.title

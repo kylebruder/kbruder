@@ -10,7 +10,6 @@ from tags import models as tags
 class Update(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=256, default="Untitled")
-    author = models.CharField(max_length=256, default="an unknown subject")
     slug = models.SlugField(max_length=40)
     creation_date = models.DateTimeField(default=timezone.now)
     publication_date = models.DateTimeField(default=timezone.now)
@@ -58,7 +57,7 @@ class Update(models.Model):
         blank=True,
         null=True,
     )
-    external_links = models.ManyToManyField(links.Link, blank=True)
+    links = models.ManyToManyField(links.Link, blank=True)
     tags = models.ManyToManyField(tags.Tag, blank=True)
 
     class Meta:
