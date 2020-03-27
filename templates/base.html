@@ -47,12 +47,10 @@
       </ul>
     </div>
   </nav>
-  <div class="container">
-    {% block body_block %}
-    <!-- Anything outside of this will be inhereited if you extend! -->
-    {% endblock %}
-    <br>
-  </div>
+  {% block body_block %}
+  <!-- Anything outside of this will be inhereited if you extend! -->
+  {% endblock %}
+  <br>
   <footer class="page-footer font-small base-footer">kbruder Tech 2020 | <a href="#">My Git Hub</a> | This is a test | 0000ooooooooooooooo</footer>
 </body>
 </html>

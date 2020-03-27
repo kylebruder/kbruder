@@ -22,7 +22,10 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['latest_update'] = Update.objects.all()[0]
+        try:
+            context['latest_update'] = Update.objects.all()[0]
+        except:
+            pass
         return context
       
 class UpdatesListView(ListView):

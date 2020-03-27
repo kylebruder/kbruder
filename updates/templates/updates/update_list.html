@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% block body_block %}
-<div class="container">
-  <div class="jumbotron">
-    <h1>Updates</h1>
-  </div>
+<div class="container updates-bg">
+    <h1>Recent Updates</h1>
   <div class="container">
     {% if object_list %}
       <ul class="list-group">
@@ -12,8 +10,9 @@
         {% endfor %}
       </ul>
     {% else %}
-      <p>Coming Soon.</p>
+      <p>Updates are coming Soon.</p>
     {% endif %}
+    <br>
   </div>  
 </div>
 {% endblock %}

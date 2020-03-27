@@ -1,19 +1,38 @@
 {% extends 'base.html' %}
 {% block body_block %}
-<div class="container">
-  <div class="jumbotron">
-    <h1>Images</h1>
-  </div>
-  <div class="container images-bg">
+<div class="container images-bg">
+  <h3>An image is worth a thousand words...</h3>
+  <div class="container">
     <p>Click <a href="{% url 'images:image_create' %}">here</a> to post an image to the database.</p>
-    {% if object_list %}
-      <ul class="list-group">
+    <br>
+    {% if page_obj %}
+      <div class="card-group images-card-group">
         {% for image in object_list %}
-          <li class="list-group-item"><a href="{% url 'images:image_detail' image.pk %}">{{ image.caption }}</a></li>
+          <div class="images-card">
+            <a href="{% url 'images:image_detail' image.pk %}">
+              <img src="{{ image.thumbnail_file.url }}" class="images-thumbnail" alt="{{ image.alt_text }}">
+            </a>
+          </div>
         {% endfor %}
-      </ul>
+      </div>
+      <br>
+      <div class="images-pagination">
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+            <a href="?page=1"><<</a>
+            <a href="?page={{page_obj.previous_page_number}}"><</a>
+          {% endif %}
+          <span class="images-current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}
+          </span>
+          {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}">></a>
+            <a href="?page={{page_obj.paginator.num_pages}}">>></a>
+          {% endif %}
+        </span>
+      </div>
     {% else %}
-    <p>There are no meta reports yet.</p>
+    <p>There are no images yet.</p>
     {% endif %}
   </div>
 {% endblock %} 

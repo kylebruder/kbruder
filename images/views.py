@@ -34,7 +34,7 @@ class ImageCreateView(LoginRequiredMixin, CreateView):
 class ImageListView(ListView):
 
     model = Image
-    paginate_by = 32
+    paginate_by = 12 
     ordering = ['-creation_date']
 
     def get_context_data(self, **kwargs):

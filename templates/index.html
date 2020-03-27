@@ -3,22 +3,12 @@
 {% block body_block %}
 <div class="container index-bg">
   <div class="container">
+    {% if latest_update %}
     <div class="container jumbotron headline-text" style="background-image:url('/media/{{ latest_update.headline_img.image_file }}')">
       <h1>{{ latest_update.headline }}</h1>
     </div>
-    <div class="container">
-      <h3 class="updates-title">{{ latest_update.title }}</h3>
-      <p class="updates-author">by {{ latest_update.author }}</p>
-      <p class="updates-location-date"><i>{{ latest_update.location }}, {{ latest_update.publication_date|date:"M d, Y" }}</i><p>
-      <p class="updates-content">{{ latest_update.introduction|linebreaksbr }}</p>
-      <div class="container">
-        <img class="updates-featured-image" src="/media/{{ latest_update.featured_img.image_file }}">
-        <p>{{ latest_update.featured_img.caption }}</p>
-      </div>
-      <p class="updates-content">{{ latest_update.content|linebreaksbr }}</p>
-      <p class="updates-content">{{ latest_update.conclusion|linebreaksbr }}</p>
-      <br>
-    </div>
+    {% endif %}
+    <br>
     <div class="container kbtech-title">
       <br>
       <div class="containter">

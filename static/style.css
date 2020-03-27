@@ -16,29 +16,62 @@
   right: 0;
   padding: 5px;
 } 
+
 .images-bg {
   background-color: #525754;
   color: #f0f5f2;
   border-radius: 0px 0px 25px 25px;
 }
+
 .images-caption {
   text-align: center;
+}
+
+.images-card {
+  width: 220px;
+  height: 220px;
+  padding: 10px;
+  background-color: #525754;
+  display: block;
+  margin: auto;
+}
+
+.images-card-group {
+  margin: auto;
 }
 
 .images-image {
   max-width: 100%;
   max-height: auto;
-}  
+  display: block;
+  margin: auto;
+  border-radius: 5px;
+}
+
+.images-thumbnail {
+  max-width: 100%;
+  max-height: auto;
+  border: 3px solid white;
+  border-radius: 3px;
+  display: block;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+  
 .index-bg {
   background-color: #222222;
   color: #eeeeee;
   border-radius: 0px 0px 25px 25px;
 }
+
 .kbtech-title {
   background-color: black;
   color: white;
   border-radius: 25px 25px 25px 25px;
-} 
+}
+ 
 .kbtech-image {
   max-width: 100%;
   max-height: auto;
@@ -46,28 +79,34 @@
   margin-right: auto;
   border-radius: 25px;
 } 
+
 .kbtech-services {
 
 } 
 .kbtech-services-overview {
 
 } 
+
 .updates-bg {
   background-color: #222222;
   color: #eeeeee;
   border-radius: 0px 0px 25px 25px;
 }
+
 .updates-list-item{
   background-color: #222222;
 }
+
 .updates-list-jumbotron {
   
 }
+
 .updates-list-link {
   color: #eeeeee;
   font-family: 'Yeseva One', cursive;
   font-size: 1.25em;
 }
+
 .updates-title {
   font-family: 'Ibarra Real Nova', serif;
   font-size: 2.5em;
