@@ -33,7 +33,7 @@ class LinkCreateView(LoginRequiredMixin, CreateView):
 class LinkListView(ListView):
 
     model = Link
-    paginate_by = 32
+    paginate_by = 16 
     ordering = ['creation_date']
 
     def get_context_data(self, **kwargs):

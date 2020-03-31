@@ -15,9 +15,11 @@ from django.views.generic.edit import FormView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.core.files.images import ImageFile
+from django.utils import timezone
 from .models import Update
 
 class HomePageView(TemplateView):
+
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
@@ -27,10 +29,40 @@ class HomePageView(TemplateView):
         except:
             pass
         return context
-      
-class UpdatesListView(ListView):
+
+class UpdatesCreateView(LoginRequiredMixin, CreateView):
+
     model = Update
-    paginate_by = 64
+    fields = [
+        'title',
+        'slug',
+        'publication_date',
+        'location',
+        'headline',
+        'headline_img',
+        'featured_img',
+        'introduction',
+        'content',
+        'conclusion',
+        'gallery',
+        'links',
+        'tags',
+    ]
+    template_name_suffix = '_create_form'
+    
+    def form_valid(self, form):
+        form.instance.creation_date = timezone.now()
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+class UpdatesListView(ListView):
+
+    model = Update
+    paginate_by = 16 
     ordering = ['-publication_date']
 
     def get_context_data(self, **kwargs):
@@ -38,6 +70,7 @@ class UpdatesListView(ListView):
         return context
 
 class UpdatesDetailView(DetailView):
+
     model = Update
 
     def get_context_data(self, **kwargs):

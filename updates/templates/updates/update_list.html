@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block body_block %}
 <div class="container updates-bg">
-    <h1>Recent Updates</h1>
+  <h1>Recent Updates</h1>
   <div class="container">
     {% if object_list %}
       <ul class="list-group">
@@ -9,6 +9,21 @@
           <li class="list-group-item updates-list-item"><a class="updates-list-link" href="{% url 'updates:update_detail' update.slug %}">{{ update }}</a></li>
         {% endfor %}
       </ul>
+      <div class="updates-pagination">
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+            <a href="?page=1"><<</a>
+            <a href="?page={{page_obj.previous_page_number}}"><</a>
+          {% endif %}
+          <span class="updates-current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}
+          </span>
+          {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}">></a>
+            <a href="?page={{page_obj.paginator.num_pages}}">>></a>
+          {% endif %}
+        </span>
+      </div>
     {% else %}
       <p>Updates are coming Soon.</p>
     {% endif %}
