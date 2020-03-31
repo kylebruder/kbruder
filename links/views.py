@@ -17,9 +17,9 @@ from .models import Link
 class LinkCreateView(LoginRequiredMixin, CreateView):
 
     model = Link
-    fields = ['title', 'description', 'url']
+    fields = ['title', 'description', 'image', 'url']
     template_name_suffix = '_create_form'
-    success_url = reverse_lazy('links:links_list')
+    success_url = reverse_lazy('links:link_list')
 
     def form_valid(self, form):
         form.instance.creation_date = timezone.now()

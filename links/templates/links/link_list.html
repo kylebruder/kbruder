@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<div class="container links-bg">
+  <h3>Links to further information:</h3>
+  <br>
+  <div class="container">
+    {% if page_obj %}
+      <ul class="list-group">
+        {% for link in object_list %}
+          <div class="container links-bg">
+            <li class="list-group-item links-bg">
+              <!-- ROW 1 -->
+              <div class="row">
+                <div class="col">
+                  <img src="{{ link.image.thumbnail_file.url }}" class="links-thumbnail">
+                </div>
+                <div class="col-10">
+                  <h4 class="links-list-title">{{ link.title }}</h4>
+                </div>
+              </div>
+              <!-- ROW 2 -->
+              <div class="row">
+                <div class="col-10">
+                  <br>
+                  <p class="links-list-description">{{ link.description }}</p>
+                </div>
+                <div class="col">
+                </div>
+              </div>
+              <!-- ROW 3 -->
+              <div class="row">
+                <div class="col-10">
+                  <a href="{{ link.url }}" class="links-list-link">{{ link.url }}</a>
+                </div>
+              </div>
+            </li>
+          </div>
+          <br>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
