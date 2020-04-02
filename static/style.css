@@ -40,6 +40,12 @@
   margin: auto;
 }
 
+.images-gallery {
+  background-color: #ffffff;
+  color: #222222;
+  border-radius: 0px 0px 25px 25px;
+}
+
 .images-image {
   max-width: 100%;
   max-height: auto;

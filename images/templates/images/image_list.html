@@ -10,7 +10,7 @@
         {% for image in object_list %}
           <div class="images-card">
             <a href="{% url 'images:image_detail' image.pk %}">
-              <img src="{{ image.thumbnail_file.url }}" class="images-thumbnail" alt="{{ image.alt_text }}">
+              <img src="{{ image.thumbnail_file.url }}" class="images-thumbnail" alt="{{ image.title }}">
             </a>
           </div>
         {% endfor %}

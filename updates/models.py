@@ -13,7 +13,8 @@ class Update(models.Model):
     title = models.CharField(max_length=256, default="Untitled")
     slug = models.SlugField(max_length=40)
     creation_date = models.DateTimeField(default=timezone.now)
-    publication_date = models.DateTimeField(default=timezone.now)
+    is_public = models.BooleanField(default=False)
+    publication_date = models.DateTimeField(blank=True, null=True)
     location = models.CharField(
         max_length=256,
         default="an undisclosed location",

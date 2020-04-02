@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<div class="container images-gallery">
+  <h3>Curated Imagery</h3>
+  <p>Click <a href="{% url 'images:gallery_create' %}">here</a> to hang a new gallery</p>
+  <div class="container">
+    {% if page_obj %}
+      {% for gallery in object_list %}
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <a href="{% url 'images:gallery_detail' gallery.slug %}">
+                <img src="{{ gallery.images.first.image_file.url }}" class="card-img" alt="{{ gallery.images.first.title }}">
+              </a>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5>{{ gallery.title }}</h5>
+                <p>{{ gallery.caption }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      <div class="images-pagination">
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+            <a href="?page=1"><<</a>
+            <a href="?page={{page_obj.previous_page_number}}"><</a>
+          {% endif %}
+          <span class="images-current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}
+          </span>
+          {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}">></a>
+            <a href="?page={{page_obj.paginator.num_pages}}">>></a>
+          {% endif %}
+        </span>
+        <br>
+      </div>
+    {% else %}
+      <p>There are no galleries yet.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %} 

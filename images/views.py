@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import(
     )
 from django.views.generic.edit import CreateView
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views.generic.edit import FormView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
@@ -19,7 +19,7 @@ from .models import Image, Gallery
 class ImageCreateView(LoginRequiredMixin, CreateView):
 
     model = Image
-    fields = ['image_file', 'caption', 'alt_text',]
+    fields = ['image_file', 'caption', 'title',]
     template_name_suffix = '_create_form'
 
     def form_valid(self, form):
@@ -52,7 +52,7 @@ class ImageDetailView(DetailView):
 class ImageUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Image
-    fields = ['image_file', 'caption', 'alt_text',]
+    fields = ['image_file', 'caption', 'title', 'is_public']
     template_name_suffix = '_update_form'
 	
     def get_context_data(self, **kwargs):
@@ -71,12 +71,21 @@ class ImageDeleteView(LoginRequiredMixin, DeleteView):
 class GalleryCreateView(CreateView):
 
     model = Gallery
-    fields = []
+    fields = ['title', 'slug', 'caption', 'images', 'tags', 'is_public']
+    template_name_suffix = '_update_form'
 
-    #def form_valid(self, form):
-    #    form.instance.user = self.request.user
-    #    return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 	
+    def get_success_url(self):
+        # return the slug with the success url
+        if 'slug' in self.kwargs:
+            slug = self.kwargs['slug']
+        else:
+            return reverse('images:gallery_list')
+        return reverse('images:gallery_detail', kwargs={'slug': slug})
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context

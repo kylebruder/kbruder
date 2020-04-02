@@ -9,16 +9,18 @@ from tags.models import Tag
 class Image(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     creation_date = models.DateTimeField(default=timezone.now)
+    is_public = models.BooleanField(default=False)
+    publication_date = models.DateTimeField(blank=True, null=True)
     image_file = models.ImageField(upload_to='images/%Y/%m/%d/')
     thumbnail_file = models.ImageField(upload_to='images/thumbnails/%Y/%m/%d/', blank=True)
     caption = models.TextField(max_length=256, default="a picture is worth a thousand words.")
     credit = models.CharField(max_length=64, default="origin unknown")
-    alt_text = models.CharField(max_length=64, default="a compelling image")
+    title = models.CharField(max_length=64, default="a compelling image")
     tags = models.ManyToManyField(Tag, blank=True)
     #marshmallows = models.ManyToManyField(Marshmallow, blank=True)
 
     def __str__(self):
-        return self.alt_text
+        return self.title
 
     def get_absolute_url(self):
         return reverse('images:image_detail', kwargs={'pk': self.pk})
@@ -29,10 +31,12 @@ class Image(models.Model):
 class Gallery(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     creation_date = models.DateTimeField(default=timezone.now)
-    publication_date = models.DateTimeField(default=timezone.now)
+    is_public = models.BooleanField(default=False)
+    publication_date = models.DateTimeField(blank=True, null=True)
+    slug = models.SlugField(max_length=40, default="demo")
     title = models.CharField(max_length=64, default="Untitled")
     caption = models.TextField(max_length=256, default="a curated collection of imagery")
-    pictures = models.ManyToManyField(Image)
+    images = models.ManyToManyField(Image)
     tags = models.ManyToManyField(Tag)
     #marshmallows = models.ManyToManyField(Marshmallow, blank=True)
 
