@@ -51,7 +51,7 @@ class LinkDetailView(DetailView):
 class LinkUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Link
-    fields = ['title',' description', 'url']
+    fields = ['title','description', 'url']
     template_name_suffix = '_update_form'
 
     def get_context_data(self, **kwargs):

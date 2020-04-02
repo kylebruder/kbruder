@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import(
     LoginRequiredMixin,
     PermissionRequiredMixin,
     )
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
@@ -15,6 +15,7 @@ from django.views.generic.edit import FormView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.core.files.images import ImageFile
+from django.urls import reverse
 from django.utils import timezone
 from .models import Update
 
@@ -35,7 +36,6 @@ class UpdatesCreateView(LoginRequiredMixin, CreateView):
     model = Update
     fields = [
         'title',
-        'slug',
         'publication_date',
         'location',
         'headline',
@@ -76,3 +76,40 @@ class UpdatesDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+class UpdatesUpdateView(LoginRequiredMixin, UpdateView):
+
+    model = Update
+    fields = [
+        'title',
+        'slug',
+        'publication_date',
+        'location',
+        'headline',
+        'headline_img',
+        'featured_img',
+        'introduction',
+        'content',
+        'conclusion',
+        'gallery',
+        'links',
+        'tags',
+    ]
+
+    template_name_suffix = '_update_form'
+    
+    def get_success_url(self):
+        # return the slug with the success url
+        if 'slug' in self.kwargs:
+            slug = self.kwargs['slug']
+        else:
+            return reverse('updates:update_list')
+        return reverse('updates:update_detail', kwargs={'slug': slug})
+
+    #def form_valid(self, form):
+    #    return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
