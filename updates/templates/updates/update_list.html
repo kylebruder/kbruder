@@ -2,11 +2,16 @@
 {% block body_block %}
 <div class="container updates-bg">
   <h1>Recent Updates</h1>
+  <p>Click <a href="{% url 'updates:update_create' %}">here</a> to add an update</p>
   <div class="container">
     {% if object_list %}
       <ul class="list-group">
         {% for update in object_list %}
-          <li class="list-group-item updates-list-item"><a class="updates-list-link" href="{% url 'updates:update_detail' update.slug %}">{{ update }}</a></li>
+          <li class="list-group-item updates-headline-list" style="background-image:url('/media/{{ update.headline_img.image_file }}')">
+            <a class="updates-list-link" href="{% url 'updates:update_detail' update.slug %}">
+              {{ update.publication_date|date:'Y-m-d' }} - {{ update }}
+            </a>
+          </li>
         {% endfor %}
       </ul>
       <div class="updates-pagination">

@@ -25,8 +25,9 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # use the last update on the homepage
         try:
-            context['latest_update'] = Update.objects.all()[0]
+            context['latest_update'] = Update.objects.last()
         except:
             pass
         return context
@@ -36,6 +37,7 @@ class UpdatesCreateView(LoginRequiredMixin, CreateView):
     model = Update
     fields = [
         'title',
+        'slug',
         'publication_date',
         'location',
         'headline',
@@ -50,6 +52,14 @@ class UpdatesCreateView(LoginRequiredMixin, CreateView):
     ]
     template_name_suffix = '_create_form'
     
+    def get_success_url(self):
+        # return the slug with the success url
+        if 'slug' in self.kwargs:
+            slug = self.kwargs['slug']
+        else:
+            return reverse('updates:update_list')
+        return reverse('updates:update_detail', kwargs={'slug': slug})
+
     def form_valid(self, form):
         form.instance.creation_date = timezone.now()
         form.instance.user = self.request.user

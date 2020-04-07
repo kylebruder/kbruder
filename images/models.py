@@ -33,7 +33,7 @@ class Gallery(models.Model):
     creation_date = models.DateTimeField(default=timezone.now)
     is_public = models.BooleanField(default=False)
     publication_date = models.DateTimeField(blank=True, null=True)
-    slug = models.SlugField(max_length=40, default="demo")
+    slug = models.SlugField(max_length=40, unique=True)
     title = models.CharField(max_length=64, default="Untitled")
     caption = models.TextField(max_length=256, default="a curated collection of imagery")
     images = models.ManyToManyField(Image)

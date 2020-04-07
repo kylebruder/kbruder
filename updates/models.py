@@ -11,10 +11,14 @@ from tags import models as tags
 class Update(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=256, default="Untitled")
-    slug = models.SlugField(max_length=40)
+    slug = models.SlugField(max_length=40, unique=True)
     creation_date = models.DateTimeField(default=timezone.now)
     is_public = models.BooleanField(default=False)
-    publication_date = models.DateTimeField(blank=True, null=True)
+    publication_date = models.DateTimeField(
+        default=timezone.now,
+        blank=True,
+        null=True
+    )
     location = models.CharField(
         max_length=256,
         default="an undisclosed location",

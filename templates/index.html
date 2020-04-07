@@ -4,9 +4,11 @@
 <div class="container index-bg">
   <div class="container">
     {% if latest_update %}
-    <div class="container jumbotron headline-text" style="background-image:url('/media/{{ latest_update.headline_img.image_file }}')">
-      <h1>{{ latest_update.headline }}</h1>
-    </div>
+      <a href="{% url 'updates:update_detail' slug=latest_update.slug %}">
+        <div class="container jumbotron index-headline-text" style="background-image:url('/media/{{ latest_update.headline_img.image_file }}')">
+          <h1>{{ latest_update.headline }}</h1>
+       </div>
+      </a>
     {% endif %}
     <br>
     <div class="container kbtech-title">

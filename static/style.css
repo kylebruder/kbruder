@@ -5,15 +5,19 @@
   padding-top: 70px;
 }
 
+.base-body {
+  padding-top: 60px;
+}
+
 .base-footer {
   background-color: #ffffff;
   color: #222222;
   font-size: 0.75em;
   text-align: center;
   position: fixed;
-  bottom: 0;
   left: 0;
-  right: 0;
+  bottom: 0;
+  width: 100%;
   padding: 5px;
 } 
 
@@ -72,6 +76,15 @@
   border-radius: 0px 0px 25px 25px;
 }
 
+.index-headline-text {
+  color: white;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  text-align: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 0px 0px 25px 25px;
+} 
+
 .kbtech-title {
   background-color: black;
   color: white;
@@ -121,6 +134,27 @@
   border-radius: 0px 0px 25px 25px;
 }
 
+
+.updates-headline-list {
+  background-color: #336633;
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-align: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  max-height: auto;
+  padding: 10px;
+}
+ 
+.updates-headline-text {
+  background-color: #336633;
+  color: white;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  text-align: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+} 
+
 .updates-list-item{
   background-color: #222222;
 }
@@ -131,7 +165,6 @@
 
 .updates-list-link {
   color: #eeeeee;
-  font-family: 'Yeseva One', cursive;
   font-size: 1.25em;
 }
 
@@ -141,12 +174,12 @@
 }
 
 .updates-author {
-  font-family: 'Ibarra Real Nova', serif;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 16px;
 }
 
 .updates-featured-image {
-  max-width: 100%;
+  max-width: 80%;
   max-height: auto;
   border-radius: 10px;
 }
@@ -155,13 +188,6 @@
   font-family: 'IBM Plex Mono', monospace;
 }
 
-.headline-text {
-  color: white;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-  font-family: 'Yeseva One', cursive;
-  background-size: cover;
-  background-repeat: no-repeat;
-} 
 
 .updates-content {
   font-family: 'Tajawal', sans-serif;
