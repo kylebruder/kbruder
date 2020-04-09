@@ -14,6 +14,10 @@ class Link(models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
     url = models.URLField(max_length=200)
 
+    class Meta:
+        
+        ordering = ['-creation_date']
+        
     def __str__(self):
         return self.title
 

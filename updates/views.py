@@ -18,6 +18,8 @@ from django.core.files.images import ImageFile
 from django.urls import reverse
 from django.utils import timezone
 from .models import Update
+from images.models import Gallery
+from links.models import Link
 
 class HomePageView(TemplateView):
 
@@ -27,7 +29,9 @@ class HomePageView(TemplateView):
         context = super().get_context_data(**kwargs)
         # use the last update on the homepage
         try:
-            context['latest_update'] = Update.objects.last()
+            context['latest_update'] = Update.objects.first()
+            context['gallery'] = Gallery.objects.first()
+            context['link'] = Link.objects.first()
         except:
             pass
         return context

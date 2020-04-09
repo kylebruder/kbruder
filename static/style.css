@@ -50,6 +50,14 @@
   border-radius: 0px 0px 25px 25px;
 }
 
+.images-gallery-image {
+  max-width: 100%;
+  max-height: auto;
+  display: block;
+  margin: auto;
+  border-radius: 5px;
+}
+
 .images-image {
   max-width: 100%;
   max-height: auto;
@@ -74,21 +82,45 @@
   background-color: #222222;
   color: #eeeeee;
   border-radius: 0px 0px 25px 25px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
+.index-gallery {
+  color: #ffffff;
+  background-color: #444444;
+  padding: 10px;
+  border-radius: 10px;
+}
 .index-headline-text {
   color: white;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   text-align: center;
   background-size: cover;
   background-repeat: no-repeat;
-  border-radius: 0px 0px 25px 25px;
+  border-radius: 0px 0px 10px 10px;
 } 
+
+.index-link-bg {
+  color: white;
+  background-color: #444444;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.index-link-li {
+  color: #ffffff;
+  background-color: #222222;
+}
 
 .kbtech-title {
   background-color: black;
   color: white;
-  border-radius: 25px 25px 25px 25px;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
 }
  
 .kbtech-image {
@@ -111,21 +143,29 @@
   background-color: #222222;
   color: #eeeeee;
   border-radius: 0px 0px 25px 25px;
+  padding: 10px;
 }
 
 .links-list-description {
-
+  font-family: 'Tajawal', sans-serif;
+  margin-left: 20px;
 }
 
 .links-list-link {
+  font-family: 'IBM Plex Mono', monospace;
+  margin-left: 20px;
 }
 
 .links-list-title {
+  font-family: 'Ibarra Real Nova', serif;
+  font-size: 1.25em;
+  padding: 20px;
 }
 
 .links-thumbnail {
   max-width: 100px;
-  max-height: auto;
+  max-height: 50px;
+  margin: 20px;
 }
 
 .updates-bg {
@@ -134,6 +174,15 @@
   border-radius: 0px 0px 25px 25px;
 }
 
+.updates-gallery-caption {
+  font-family: 'Tajawal', sans-serif;
+  margin-left: 20px;
+}
+
+.updates-gallery-title {
+  font-family: 'Ibarra Real Nova', serif;
+  margin-left: 20px;
+}
 
 .updates-headline-list {
   background-color: #336633;
@@ -155,12 +204,24 @@
   background-repeat: no-repeat;
 } 
 
-.updates-list-item{
-  background-color: #222222;
+.updates-link {
+  font-family: 'IBM Plex Mono', monospace;
 }
 
-.updates-list-jumbotron {
-  
+.updates-link-image {
+  max-height: 50px;
+  max-width: 100px;
+  margin: 20px;
+}
+
+.updates-link-title {
+  font-family: 'Ibarra Real Nova', serif;
+  font-size: 1.5em;
+  padding: 20px;
+}
+
+.updates-list-item{
+  background-color: #222222;
 }
 
 .updates-list-link {
@@ -175,13 +236,24 @@
 
 .updates-author {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 16px;
 }
 
 .updates-featured-image {
-  max-width: 80%;
-  max-height: auto;
-  border-radius: 10px;
+  max-width: 500px;
+  max-height: 500px;
+  margin: 20px;
+  border-radius: 5px;
+}
+
+.updates-featured-image-caption {
+  font-family: 'Tajawal', sans-serif;
+  max-width: 250px;
+  padding-left: 20px;
+}
+ 
+.updates-featured-image-container {
+  padding 20px;
+  margin 20px;
 }
 
 .updates-location-date {
@@ -190,5 +262,5 @@
 
 
 .updates-content {
-  font-family: 'Tajawal', sans-serif;
+  padding: 20px;
 }

@@ -1,61 +1,139 @@
 {% extends 'base.html' %}
 {% block body_block %}
-  <div class="jumbotron updates-headline-text" style="background-image:url('/media/{{ object.headline_img.image_file }}')">
-    <h1>{{ object.headline }}</h1>
-  </div>
 <div class="container updates-bg">
-  {% if object.title %}
-    <h3 class="updates-title">{{ object.title }}</h3>
-  {% endif %}
-  {% if object.introduction %}
-    <p class="updates-content">{{ object.introduction|linebreaksbr }}</p>
-  {% endif %}
-  {% if object.content %}
-    <p class="updates-content">{{ object.content|linebreaksbr }}</p>
-  {% endif %}
-  {% if object.featured_img %}
-    <div class="container">
-      <img class="updates-featured-image" src="/media/{{ object.featured_img.image_file }}">
-      <p>{{ object.featured_img.caption }}</p>
+  <!-- ROW 1 -->
+  <div class="row">
+    <div class="col">
+      <div class="jumbotron updates-headline-text" style="background-image:url('/media/{{ object.headline_img.image_file }}')">
+        <h1>{{ object.headline }}</h1>
+      </div>
+    </div>
+  </div>
+  <!-- ROW 2 -->
+  <div class="row">
+    <div class="col">
+      {% if object.title %}
+        <h3 class="updates-title">{{ object.title }}</h3>
+      {% endif %}
+      {% if object.introduction %}
+        <p class="updates-content">{{ object.introduction }}</p>
+      {% endif %}
+    </div>
+  </div>
+  <!-- ROW 3 -->
+  <!-- START main content -->
+  <div class="row">
+    <div class="col">
+      {% if object.featured_img %}
+        <div class="updates-featured-image-container float-left">
+          <img class="updates-featured-image" src="/media/{{ object.featured_img.image_file }}">
+          <p class="updates-featured-image-caption"><i>{{ object.featured_img.caption }}</i></p>
+        </div>
+      {% endif %}
+      {% if object.content %}
+        <p class="updates-content">{{ object.content }}</p>
+      {% endif %}
+    </div>
+  </div>
+  <!-- STOP main content -->
+  <!-- START conclusion -->
+  {% if object.conclusion %}
+    <!-- ROW 4 -->
+    <div class="row">
+      <div class="col">
+        <p class="updates-content">{{ object.conclusion|linebreaksbr }}</p>
+      </div>
     </div>
   {% endif %}
-  {% if object.conclusion %}
-    <p class="updates-content">{{ object.conclusion|linebreaksbr }}</p>
-  {% endif %}
+  <!-- STOP conclusion -->
+  <!-- START gallery -->
   {% if object.gallery %}
-    <p><a href="{% url 'images:gallery_detail' slug=object.gallery.slug %}">Gallery</a></p>
-  {% endif %}
-  {% if object.links %}
-    {% for link in object.links.all %}
-      <div class="container links-bg">
-        <li class="list-group-item links-bg">
-          <!-- ROW 1 -->
-          <div class="row">
-            <div class="col">
-              <img src="{{ link.image.thumbnail_file.url }}" class="links-thumbnail">
-            </div>
-            <div class="col-10">
-              <h4 class="links-list-title">{{ link.title }}</h4>
-            </div>
-          </div>
-          <!-- ROW 2 -->
-          <div class="row">
-            <div class="col-10">
-              <p class="links-list-description">{{ link.description }}</p>
-            </div>
-            <div class="col">
-            </div>
-          </div>
-          <!-- ROW 3 -->
-          <div class="row">
-            <div class="col-10">
-              <a href="{{ link.url }}" class="links-list-link">{{ link.url }}</a>
-            </div>
-          </div>
-        </li>
+    <!-- ROW 5 -->
+    <div class="row">
+      <div class="col">
+        <h3 class="updates-title">Gallery</h3>
       </div>
-    {% endfor %}
+      <div class="row">
+        <div class="col-6">
+          <div class="container">
+            <a href="{% url 'images:gallery_detail' slug=object.gallery.slug %}">
+              <h3 class="updates-gallery-title">{{ object.gallery.title }}</h3>
+            </a>
+            <p class="updates-gallery-caption">{{ object.gallery.caption }}</p>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="container">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <a href="{% url 'images:image_detail' object.gallery.images.first.pk %}">
+                    <img class="images-image" src="{{ object.gallery.images.first.thumbnail_file.url }}" alt="object.gallery.images.first.title">
+                  </a>
+                </div>
+                {% for image in object.gallery.images.all %}
+                  {% ifnotequal image.pk object.gallery.images.first.pk %}
+                    <div class="carousel-item">
+                      <a href="{% url 'images:image_detail' image.pk %}">
+                        <img class="images-gallery-image" src="{{ image.thumbnail_file.url }}" alt="images.title">
+                      </a>
+                    </div>
+                  {% endifnotequal %}
+                {% endfor %}
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   {% endif %}
+  <!-- STOP gallery -->
+  <br>
+  <!-- START links -->
+  {% if object.links %}
+    <div class="row">
+      <div class="col">
+        <h3 class="updates-title">Links</h3>
+        {% for link in object.links.all %}
+          <div class="links-bg">
+            <li class="list-group-item links-bg">
+              <!-- ROW 1 -->
+              <div class="row">
+                <div class="col-10">
+                  <img src="/media/{{ link.image.thumbnail_file }}" class="updates-link-image float-left">
+                  <a href="{{ link.url }}" class="updates-link">
+                    <h5 class="updates-link-title">{{ link.title }}</h5>
+                  </a>
+                </div>
+              </div>
+              <!-- ROW2 -->
+              <div class="row">
+                <div class="col">
+                  <p class="links-list-description">{{ link.description }}</p>
+                </div>
+              </div>
+              <!-- ROW 2 -->
+              <div class="row">
+                <div class="col-10">
+                  <p class="updates-link">{{ link.url }}</p>
+                </div>
+              </div>
+            </li>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <br>
+  {% endif %}
+  <!-- STOP links -->
   <div class="container">
     <p class="updates-author">
       <i>contributed by 
@@ -72,6 +150,7 @@
         {% endif %}
       </i>
     </p>
+    <br>
   </div>
 </div>
 <br>
