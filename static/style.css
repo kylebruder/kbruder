@@ -91,11 +91,15 @@
   color: #ffffff;
   background-color: #444444;
   padding: 10px;
+  margin: 10px;
   border-radius: 10px;
 }
 .index-headline-text {
-  color: white;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  background-color: #ffffff;
+  color: black;
+  font-family: 'Zilla Slab Highlight', cursive;
+  font-weight: bold;
+  text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
   text-align: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -119,7 +123,7 @@
   background-color: black;
   color: white;
   border-radius: 10px;
-  margin: 20px;
+  margin: 10px;
   padding: 20px;
 }
  
@@ -185,20 +189,20 @@
 }
 
 .updates-headline-list {
-  background-color: #336633;
+  background-color: #111111;
   color: white;
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  font-family: 'Zilla Slab Highlight', cursive;
   text-align: center;
-  background-size: cover;
   background-repeat: no-repeat;
   max-height: auto;
   padding: 10px;
 }
  
 .updates-headline-text {
-  background-color: #336633;
+  background-color: #111111;
   color: white;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  font-family: 'Zilla Slab Highlight', cursive;
+  /* text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black; */
   text-align: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -225,6 +229,7 @@
 }
 
 .updates-list-link {
+  font-family: 'Zilla Slab Highlight', cursive;
   color: #eeeeee;
   font-size: 1.25em;
 }

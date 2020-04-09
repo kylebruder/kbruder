@@ -7,7 +7,7 @@
     {% if object_list %}
       <ul class="list-group">
         {% for update in object_list %}
-          <li class="list-group-item updates-headline-list" style="background-image:url('/media/{{ update.headline_img.image_file }}')">
+          <li class="list-group-item updates-headline-list">
             <a class="updates-list-link" href="{% url 'updates:update_detail' update.slug %}">
               {{ update.publication_date|date:'Y-m-d' }} - {{ update }}
             </a>

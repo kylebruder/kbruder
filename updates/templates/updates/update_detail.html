@@ -16,7 +16,7 @@
         <h3 class="updates-title">{{ object.title }}</h3>
       {% endif %}
       {% if object.introduction %}
-        <p class="updates-content">{{ object.introduction }}</p>
+        <p class="updates-content">{{ object.introduction|linebreaksbr }}</p>
       {% endif %}
     </div>
   </div>
@@ -31,7 +31,7 @@
         </div>
       {% endif %}
       {% if object.content %}
-        <p class="updates-content">{{ object.content }}</p>
+        <p class="updates-content">{{ object.content|linebreaksbr }}</p>
       {% endif %}
     </div>
   </div>
