@@ -53,6 +53,7 @@ class UpdatesCreateView(LoginRequiredMixin, CreateView):
         'gallery',
         'links',
         'tags',
+        'is_public',
     ]
     template_name_suffix = '_create_form'
     

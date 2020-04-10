@@ -28,6 +28,9 @@ class Image(models.Model):
     def add_thumbnail(self):
         image_ready.send(sender=self.__class__)
 
+    class Meta:
+        ordering = ['-creation_date']
+
 class Gallery(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     creation_date = models.DateTimeField(default=timezone.now)
@@ -45,3 +48,7 @@ class Gallery(models.Model):
 
     def get_absolute_url(self):
         return reverse('images:gallery_detail', kwargs={'pk': self.pk})
+
+    class Meta:
+        ordering = ['-creation_date']
+

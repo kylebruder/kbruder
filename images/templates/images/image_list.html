@@ -5,34 +5,37 @@
   <div class="container">
     <p>Click <a href="{% url 'images:image_create' %}">here</a> to post an image to the database.</p>
     <br>
-    {% if page_obj %}
-      <div class="card-group images-card-group">
-        {% for image in object_list %}
-          <div class="images-card">
-            <a href="{% url 'images:image_detail' image.pk %}">
-              <img src="{{ image.thumbnail_file.url }}" class="images-thumbnail" alt="{{ image.title }}">
-            </a>
-          </div>
-        {% endfor %}
-      </div>
-      <br>
-      <div class="images-pagination">
-        <span class="step-links">
-          {% if page_obj.has_previous %}
-            <a href="?page=1"><<</a>
-            <a href="?page={{page_obj.previous_page_number}}"><</a>
-          {% endif %}
-          <span class="images-current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}
+      {% if object_list %}
+        <div class="images-card-container">
+          {% for image in object_list %}
+            <div class="images-card">
+              <a href="{% url 'images:image_detail' image.pk %}">
+                <img src="{{ image.thumbnail_file.url }}" class="images-thumbnail" alt="{{ image.title }}">
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      {% if page_obj %}
+        <div class="images-pagination clear">
+          <span class="step-links">
+            {% if page_obj.has_previous %}
+              <a href="?page=1"><<</a>
+              <a href="?page={{page_obj.previous_page_number}}"><</a>
+            {% endif %}
+            <span class="images-current">
+              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}
+            </span>
+            {% if page_obj.has_next %}
+              <a href="?page={{page_obj.next_page_number}}">></a>
+              <a href="?page={{page_obj.paginator.num_pages}}">>></a>
+            {% endif %}
           </span>
-          {% if page_obj.has_next %}
-            <a href="?page={{page_obj.next_page_number}}">></a>
-            <a href="?page={{page_obj.paginator.num_pages}}">>></a>
-          {% endif %}
-        </span>
-      </div>
+        </div>
+        <br>
+      {% endif %}
     {% else %}
     <p>There are no images yet.</p>
     {% endif %}
   </div>
+</div>
 {% endblock %} 

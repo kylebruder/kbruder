@@ -35,7 +35,6 @@ class ImageListView(ListView):
 
     model = Image
     paginate_by = 12 
-    ordering = ['-creation_date']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -72,7 +71,7 @@ class GalleryCreateView(CreateView):
 
     model = Gallery
     fields = ['title', 'slug', 'caption', 'images', 'tags', 'is_public']
-    template_name_suffix = '_update_form'
+    template_name_suffix = '_create_form'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -113,8 +112,8 @@ class GalleryDetailView(DetailView):
 class GalleryUpdateView(UpdateView):
 
     model = Gallery
-    fields = []
-    #template_name_suffix = '_update_form'
+    fields = ['title', 'slug', 'caption', 'images', 'tags', 'is_public']
+    template_name_suffix = '_update_form'
 	
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
