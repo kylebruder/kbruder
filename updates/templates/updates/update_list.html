@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
 {% block body_block %}
 <div class="container updates-bg">
-  <h1 class="updates-title">Recent Updates</h1>
-  {% if request.user.is_authenticated %}
-    <div class="container">
-      <a href="{% url 'updates:update_create' %}">
-        <button type="button" class="btn btn-primary">Add Update</button>
-      </a>
+  <div class="row">
+    <div class="col">
+      <h1 class="updates-title">Recent Updates</h1>
     </div>
-  {% endif %}
+    {% if request.user.is_authenticated %}
+      <div class="col-">
+        <div class="container">
+          <a href="{% url 'updates:update_create' %}">
+            <button type="button" class="btn btn-primary float-left">New Update</button>
+          </a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  <br>
   <div class="container">
     {% if object_list %}
       <ul class="list-group">
@@ -20,13 +27,13 @@
               </div>
               <div class="col-6">
                 <a class="updates-list-link" href="{% url 'updates:update_detail' update.slug %}">
-                  {{ update }}
+                  {{ update.title }}
                 </a>
               </div>
               {% ifequal update.user request.user %}
                 <div class="col">
                   <a href="{% url 'updates:update_update' update.slug %}">
-                    <button type="button" class="btn btn-warning">Edit</button>
+                    <button type="button" class="btn btn-warning float-right">Edit</button>
                   </a>
                 </div>
               {% endifequal %}

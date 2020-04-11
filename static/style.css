@@ -23,18 +23,34 @@
   bottom: 0;
   width: 100%;
   padding: 5px;
-  margin-top: 10px
 } 
 
-.images-bg {
+.create-bg {
   background-color: #222222;
-  color: #f0f5f2;
+  color: #eeeeee;
   border-radius: 0px 0px 25px 25px;
-  margin-bottom: 20px;
+  padding: 10px;
+  margin-bottom: 40px;
+}
+
+.edit-bg {
+  background-color: #222222;
+  color: #eeeeee;
+  border-radius: 0px 0px 25px 25px;
+  padding: 10px;
+  margin-bottom: 40px;
+}
+
+.images-bg {
+  background-color: #ffffff;
+  color: #222222;
+  border-radius: 0px 0px 25px 25px;
+  margin-bottom: 40px;
 }
 
 .images-caption {
-  text-align: center;
+  font-family: 'Tajawal', sans-serif;
+  text-align: left;
 }
 
 .images-card {
@@ -51,10 +67,19 @@
   padding: 0 10px;
 }
 
-.images-gallery {
+.images-credit {
+  text-align: right;
+}
+
+.images-gallery-bg {
   background-color: #ffffff;
   color: #222222;
   border-radius: 0px 0px 25px 25px;
+  margin-bottom: 40px
+}
+
+.images-gallery-caption {
+  font-family: 'Tajawal', sans-serif;
 }
 
 .images-gallery-image {
@@ -63,6 +88,10 @@
   display: block;
   margin: auto;
   border-radius: 5px;
+}
+
+.images-gallery-title {
+  font-family: 'Ibarra Real Nova', serif;
 }
 
 .images-image {
@@ -81,6 +110,10 @@
   margin: auto;
 }
   
+.images-title {
+  font-family: 'Ibarra Real Nova', serif;
+}
+
 .index-bg {
   background-color: #222222;
   color: #eeeeee;
@@ -88,6 +121,7 @@
   padding-bottom: 20px;
   padding-left: 20px;
   padding-right: 20px;
+  margin-bottom: 40px;
 }
 
 .index-gallery {
@@ -115,6 +149,7 @@
   margin: 10px;
   padding: 10px;
   border-radius: 10px;
+  margin-bottom: 40px;
 }
 
 .index-link-li {
@@ -150,7 +185,7 @@
   background-color: #222222;
   color: #eeeeee;
   border-radius: 0px 0px 25px 25px;
-  padding: 10px;
+  margin-bottom: 40px;
 }
 
 .links-list-description {
@@ -169,7 +204,8 @@
 .links-thumbnail {
   max-width: 100px;
   max-height: auto;
-  margin-bottom: 10px
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .links-title {
@@ -180,6 +216,7 @@
   background-color: #222222;
   color: #eeeeee;
   border-radius: 0px 0px 25px 25px;
+  margin-bottom: 40px;
 }
 
 .updates-date {
@@ -222,6 +259,7 @@
 .updates-link-image {
   max-height:100px;
   max-width: 100px;
+  margin-right: 10px;
 }
 
 .updates-link-title {
@@ -233,7 +271,7 @@
 }
 
 .updates-list-link {
-  font-family: 'Zilla Slab Highlight', cursive;
+  font-family: 'Ibarra Real Nova', serif;
   color: #eeeeee;
   font-size: 1.25em;
 }
@@ -247,8 +285,8 @@
 }
 
 .updates-featured-image {
-  max-width: 500px;
-  max-height: 500px;
+  max-width: 75%;
+  max-height: 100%;
   margin: 20px;
   border-radius: 5px;
 }

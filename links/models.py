@@ -10,7 +10,7 @@ class Link(models.Model):
     creation_date = models.DateTimeField(default=timezone.now)
     title = models.CharField(max_length=64, default="a link to additional information")
     image = models.ForeignKey(Image, on_delete=models.CASCADE, blank=True, null=True)
-    description = models.CharField(max_length=256, default="information you may find useful", blank=True)
+    description = models.TextField(max_length=256, default="information you may find useful", blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
     url = models.URLField(max_length=200)
 

@@ -27,11 +27,11 @@ urlpatterns = [
         ImageUpdateView.as_view(),
         name='image_update'
     ),
-    path(
-        'delete/',
-        ImageDeleteView.as_view(),
-        name='image_delete'
-    ),
+    #path(
+    #    'delete/<int:pk>/',
+    #    ImageDeleteView.as_view(),
+    #    name='image_delete'
+    #),
     path(
         'gallery/create/',
         GalleryCreateView.as_view(),
@@ -53,7 +53,7 @@ urlpatterns = [
         name='gallery_update'
     ),
     path(
-        'gallery/delete/',
+        'gallery/delete/<int:pk>/',
         GalleryDeleteView.as_view(),
         name='gallery_delete'
     ),

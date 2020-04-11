@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import(
     LoginRequiredMixin,
     PermissionRequiredMixin,
     )
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
@@ -109,6 +109,7 @@ class UpdatesUpdateView(LoginRequiredMixin, UpdateView):
         'gallery',
         'links',
         'tags',
+        'is_public',
     ]
 
     template_name_suffix = '_update_form'
@@ -127,4 +128,11 @@ class UpdatesUpdateView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+class UpdatesDeleteView(DeleteView):
+
+    model = Update
+
+    def get_success_url(self):
+      return reverse('updates:update_list')
 

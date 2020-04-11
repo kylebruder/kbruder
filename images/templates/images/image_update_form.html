@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 {% block body_block %}
-{% load crispy_forms_tags %}
-<div class ="container uniForm images-bg">
-  <form  method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Modify" class="btn btn-default">
-  </form>
-  <br>
-</div>
+  {% load crispy_forms_tags %}
+  <div class ="container uniForm edit-bg">
+    <div class="container">
+      <h2 class="images-title">Image Modification Form</h2>
+      <ul>
+        <li>Give credit where credit is due.</li>
+        <li>Obtain permission before uploading depicitons of private persons.</li>
+      </ul>
+    </div>
+    <br>
+    <div class="container">
+      <form  method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Modify" class="btn btn-success">
+      </form>
+    </div>
+    <br>
+  </div>
 {% endblock %}

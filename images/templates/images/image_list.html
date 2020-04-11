@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
 {% block body_block %}
 <div class="container images-bg">
-  <h3>An image is worth a thousand words...</h3>
+  <div class="row">
+    <div class="col">
+      <h2 class="images-title">An image is worth a thousand words...</h3>
+    </div>
+    {% if request.user.is_authenticated %}
+      <div class="col-">
+        <div class="container">
+          <a href="{% url 'images:image_create' %}">
+            <button type="button" class="btn btn-primary float-left">Upload Image</button>
+          </a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  <br>
   <div class="container">
-    <p>Click <a href="{% url 'images:image_create' %}">here</a> to post an image to the database.</p>
-    <br>
       {% if object_list %}
         <div class="images-card-container">
           {% for image in object_list %}
