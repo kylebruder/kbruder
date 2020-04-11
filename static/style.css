@@ -155,24 +155,25 @@
 
 .links-list-description {
   font-family: 'Tajawal', sans-serif;
-  margin-left: 20px;
 }
 
 .links-list-link {
   font-family: 'IBM Plex Mono', monospace;
-  margin-left: 20px;
+  font-size: 0.75em;
 }
 
 .links-list-title {
   font-family: 'Ibarra Real Nova', serif;
-  font-size: 1.25em;
-  padding: 20px;
 }
 
 .links-thumbnail {
   max-width: 100px;
-  max-height: 50px;
-  margin: 20px;
+  max-height: auto;
+  margin-bottom: 10px
+}
+
+.links-title {
+  font-family: 'Ibarra Real Nova', serif;
 }
 
 .updates-bg {
@@ -181,24 +182,26 @@
   border-radius: 0px 0px 25px 25px;
 }
 
+.updates-date {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
 .updates-gallery-caption {
   font-family: 'Tajawal', sans-serif;
-  margin-left: 20px;
 }
 
 .updates-gallery-title {
   font-family: 'Ibarra Real Nova', serif;
-  margin-left: 20px;
 }
 
 .updates-headline-list {
   background-color: #111111;
   color: white;
-  font-family: 'Zilla Slab Highlight', cursive;
-  text-align: center;
   background-repeat: no-repeat;
   max-height: auto;
   padding: 10px;
+  border-bottom: solid #444444;
+  text-align: center;
 }
  
 .updates-headline-text {
@@ -213,18 +216,16 @@
 
 .updates-link {
   font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75em;
 }
 
 .updates-link-image {
-  max-height: 50px;
+  max-height:100px;
   max-width: 100px;
-  margin: 20px;
 }
 
 .updates-link-title {
   font-family: 'Ibarra Real Nova', serif;
-  font-size: 1.5em;
-  padding: 20px;
 }
 
 .updates-list-item{
@@ -239,7 +240,6 @@
 
 .updates-title {
   font-family: 'Ibarra Real Nova', serif;
-  font-size: 2.5em;
 }
 
 .updates-author {

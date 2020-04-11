@@ -1,16 +1,36 @@
 {% extends 'base.html' %}
 {% block body_block %}
 <div class="container updates-bg">
-  <h1>Recent Updates</h1>
-  <p>Click <a href="{% url 'updates:update_create' %}">here</a> to add an update</p>
+  <h1 class="updates-title">Recent Updates</h1>
+  {% if request.user.is_authenticated %}
+    <div class="container">
+      <a href="{% url 'updates:update_create' %}">
+        <button type="button" class="btn btn-primary">Add Update</button>
+      </a>
+    </div>
+  {% endif %}
   <div class="container">
     {% if object_list %}
       <ul class="list-group">
         {% for update in object_list %}
           <li class="list-group-item updates-headline-list">
-            <a class="updates-list-link" href="{% url 'updates:update_detail' update.slug %}">
-              {{ update.publication_date|date:'Y-m-d' }} - {{ update }}
-            </a>
+            <div class="row">
+              <div class="col">
+                <p class="updates-date">{{ update.publication_date|date:'Y-m-d' }}</p>
+              </div>
+              <div class="col-6">
+                <a class="updates-list-link" href="{% url 'updates:update_detail' update.slug %}">
+                  {{ update }}
+                </a>
+              </div>
+              {% ifequal update.user request.user %}
+                <div class="col">
+                  <a href="{% url 'updates:update_update' update.slug %}">
+                    <button type="button" class="btn btn-warning">Edit</button>
+                  </a>
+                </div>
+              {% endifequal %}
+            </div>
           </li>
         {% endfor %}
       </ul>
