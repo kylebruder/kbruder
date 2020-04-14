@@ -33,13 +33,13 @@
     {% for gallery in object_list %}
       <div class="row">
         <div class="col-">
-          <a href="{% url 'images:gallery_detail' gallery.slug %}">
-            <img src="{{ gallery.images.first.thumbnail_file.url }}" class="" alt="{{ gallery.images.first.title }}">
-          </a>
+          <img src="{{ gallery.images.first.thumbnail_file.url }}" class="" alt="{{ gallery.images.first.title }}">
         </div>
         <div class="col">
           <div class="container">
-            <h3 class="images-gallery-title">{{ gallery.title }}</h5>
+            <a href="{% url 'images:gallery_detail' gallery.slug %}">
+              <h3 class="images-gallery-title">{{ gallery.title }}</h5>
+            </a>
             <p class="images-gallery-caption">{{ gallery.caption }}</p>
           </div>
         </div>
