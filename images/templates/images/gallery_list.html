@@ -33,7 +33,7 @@
     {% for gallery in object_list %}
       <div class="row">
         <div class="col-">
-          <img src="{{ gallery.images.first.thumbnail_file.url }}" class="" alt="{{ gallery.images.first.title }}">
+          <img src="{{ gallery.images.first.thumbnail_file.url }}" class="images-thumbnail" alt="{{ gallery.images.first.title }}">
         </div>
         <div class="col">
           <div class="container">
@@ -51,6 +51,7 @@
           </div>
         {% endifequal %}
       </div>
+      <br>
     {% endfor %}
     {% if page_obj %}
       <div class="images-pagination">
