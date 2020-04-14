@@ -34,7 +34,7 @@ class LinkListView(ListView):
 
     model = Link
     paginate_by = 16 
-    ordering = ['creation_date']
+    ordering = ['-creation_date']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

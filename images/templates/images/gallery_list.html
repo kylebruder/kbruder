@@ -3,13 +3,13 @@
 <div class="container images-gallery-bg">
   <div class="row">
     <div class="col">
-      <h1 class="images-gallery-title">Curated Imagery</h3>
+      <h3 class="images-gallery-title">Galleries</h3>
     </div>
     {% if request.user.is_authenticated %}
       <div class="col-">
         <div class="container">
           <a href="{% url 'images:gallery_create' %}">
-            <button type="button" class="btn btn-primary">Curate Gallery</button>
+            <button type="button" class="btn btn-primary">New Gallery</button>
           </a>
         </div>
       </div>
@@ -73,5 +73,6 @@
       <p>There are no galleries yet.</p>
     {% endif %}
   </div>
+  <br>
 </div>
 {% endblock %} 

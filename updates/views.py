@@ -76,7 +76,7 @@ class UpdatesCreateView(LoginRequiredMixin, CreateView):
 
 class UpdatesListView(ListView):
 
-    model = Update
+    queryset = Update.objects.filter(is_public=True)
     paginate_by = 16 
     ordering = ['-publication_date']
 

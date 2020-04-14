@@ -67,7 +67,7 @@ class ImageDeleteView(LoginRequiredMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         return context
 
-class GalleryCreateView(CreateView):
+class GalleryCreateView(LoginRequiredMixin, CreateView):
 
     model = Gallery
     fields = ['title', 'slug', 'caption', 'images', 'tags', 'is_public']
@@ -91,7 +91,7 @@ class GalleryCreateView(CreateView):
 
 class GalleryListView(ListView):
 
-    model = Gallery
+    queryset = Gallery.objects.filter(is_public=True)
     paginate_by = 32
     ordering = ['-creation_date']
 
@@ -109,7 +109,7 @@ class GalleryDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         return context
 
-class GalleryUpdateView(UpdateView):
+class GalleryUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Gallery
     fields = ['title', 'slug', 'caption', 'images', 'tags', 'is_public']
@@ -119,7 +119,7 @@ class GalleryUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         return context
 		
-class GalleryDeleteView(DeleteView):
+class GalleryDeleteView(LoginRequiredMixin, DeleteView):
 
     model = Gallery
     success_url = reverse_lazy('')

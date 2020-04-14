@@ -26,7 +26,6 @@
     <div class="col">
       {% if object.title %}
         <h1 class="updates-title">{{ object.title }}</h1>
-        <br>
       {% endif %}
       {% if object.introduction %}
         <p class="updates-content">{{ object.introduction|linebreaksbr }}</p>
@@ -38,9 +37,22 @@
   <div class="row">
     <div class="col">
       {% if object.featured_img %}
-        <div class="updates-featured-image-container float-left">
-          <img class="updates-featured-image" src="/media/{{ object.featured_img.image_file }}">
-          <p class="updates-featured-image-caption"><i>{{ object.featured_img.caption }}</i></p>
+        <div class="row">
+          <div class="col">
+            <a href="{% url 'images:image_detail' object.featured_img.pk %}">
+              <img class="updates-featured-image" src="/media/{{ object.featured_img.image_file }}" alt="{{ object.featured_img.caption }}">
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="updates-featured-image-caption">{{ object.featured_img.caption }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="updates-featured-image-caption"><i>{{ object.featured_img.credit }}</i>
+          </div>
         </div>
       {% endif %}
       {% if object.content %}
@@ -107,41 +119,47 @@
     </div>
   {% endif %}
   <!-- STOP gallery -->
-  <br>
   <!-- START links -->
   {% if object.links %}
-    <div class="row">
-      <div class="col">
-        <h3 class="updates-title">Links</h3>
-        {% for link in object.links.all %}
-          <div class="container">
-            <div class="links-bg">
-              <li class="list-group-item links-bg">
-                <!-- ROW 1 -->
-                <div class="row">
-                  <div class="col">
-                    <img src="/media/{{ link.image.thumbnail_file }}" class="updates-link-image">
-                  </div>
-                  <div class="col-10 justify-content-center align-self-center">
-                    <p class="links-list-description">{{ link.description }}</p>
-                  </div>
-                </div>
-                <!-- ROW2 -->
-                <div class="row">
-                </div>
-                <!-- ROW 3 -->
-                <div class="row">
-                  <div class="col">
-                    <p class="updates-link">{{ link.url }}</p>
-                  </div>
-                </div>
-              </li>
+    <h3 class="links-title">Links</h3>
+    <ul class="list-group">
+      {% for link in object.links.all %}
+        <div class="container">
+          <li class="list-group-item updates-list-item">
+            <!-- ROW 1 -->
+            <div class="row">
+              <div class="col-">
+                <img src="{{ link.image.thumbnail_file.url }}" class="links-thumbnail">
+              </div>
+              <div class="col">
+                <a href="{{ link.url }}" class="links-list-link">
+                  <h4 class="links-list-title">{{ link.title }}</h4>
+                </a>
+                <p class="links-list-description">{{ link.description }}</p>
+              </div>
             </div>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-    <br>
+            <!-- ROW 2 -->
+            <div class="row">
+            </div>
+            <!-- ROW 3 -->
+            <div class="row">
+              <div class="col">
+                <p class="links-list-link">
+                  {{ link.url }}
+                </p>
+              </div>
+              <div class="col-">
+                {% ifequal link.user request.user %}
+                  <a href="{% url 'links:link_update' link.pk %}">
+                    <button type="button" class="btn btn-warning float-right">Edit</button>
+                  </a>
+                {% endifequal %}
+              </div>
+            </div>
+          </li>
+        </div>
+      {% endfor %}
+    </ul>
   {% endif %}
   <!-- STOP links -->
   <div class="container">
@@ -152,16 +170,14 @@
         {% else %}
           {{ object.user }}
         {% endif %}
-        {% if object.location %}
-          from {{ object.location }}
-        {% endif %}
         {% if object.publication_date %}
         on {{ object.publication_date|date:"M d, Y" }}
         {% endif %}
+        {% if object.location %}
+          from {{ object.location }}
+        {% endif %}
       </i>
     </p>
-    <br>
   </div>
 </div>
-<br>
 {% endblock %}

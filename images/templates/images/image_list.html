@@ -3,7 +3,7 @@
 <div class="container images-bg">
   <div class="row">
     <div class="col">
-      <h2 class="images-title">An image is worth a thousand words...</h3>
+      <h2 class="images-title">Images</h3>
     </div>
     {% if request.user.is_authenticated %}
       <div class="col-">
@@ -16,38 +16,45 @@
     {% endif %}
   </div>
   <br>
-  <div class="container">
-      {% if object_list %}
-        <div class="images-card-container">
-          {% for image in object_list %}
-            <div class="images-card">
+  {% if object_list %}
+    <div class="images-card-container">
+      {% for image in object_list %}
+        <div class="images-card float-left">
+          <div class="row">
+            <div class="col">
               <a href="{% url 'images:image_detail' image.pk %}">
                 <img src="{{ image.thumbnail_file.url }}" class="images-thumbnail" alt="{{ image.title }}">
               </a>
             </div>
-          {% endfor %}
+          </div>
+          <div class="row">
+            <div class="col images-card-title" >
+              <span class="">{{ image.title }}</span>
+            </div>
+          </div>
         </div>
-      {% if page_obj %}
-        <div class="images-pagination clear">
-          <span class="step-links">
-            {% if page_obj.has_previous %}
-              <a href="?page=1"><<</a>
-              <a href="?page={{page_obj.previous_page_number}}"><</a>
-            {% endif %}
-            <span class="images-current">
-              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}
-            </span>
-            {% if page_obj.has_next %}
-              <a href="?page={{page_obj.next_page_number}}">></a>
-              <a href="?page={{page_obj.paginator.num_pages}}">>></a>
-            {% endif %}
-          </span>
-        </div>
-        <br>
-      {% endif %}
-    {% else %}
-    <p>There are no images yet.</p>
-    {% endif %}
-  </div>
+      {% endfor %}
+    </div>
+  {% if page_obj %}
+    <div class="images-pagination clear">
+      <span class="step-links">
+        {% if page_obj.has_previous %}
+          <a href="?page=1"><<</a>
+          <a href="?page={{page_obj.previous_page_number}}"><</a>
+        {% endif %}
+        <span class="images-current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}
+        </span>
+        {% if page_obj.has_next %}
+          <a href="?page={{page_obj.next_page_number}}">></a>
+          <a href="?page={{page_obj.paginator.num_pages}}">>></a>
+        {% endif %}
+      </span>
+    </div>
+    <br>
+  {% endif %}
+{% else %}
+<p>There are no images yet.</p>
+{% endif %}
 </div>
 {% endblock %} 
