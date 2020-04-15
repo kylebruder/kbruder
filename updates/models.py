@@ -2,9 +2,10 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
-from images import models as images
-from links import models as links
-from tags import models as tags
+from images.models import Image, Gallery
+from links.models import Link
+from tags.models import Tag
+from marshmallows.models import Marshmallow
 
 # Create your models here.
 
@@ -19,6 +20,7 @@ class Update(models.Model):
         blank=True,
         null=True
     )
+    weight = models.FloatField(default=0)
     location = models.CharField(
         max_length=256,
         default="an undisclosed location",
@@ -26,14 +28,14 @@ class Update(models.Model):
     )
     headline = models.CharField(max_length=256, default="EXTRA!")
     headline_img = models.ForeignKey(
-        images.Image,
+        Image,
         on_delete=models.CASCADE,
         related_name='update_headline',
         blank=True,
         null=True,
     )
     featured_img = models.ForeignKey(
-        images.Image,
+        Image,
         on_delete=models.CASCADE,
         related_name='update_featured',
         blank=True,
@@ -58,14 +60,14 @@ class Update(models.Model):
         null=True,
     )
     gallery = models.ForeignKey(
-        images.Gallery,
+        Gallery,
         on_delete=models.CASCADE,
         blank=True,
         null=True,
     )
-    links = models.ManyToManyField(links.Link, blank=True)
-    tags = models.ManyToManyField(tags.Tag, blank=True)
-
+    links = models.ManyToManyField(Link, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True)
+    marshmallows = models.ManyToManyField(Marshmallow, blank=True)
     class Meta:
         ordering = ['-publication_date']
 

@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.db import models
 from images.models import Image
 from tags.models import Tag
+from marshmallows.models import Marshmallow
+
 # Create your models here.
 
 class Link(models.Model):
@@ -11,8 +13,10 @@ class Link(models.Model):
     title = models.CharField(max_length=64, default="a link to additional information")
     image = models.ForeignKey(Image, on_delete=models.CASCADE, blank=True, null=True)
     description = models.TextField(max_length=256, default="information you may find useful", blank=True)
-    tags = models.ManyToManyField(Tag, blank=True)
     url = models.URLField(max_length=200)
+    weight = models.FloatField(default=0)
+    tags = models.ManyToManyField(Tag, blank=True)
+    marshmallows = models.ManyToManyField(Marshmallow, blank=True)
 
     class Meta:
         
