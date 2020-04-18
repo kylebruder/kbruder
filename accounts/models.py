@@ -17,7 +17,7 @@ class Member(User):
         Returns True if less than n days have passed since the user was created.
         n defaults to 30 days if not passed.
         ''' 
-        q = self.creation_date
+        q = self.date_joined
         t = timezone.now() - datetime.timedelta(days=n)
         if t > q:
             return False
@@ -30,12 +30,15 @@ class Member(User):
         Returns True if this user's last weight allocation occurred more than n seconds ago.
         n defaults to 300 seconds (5 minutes) if not passed.
         '''
-        q = self.select_related('profile').last_weight_allocation
-        t = timezone.now() - q
-        if t > datetime.timedelta(seconds=n):
+        # get n seconds ago
+        t = timezone.now() - datetime.timedelta(seconds=n)
+        q = Profile.objects.select_related('user').get(user=self).last_weight_allocation
+        if t > q:
+            print('{} may allocate'.format(self))
             return True
         else:
             # Add a message to the user including the amount of time until they can allocate again
+            print('{} may not allocate'.format(self))
             return False
 
     def get_user_adjusted_weight(self, n=30, m=5):
@@ -43,11 +46,18 @@ class Member(User):
         Returns this user's current adjusted weight as floating point number.
         The weight is adjusted based on the user's weight allocation frequency.
         The higher the frequency, the lower the weight (to prevent spamming).
+
+        Arguments
+        n - Number of days ago to query in determining the allocation period.
+            Defaults to 30 days.
+        m - Multiplier for the adjusted weight.
+            Default is 5.
         '''
         # get n days ago
         t = timezone.now() - datetime.timedelta(days=n)
         # number marshmallows allocated by the user in the last n days
         q = Marshmallow.objects.filter(user=self, date__gte=t).count()
+        print('number of marshmalows allocated in last {} days: {}'.format(n, q))
         # weight allocation period
         p = n / q 
         # apply the multiplier
@@ -56,11 +66,41 @@ class Member(User):
     def allocate_weight(self, object):
         '''
         If all requirements are met, allocate weight to an object.
-        '''
-        if object.weight and self.check_can_allocate_weight() and not check_is_new():
-            object.weight += self.get_user_adjusted_weight()
         
+        Arguments
+        object - Any object with the marshmallow and weight model fields
+
+        Returns 
+        self - The user calling this function
+        m.weight - The weight of the newly created Marshmallow model object as a float
+        '''
+        if  self.check_can_allocate_weight() and not self.check_is_new():
+            p = Profile.objects.select_related('user').get(user=self)
+            p.last_weight_allocation = timezone.now()
+            p.save()
+            m = Marshmallow(
+                user=self, 
+                date=timezone.now(), 
+                weight=self.get_user_adjusted_weight()
+            )
+            m.save()
+            object.marshmallows.add(m)
+            object.weight += m.weight
+            object.save()
+            print('{} allocated a marshmallow weighing {}'.format(self, m.weight))
+            return self, m.weight
+        else:
+            print("could not allocate weight")
+        
+    def __str__(self):
+        if self.first_name and self.last_name:
+            return '{} {}'.format(self.first_name, self.last_name)
+        else:
+            return self.username
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    last_weight_allocation = models.DateTimeField(auto_now=True)
+    last_weight_allocation = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return str(self.user)
