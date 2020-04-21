@@ -2,7 +2,7 @@
 from django.urls import path
 from .views import (
     UpdatesListView, UpdatesDetailView, UpdatesCreateView,
-    UpdatesUpdateView, UpdatesDeleteView,
+    UpdatesUpdateView, UpdatesDeleteView, promote_update
 )
 
 app_name = 'updates'
@@ -12,4 +12,5 @@ urlpatterns = [
     path('<slug:slug>/', UpdatesDetailView.as_view(), name='update_detail'),
     path('modify/<slug:slug>/', UpdatesUpdateView.as_view(), name='update_update'),
     path('delete/<int:pk>/', UpdatesDeleteView.as_view(), name='update_delete'),
+    path('promote/<int:pk>/', promote_update, name='promote'),
 ]

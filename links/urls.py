@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (LinkCreateView, LinkListView, LinkDetailView,
-     LinkUpdateView, LinkDeleteView)
+     LinkUpdateView, LinkDeleteView, promote_link)
 
 app_name = "links"
 
@@ -10,5 +10,6 @@ urlpatterns = [
     path('<int:pk>/', LinkDetailView.as_view(), name='link_detail'),
     path('modify/<int:pk>/', LinkUpdateView.as_view(), name='link_update'),
     path('delete/<int:pk>/', LinkDeleteView.as_view(), name='link_delete'),
+    path('promote/<int:pk>/', promote_link, name='promote')
 ]
  

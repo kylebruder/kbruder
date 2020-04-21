@@ -2,7 +2,8 @@ from django.urls import path
 from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
 from .views import (ImageCreateView, ImageListView, ImageDetailView,
     ImageUpdateView, ImageDeleteView, GalleryCreateView, GalleryListView,
-    GalleryDetailView, GalleryUpdateView, GalleryDeleteView)
+    GalleryDetailView, GalleryUpdateView, GalleryDeleteView, promote_image,
+    promote_gallery)
 
 app_name = "images"
 
@@ -33,6 +34,11 @@ urlpatterns = [
     #    name='image_delete'
     #),
     path(
+        'promote/<int:pk>/',
+        promote_image,
+        name='promote_image'
+    ),
+    path(
         'gallery/create/',
         GalleryCreateView.as_view(),
         name='gallery_create'
@@ -56,5 +62,10 @@ urlpatterns = [
         'gallery/delete/<int:pk>/',
         GalleryDeleteView.as_view(),
         name='gallery_delete'
+    ),
+    path(
+        'gallery/promote/<int:pk>/',
+        promote_gallery,
+        name='promote_gallery'
     ),
 ]

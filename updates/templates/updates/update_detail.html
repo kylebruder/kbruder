@@ -71,6 +71,15 @@
     </div>
   {% endif %}
   <!-- STOP conclusion -->
+  <div class="row">
+    <div class="col">
+      {% if can_allocate %}
+        <a href="{% url 'updates:promote' object.pk  %}">
+          <button type="button" class="btn btn-default float-right">&#9829;</button>
+        </a>
+      {% endif %}
+    </div>
+  </div>
   <!-- START gallery -->
   {% if object.gallery %}
     <h3 class="updates-title">Gallery</h3>
@@ -147,13 +156,6 @@
                 <p class="links-list-link">
                   {{ link.url }}
                 </p>
-              </div>
-              <div class="col-">
-                {% ifequal link.user request.user %}
-                  <a href="{% url 'links:link_update' link.pk %}">
-                    <button type="button" class="btn btn-warning float-right">Edit</button>
-                  </a>
-                {% endifequal %}
               </div>
             </div>
           </li>

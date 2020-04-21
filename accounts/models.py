@@ -22,7 +22,6 @@ class Member(User):
         if t > q:
             return False
         else:
-            # Add a message to the user including the amount of time until they are eligible to allocate
             return True
 
     def check_can_allocate_weight(self, n=300):
@@ -34,11 +33,8 @@ class Member(User):
         t = timezone.now() - datetime.timedelta(seconds=n)
         q = Profile.objects.select_related('user').get(user=self).last_weight_allocation
         if t > q:
-            print('{} may allocate'.format(self))
             return True
         else:
-            # Add a message to the user including the amount of time until they can allocate again
-            print('{} may not allocate'.format(self))
             return False
 
     def get_user_adjusted_weight(self, n=30, m=5):
@@ -88,9 +84,10 @@ class Member(User):
             object.weight += m.weight
             object.save()
             print('{} allocated a marshmallow weighing {}'.format(self, m.weight))
-            return self, m.weight
+            return True, object, m.weight
         else:
             print("could not allocate weight")
+            return False, object, 0
         
     def __str__(self):
         if self.first_name and self.last_name:

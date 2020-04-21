@@ -7,8 +7,9 @@ from django.contrib.auth.mixins import(
     LoginRequiredMixin,
     PermissionRequiredMixin,
     )
+from django.http import HttpResponseRedirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
@@ -17,9 +18,10 @@ from django.views.generic.list import ListView
 from django.core.files.images import ImageFile
 from django.urls import reverse
 from django.utils import timezone
-from .models import Update
+from accounts.models import Member
 from images.models import Gallery
 from links.models import Link
+from .models import Update
 
 class HomePageView(TemplateView):
 
@@ -28,12 +30,10 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # use the last update on the homepage
-        try:
-            context['latest_update'] = Update.objects.first()
-            context['gallery'] = Gallery.objects.first()
-            context['link'] = Link.objects.first()
-        except:
-            pass
+        
+        context['latest_update'] = Update.objects.first()
+        context['gallery'] = Gallery.objects.order_by('-weight', '-creation_date')[0]
+        context['link'] = Link.objects.order_by('-weight', '-creation_date')[0]
         return context
 
 class UpdatesCreateView(LoginRequiredMixin, CreateView):
@@ -90,6 +90,14 @@ class UpdatesDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Tell the template whether or not to render the marshmallow
+        u = self.request.user
+        if u.is_authenticated:
+            # get the users Member function
+            m = get_object_or_404(Member, pk=u.pk)
+            context['can_allocate'] = m.check_can_allocate_weight
+        else:
+            context['can_allocate'] = False
         return context
 
 class UpdatesUpdateView(LoginRequiredMixin, UpdateView):
@@ -136,3 +144,23 @@ class UpdatesDeleteView(DeleteView):
     def get_success_url(self):
       return reverse('updates:update_list')
 
+# promote view for marshmallow weight allocation
+def promote_update(request, pk):
+    m = get_object_or_404(Member, pk=request.user.pk)
+    o = get_object_or_404(Update, pk=pk)
+    successful, link, weight  = m.allocate_weight(o)
+    if successful:
+        messages.add_message(
+            request, messages.INFO,
+            'You gave a marshmallow to {} weighing {}'.format(
+                link,
+                round(weight, 2)
+            )
+       )
+    else:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            'You failed to give a marshmallow to {}'.format(link)
+        )
+    return HttpResponseRedirect(reverse('updates:update_list'))

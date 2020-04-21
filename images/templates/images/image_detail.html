@@ -26,6 +26,16 @@
         <p class="images-credit"><i>{{ object.credit }}</i></p>
       </div>
     </div>
+  </div>
+  {% if can_allocate %}
+    <div class="row">
+      <div class="col">
+        <a href="{% url 'images:promote_image' object.pk  %}">
+          <button type="button" class="btn btn-default float-right">&#9829;</button>
+        </a>
+      </div>
+    </div>
+  {% endif %} 
   <br>
 </div>
 <br>

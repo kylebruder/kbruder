@@ -45,6 +45,11 @@
       </a>
     </div>
   </div>
+  {% if can_allocate %}
+    <a href="{% url 'images:promote_gallery' object.pk  %}">
+      <button type="button" class="btn btn-default float-right">&#9829;</button>
+    </a>
+  {% endif %}
 </div>
 <br>
 {% endblock %}
