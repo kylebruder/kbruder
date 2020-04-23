@@ -1,0 +1,15 @@
+{% if request.user.is_authenticated %}
+  <div class="row">
+    <div class="col">
+      <h3 class="links-title">Links</h3>
+      <br>
+    </div>
+    <div class="col-">
+      <div class="container">
+        <a href="{% url 'links:link_create' %}">
+          <button type="button" class="btn btn-primary float-right">Add Link</button>
+        </a>
+      </div>
+    </div>
+  </div>
+{% endif %}

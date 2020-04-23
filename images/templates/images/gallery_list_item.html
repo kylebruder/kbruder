@@ -1,0 +1,24 @@
+<li class="list-group-item images-gallery-li">
+  <div class="row">
+    <div class="col-">
+      <img src="{{ gallery.images.first.thumbnail_file.url }}" class="images-thumbnail" alt="{{ gallery.images.first.title }}">
+    </div>
+    <div class="col">
+      <a href="{% url 'images:gallery_detail' gallery.slug %}">
+        <h3 class="images-gallery-title">{{ gallery.title }}</h5>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p class="images-gallery-caption">{{ gallery.caption }}</p>
+    </div>
+    {% ifequal request.user gallery.user %}
+      <div class="col-">
+        <a href="{% url 'images:gallery_update' gallery.slug %}">
+          <button type="button" class="btn btn-warning">Edit</button>
+        </a>
+      </div>
+    {% endifequal %}
+  </div>
+</li>

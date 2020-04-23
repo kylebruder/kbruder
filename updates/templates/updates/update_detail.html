@@ -1,186 +1,23 @@
 {% extends 'base.html' %}
 {% block body_block %}
 <div class="container updates-bg">
-  {% ifequal request.user object.user %}
-    <div class="row">
-      <div class="col">
-        <a href="{% url 'updates:update_delete' object.pk %}">
-          <button type="button" class="btn btn-danger float-right">Delete</button>
-        </a>
-        <a href="{% url 'updates:update_update' object.slug %}">
-          <button type="button" class="btn btn-warning float-right">Edit</button>
-        </a>
-      </div>
-    </div>
-  {% endifequal %}
-  <!-- ROW 1 -->
-  <div class="row">
-    <div class="col">
-      <div class="jumbotron updates-headline-text" style="background-image:url('/media/{{ object.headline_img.image_file }}')">
-        <h1>{{ object.headline }}</h1>
-      </div>
-    </div>
-  </div>
-  <!-- ROW 2 -->
-  <div class="row">
-    <div class="col">
-      {% if object.title %}
-        <h1 class="updates-title">{{ object.title }}</h1>
-      {% endif %}
-      {% if object.introduction %}
-        <p class="updates-content">{{ object.introduction|linebreaksbr }}</p>
-      {% endif %}
-    </div>
-  </div>
-  <!-- ROW 3 -->
-  <!-- START main content -->
-  <div class="row">
-    <div class="col">
-      {% if object.featured_img %}
-        <div class="row">
-          <div class="col">
-            <a href="{% url 'images:image_detail' object.featured_img.pk %}">
-              <img class="updates-featured-image" src="/media/{{ object.featured_img.image_file }}" alt="{{ object.featured_img.caption }}">
-            </a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <p class="updates-featured-image-caption">{{ object.featured_img.caption }}</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <p class="updates-featured-image-caption"><i>{{ object.featured_img.credit }}</i>
-          </div>
-        </div>
-      {% endif %}
-      {% if object.content %}
-        <p class="updates-content">{{ object.content|linebreaksbr }}</p>
-      {% endif %}
-    </div>
-  </div>
-  <!-- STOP main content -->
-  <!-- START conclusion -->
-  {% if object.conclusion %}
-    <!-- ROW 4 -->
-    <div class="row">
-      <div class="col">
-        <p class="updates-content">{{ object.conclusion|linebreaksbr }}</p>
-      </div>
-    </div>
-  {% endif %}
-  <!-- STOP conclusion -->
-  <div class="row">
-    <div class="col">
-      {% if can_allocate %}
-        <a href="{% url 'updates:promote' object.pk  %}">
-          <button type="button" class="btn btn-default float-right">&#9829;</button>
-        </a>
-      {% endif %}
-    </div>
-  </div>
+  <!-- START button bar -->
+  {% include "./update_button_bar.html" %}
+  <!-- STOP buton bar -->
+  <!-- START headline -->
+  {% include "./update_headline.html" %}
+  <!-- STOP headline -->
+  <!-- START content -->
+  {% include "./update_content.html" %}
+  <!-- STOP content -->
   <!-- START gallery -->
-  {% if object.gallery %}
-    <h3 class="updates-title">Gallery</h3>
-    <div class="container">
-      <!-- ROW 5 -->
-      <div class="row">
-        <div class="col-6">
-          <div class="container">
-            <a href="{% url 'images:gallery_detail' slug=object.gallery.slug %}">
-              <h3 class="updates-gallery-title">{{ object.gallery.title }}</h3>
-            </a>
-            <p class="updates-gallery-caption">{{ object.gallery.caption }}</p>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="container">
-            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <a href="{% url 'images:image_detail' object.gallery.images.first.pk %}">
-                    <img class="images-image" src="{{ object.gallery.images.first.thumbnail_file.url }}" alt="object.gallery.images.first.title">
-                  </a>
-                </div>
-                {% for image in object.gallery.images.all %}
-                  {% ifnotequal image.pk object.gallery.images.first.pk %}
-                    <div class="carousel-item">
-                      <a href="{% url 'images:image_detail' image.pk %}">
-                        <img class="images-gallery-image" src="{{ image.thumbnail_file.url }}" alt="images.title">
-                      </a>
-                    </div>
-                  {% endifnotequal %}
-                {% endfor %}
-              </div>
-              <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  {% endif %}
+  {% include "./update_gallery.html" %}
   <!-- STOP gallery -->
   <!-- START links -->
-  {% if object.links %}
-    <h3 class="links-title">Links</h3>
-    <ul class="list-group">
-      {% for link in object.links.all %}
-        <div class="container">
-          <li class="list-group-item updates-list-item">
-            <!-- ROW 1 -->
-            <div class="row">
-              <div class="col-">
-                <img src="{{ link.image.thumbnail_file.url }}" class="links-thumbnail">
-              </div>
-              <div class="col">
-                <a href="{{ link.url }}" class="links-list-link">
-                  <h4 class="links-list-title">{{ link.title }}</h4>
-                </a>
-                <p class="links-list-description">{{ link.description }}</p>
-              </div>
-            </div>
-            <!-- ROW 2 -->
-            <div class="row">
-            </div>
-            <!-- ROW 3 -->
-            <div class="row">
-              <div class="col">
-                <p class="links-list-link">
-                  {{ link.url }}
-                </p>
-              </div>
-            </div>
-          </li>
-        </div>
-      {% endfor %}
-    </ul>
-  {% endif %}
+  {% include "./update_links.html" %}
   <!-- STOP links -->
-  <div class="container">
-    <p class="updates-author">
-      <i>contributed by 
-        {% if object.user.first_name and object.user.last_name %}
-          {{ object.user.first_name }} {{ object.user.last_name }} 
-        {% else %}
-          {{ object.user }}
-        {% endif %}
-        {% if object.publication_date %}
-        on {{ object.publication_date|date:"M d, Y" }}
-        {% endif %}
-        {% if object.location %}
-          from {{ object.location }}
-        {% endif %}
-      </i>
-    </p>
-  </div>
-  <br>
+  <!-- START credits -->
+  {% include "./update_credits.html" %}
+  <!-- STOP credits -->
 </div>
 {% endblock %}

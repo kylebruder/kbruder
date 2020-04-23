@@ -1,58 +1,12 @@
 {% extends 'base.html' %}
 {% block body_block %}
 <div class="container images-gallery-bg">
-  <div class="row">
-    <div class="col">
-      <h3 class="images-gallery-title">Galleries</h3>
-    </div>
-    {% if request.user.is_authenticated %}
-      <div class="col-">
-        <div class="container">
-          <a href="{% url 'images:gallery_create' %}">
-            <button type="button" class="btn btn-primary">New Gallery</button>
-          </a>
-        </div>
-      </div>
-    {% endif %}
-  </div>
-  <br>
-  <div class="row">
-    <div class="col">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      {% if request.user.is_authenticated %}
-        <a href="{% url 'images:gallery_create' %}">
-        </a>
-      {% endif %}
-    </div>
-  </div>
-  <br>
-  <div class="container">
+  {% include "./gallery_button_bar.html" %}
+  <ul class="list-group">
     {% for gallery in object_list %}
-      <div class="row">
-        <div class="col-">
-          <img src="{{ gallery.images.first.thumbnail_file.url }}" class="images-thumbnail" alt="{{ gallery.images.first.title }}">
-        </div>
-        <div class="col">
-          <div class="container">
-            <a href="{% url 'images:gallery_detail' gallery.slug %}">
-              <h3 class="images-gallery-title">{{ gallery.title }}</h5>
-            </a>
-            <p class="images-gallery-caption">{{ gallery.caption }}</p>
-          </div>
-        </div>
-        {% ifequal request.user gallery.user %}
-          <div class="col-">
-            <a href="{% url 'images:gallery_update' gallery.slug %}">
-              <button type="button" class="btn btn-warning">Edit</button>
-            </a>
-          </div>
-        {% endifequal %}
-      </div>
-      <br>
+      {% include "./gallery_list_item.html" %}
     {% endfor %}
+  </ul>
     {% if page_obj %}
       <div class="images-pagination">
         <span class="step-links">

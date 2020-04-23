@@ -78,15 +78,18 @@
 }
 
 .images-gallery-bg {
-  background-color: #ffffff;
-  color: #222222;
+  background-color: #222222;
+  color: #ffffff;
   min-height: 875px;
   border-radius: 0px 0px 25px 25px;
-  margin-bottom: 40px
+  margin-bottom: 40px;
 }
 
 .images-gallery-caption {
   font-family: 'Tajawal', sans-serif;
+  background: #222222;
+  color: #eeeeee;
+  padding: 10px;
 }
 
 .images-gallery-button {
@@ -102,6 +105,13 @@
   display: block;
   margin: auto;
   border-radius: 5px;
+}
+
+.images-gallery-li {
+  background-color: #222222;
+  color: #ffffff;
+  padding: 20px;
+  border-bottom: solid #444444;
 }
 
 .images-gallery-title {
@@ -121,8 +131,9 @@
 
 .images-thumbnail {
   display: block;
-  max-width: auto;
+  max-width: 200px;
   max-height: auto;
+  border-radius: 15px;
   padding: 10px;
   margin: auto;
 }
@@ -230,7 +241,7 @@
   max-width: 100px;
   max-height: auto;
   margin-bottom: 10px;
-  margin-right: 10px;
+  padding-left: 20px;
 }
 
 .links-title {
@@ -250,6 +261,11 @@
 
 .updates-gallery-caption {
   font-family: 'Tajawal', sans-serif;
+  padding-bottom: 20px;
+}
+
+.updates-gallery-container {
+  margin-left: 40px;
 }
 
 .updates-gallery-title {
@@ -291,9 +307,16 @@
   font-family: 'Ibarra Real Nova', serif;
 }
 
-.updates-list-item{
+.updates-list-item {
   background-color: #222222;
-  border-bottom: solid #333333;
+  border-bottom: solid #444444;
+}
+
+.updates-list-thumbnail {
+  max-height:200px;
+  max-width: 200px;
+  margin-left: 20px;
+  border-radius: 5px;
 }
 
 .updates-list-link {
@@ -313,19 +336,21 @@
 .updates-featured-image {
   max-width: 100%;
   max-height: 100%;
-  border-radius: 5px;
-  padding: 20px
+  padding: 10px;
 }
 
 .updates-featured-image-caption {
+  max-width: 400px;
   font-family: 'Tajawal', sans-serif;
+  padding-left: 10px;
+  padding-right: 10px;
 }
  
+
 .updates-location-date {
   font-family: 'IBM Plex Mono', monospace;
 }
 
 
 .updates-content {
-  padding: 20px;
 }
