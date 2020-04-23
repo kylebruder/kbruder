@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.db import models
+from django.shortcuts import reverse
 from images.models import Image
 from tags.models import Tag
 from marshmallows.models import Marshmallow
@@ -26,4 +27,5 @@ class Link(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('links:link_detail', kwargs={'pk': self.pk})
+        return reverse('links:link_list')
+        #return reverse('links:link_detail', kwargs={'pk': self.pk})
