@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block body_block %}
 <div class="container images-gallery-bg">
-  {% include "./gallery_button_bar.html" %}
+  {% include "./gallery_list_button_bar.html" %}
   <ul class="list-group">
     {% for gallery in object_list %}
       {% include "./gallery_list_item.html" %}

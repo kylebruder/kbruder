@@ -13,12 +13,5 @@
     <div class="col">
       <p class="images-gallery-caption">{{ gallery.caption }}</p>
     </div>
-    {% ifequal request.user gallery.user %}
-      <div class="col-">
-        <a href="{% url 'images:gallery_update' gallery.slug %}">
-          <button type="button" class="btn btn-warning">Edit</button>
-        </a>
-      </div>
-    {% endifequal %}
   </div>
 </li>

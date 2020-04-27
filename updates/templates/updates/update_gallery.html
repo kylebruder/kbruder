@@ -2,7 +2,9 @@
   <!-- ROW 1 -->
   <div class="row">
     <div class="col">
-      <h3 class="updates-gallery-title">{{ object.gallery.title }}</h3>
+      <a href="{% url 'images:gallery_detail' object.gallery.slug %}">
+        <h3 class="updates-gallery-title">{{ object.gallery.title }}</h3>
+      </a>
     </div>
   </div>
   <!-- ROW 2 -->
@@ -14,9 +16,9 @@
   <!-- ROW 3 -->
   <div class="row">
     <div class="col">
-      <div class="updates-gallery-container">
+      <div class="container">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
+          <div class="carousel-inner updates-gallery-carousel">
             <div class="carousel-item active">
               <a href="{% url 'images:image_detail' object.gallery.images.first.pk %}">
                 <img class="images-gallery-image" src="{{ object.gallery.images.first.image_file.url }}" alt="{{ object.gallery.images.first.title }}">

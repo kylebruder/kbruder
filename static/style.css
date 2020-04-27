@@ -92,12 +92,11 @@
   padding: 10px;
 }
 
-.images-gallery-button {
-  font-family: 'Zilla Slab Highlight', cursive;
-  font-size: 20px;
-  background-image: none;
-  color: black;
+.images-gallery-carousel {
+  width: 100%;
+  height: 700px;
 }
+
 
 .images-gallery-image {
   max-width: 100%;
@@ -111,7 +110,7 @@
   background-color: #222222;
   color: #ffffff;
   padding: 20px;
-  border-bottom: solid #444444;
+  border-bottom: solid 2px #111111;
 }
 
 .images-gallery-title {
@@ -154,7 +153,7 @@
 
 .index-gallery {
   color: #ffffff;
-  background-color: #444444;
+  background-color: #333333;
   padding: 10px;
   margin: 10px;
   border-radius: 10px;
@@ -173,7 +172,7 @@
 
 .index-link-bg {
   color: white;
-  background-color: #444444;
+  background-color: #333333;
   margin: 10px;
   padding: 10px;
   border-radius: 10px;
@@ -182,8 +181,7 @@
 
 .index-link-li {
   color: #ffffff;
-  background-color: #111111;
-  border-bottom: solid  #444444;
+  background-color: #333333;
 }
 
 .kbtech-title {
@@ -225,7 +223,7 @@
   background-color: #222222;
   color: #ffffff;
   padding: 20px;
-  border-bottom: solid #444444;
+  border-bottom: solid 2px #111111;
 }
 
 .links-list-link {
@@ -264,8 +262,9 @@
   padding-bottom: 20px;
 }
 
-.updates-gallery-container {
-  margin-left: 40px;
+.updates-gallery-carousel {
+  width: 100%;
+  height: 600px;
 }
 
 .updates-gallery-title {
@@ -278,7 +277,7 @@
   background-repeat: no-repeat;
   max-height: auto;
   padding: 10px;
-  border-bottom: solid #444444;
+  border-bottom: solid #111111;
   text-align: center;
 }
  
@@ -307,16 +306,23 @@
   font-family: 'Ibarra Real Nova', serif;
 }
 
+.updates-list-caption {
+}
+
 .updates-list-item {
   background-color: #222222;
-  border-bottom: solid #444444;
+  border-bottom: solid 2px #111111;
 }
 
 .updates-list-thumbnail {
-  max-height:200px;
-  max-width: 200px;
-  margin-left: 20px;
-  border-radius: 5px;
+  max-height:100px;
+  max-width: 150px;
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+.updates-list-title {
+  font-family: 'Ibarra Real Nova', serif;
 }
 
 .updates-list-link {
