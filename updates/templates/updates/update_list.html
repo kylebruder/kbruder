@@ -1,23 +1,10 @@
 {% extends 'base.html' %}
 {% block body_block %}
 <div class="container updates-bg">
-  <div class="row">
-    <div class="col">
-      <h3 class="updates-list-title">Updates</h3>
-    </div>
-    {% if request.user.is_authenticated %}
-      <div class="col-">
-        <div class="container">
-          <a href="{% url 'updates:update_create' %}">
-            <button type="button" class="btn btn-primary float-left">New Update</button>
-          </a>
-        </div>
-      </div>
-    {% endif %}
-  </div>
-  <br>
+  {% include "./update_list_button_bar.html" %}
   <div class="container">
     {% if object_list %}
+      {% include "page_control.html" %}
       <ul class="list-group">
         {% for update in object_list %}
           {% include "./update_list_item.html" %}

@@ -1,64 +1,17 @@
 {% extends 'base.html' %}
 {% block body_block %}
 <div class="container images-bg">
-  <div class="row">
-    <div class="col">
-      <h3 class="images-title">Images</h3>
-    </div>
-    {% if request.user.is_authenticated %}
-      <div class="col-">
-        <div class="container">
-          <a href="{% url 'images:image_create' %}">
-            <button type="button" class="btn btn-primary float-left">Upload Image</button>
-          </a>
-        </div>
-      </div>
-    {% endif %}
-  </div>
-  <br>
+  {% include "./image_list_button_bar.html" %}
   {% if object_list %}
+    {% include "page_control.html" %}
     <div class="images-card-container">
       {% for image in object_list %}
-        <div class="images-card float-left">
-          <div class="row">
-            <div class="col">
-              <a href="{% url 'images:image_detail' image.pk %}">
-                {% if image.thumbnail_file %}
-                  <img src="{{ image.thumbnail_file.url }}" class="images-thumbnail" alt="{{ image.title }}">
-                {% else %}
-                  <p class="images-card-title">Click here to see the image</p>
-                {% endif %}
-              </a>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col images-card-title" >
-              <span class="">{{ image.title }}</span>
-            </div>
-          </div>
-        </div>
+        {% include "./image_list_card.html" %}
       {% endfor %}
     </div>
-  {% if page_obj %}
-    <div class="images-pagination clear">
-      <span class="step-links">
-        {% if page_obj.has_previous %}
-          <a href="?page=1"><<</a>
-          <a href="?page={{page_obj.previous_page_number}}"><</a>
-        {% endif %}
-        <span class="images-current">
-          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}
-        </span>
-        {% if page_obj.has_next %}
-          <a href="?page={{page_obj.next_page_number}}">></a>
-          <a href="?page={{page_obj.paginator.num_pages}}">>></a>
-        {% endif %}
-      </span>
-    </div>
-    <br>
+    {% include "page_control.html" %}
+  {% else %}
+    <p>There are no images yet.</p>
   {% endif %}
-{% else %}
-<p>There are no images yet.</p>
-{% endif %}
 </div>
 {% endblock %} 

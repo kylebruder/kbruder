@@ -2,32 +2,17 @@
 {% block body_block %}
 <div class="container images-gallery-bg">
   {% include "./gallery_list_button_bar.html" %}
-  <ul class="list-group">
-    {% for gallery in object_list %}
-      {% include "./gallery_list_item.html" %}
-    {% endfor %}
-  </ul>
-    {% if page_obj %}
-      <div class="images-pagination">
-        <span class="step-links">
-          {% if page_obj.has_previous %}
-            <a href="?page=1"><<</a>
-            <a href="?page={{page_obj.previous_page_number}}"><</a>
-          {% endif %}
-          <span class="images-current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}
-          </span>
-          {% if page_obj.has_next %}
-            <a href="?page={{page_obj.next_page_number}}">></a>
-            <a href="?page={{page_obj.paginator.num_pages}}">>></a>
-          {% endif %}
-        </span>
-        <br>
-      </div>
-    {% else %}
-      <p>There are no galleries yet.</p>
-    {% endif %}
-  </div>
+  {% if object_list %}
+    {% include "page_control.html" %}
+    <ul class="list-group">
+      {% for gallery in object_list %}
+        {% include "./gallery_list_item.html" %}
+      {% endfor %}
+    </ul>
+    {% include "page_control.html" %}
+  {% else %}
+    <p>There are no galleries yet.</p>
+  {% endif %}
   <br>
 </div>
 {% endblock %} 

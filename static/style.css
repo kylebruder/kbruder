@@ -97,6 +97,12 @@
   height: 700px;
 }
 
+.images-gallery-credit {
+  font-size: 0.75em;
+  font-family: 'IBM Plex Mono', monospace;
+  margin-top: 20px;
+  margin-left: 10px;
+}
 
 .images-gallery-image {
   max-width: 100%;
@@ -115,8 +121,6 @@
 
 .images-gallery-thumbnail {
   display: block;
-  max-width: 100px;
-  max-height: 100px;
   border-radius: 10px;
   margin-left: 20px;
 }
@@ -127,14 +131,12 @@
 
 .images-image {
   max-width: 100%;
-  max-height: auto;
+  max-height: 1500px;
   display: block;
   margin: auto;
   border-radius: 5px;
 }
 
-.images-row-title {
-}
 
 .images-thumbnail {
   display: block;
@@ -254,7 +256,7 @@
   font-family: 'Ibarra Real Nova', serif;
 }
 
-.links-thumbnail {
+.links-list-thumbnail {
   max-width: 100px;
   max-height: 100px;
   margin-bottom: 10px;
@@ -316,8 +318,8 @@
 }
 
 .updates-link-image {
-  max-height:100px;
-  max-width: 100px;
+  max-height:50px;
+  max-width: 50px;
   margin-right: 10px;
 }
 
@@ -334,9 +336,10 @@
 }
 
 .updates-list-thumbnail {
-  max-height:100px;
-  max-width: 150px;
-  border-radius: 2px;
+  max-height: 100px;
+  max-width: 100px;
+  border-radius: 5px;
+  margin-left: 15px;
   margin-bottom: 10px;
 }
 

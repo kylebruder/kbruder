@@ -1,9 +1,6 @@
 <li class="list-group-item links-list-li">
   <!-- ROW 1 -->
   <div class="row">
-    <div class="col-">
-      <img src="{{ link.image.thumbnail_file.url }}" class="links-thumbnail">
-    </div>
     <div class="col">
       <a href="{{ link.url }}" class="links-list-link">
         <h4 class="links-list-title">{{ link.title }}</h4>
@@ -13,19 +10,20 @@
       <!-- START marshmallow -->
       <div class="col-">
         <a href="{% url 'links:promote' link.pk  %}">
-          <button type="button" class="btn btn-default float-right">&#9829;</button>
+          <button type="button" class="btn btn-default">&#9829;</button>
         </a>
       </div>
       <!-- STOP marshmallow -->
     {% endif %}
   </div>
-  <div class="row">
-    <div class="col">
-      <p class="links-list-description">{{ link.description }}</p>
-    </div>
-  </div>
   <!-- ROW 2 -->
   <div class="row">
+    <div class="col-">
+      <img src="{{ link.image.thumbnail_file.url }}" class="links-list-thumbnail">
+    </div>
+    <div class="col-sm">
+      <p class="links-list-description">{{ link.description }}</p>
+    </div>
   </div>
   <!-- ROW 3 -->
   <div class="row">
