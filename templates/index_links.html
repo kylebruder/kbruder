@@ -1,0 +1,29 @@
+<div class="index-link-bg">
+    <!-- ROW 1 -->
+  <div class="row">
+    <div class="col-">
+      <img src="{{ link.image.thumbnail_file.url }}" class="links-thumbnail">
+    </div>
+    <div class="col">
+      <a href="{{ link.url }}" class="links-list-link">
+        <h4 class="links-list-title">{{ link.title }}</h4>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p class="">{{ link.description }}</p>
+    </div>
+  </div>
+  <!-- ROW 2 -->
+  <div class="row">
+  </div>
+  <!-- ROW 3 -->
+  <div class="row">
+    <div class="col">
+      <p class="links-list-link">
+        {{ link.url }}
+      </p>
+    </div>
+  </div>
+</div>

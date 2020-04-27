@@ -1,7 +1,7 @@
-<li class="list-group-item images-gallery-li">
+<div class="index-gallery-bg">
   <div class="row">
     <div class="col-">
-      <img src="{{ gallery.images.first.thumbnail_file.url }}" class="images-gallery-thumbnail" alt="{{ gallery.images.first.title }}">
+      <img src="{{ gallery.images.first.thumbnail_file.url }}" class="index-gallery-thumbnail" alt="{{ gallery.images.first.title }}">
     </div>
     <div class="col">
       <a href="{% url 'images:gallery_detail' gallery.slug %}">
@@ -11,7 +11,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <p class="images-gallery-caption">{{ gallery.caption }}</p>
+      <p class="">{{ gallery.caption }}</p>
     </div>
   </div>
-</li>
+</div>

@@ -4,117 +4,35 @@
 <div class="container index-bg">
   <!-- ROW 1 -->
   <div class="row">
-    <!-- COL 1 -->
     <div class="col">
       <!-- START latest update -->
       {% if latest_update %}
-        <a href="{% url 'updates:update_detail' slug=latest_update.slug %}">
-          <div class="jumbotron index-headline-text" style="background-image:url('/media/{{ latest_update.headline_img.image_file }}')">
-            <h1>{{ latest_update.headline }}</h1>
-          </div>
-        </a>
+        {% include "index_update.html" %}
       {% endif %}
       <!-- STOP latest update -->
     </div>
   </div>
   <!-- ROW 2 -->
   <div class="row">
-    <!-- COL 1 -->
-    <div class="col">
+    <div class="col-sm-6">
       <!-- START gallery -->
       {% if gallery %}
-        <div class="index-gallery">
-          <a href="{% url 'images:gallery_detail' slug=gallery.slug %}">
-            <h3 class="updates-gallery-title">{{ gallery.title }}</h3>
-          </a>
-          <p class="updates-gallery-caption">{{ gallery.caption }}</p>
-          <div class="container">
-            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <a href="{% url 'images:image_detail' gallery.images.first.pk %}">
-                    <img class="images-image" src="{{ gallery.images.first.thumbnail_file.url }}" alt="gallery.images.first.title">
-                  </a>
-                </div>
-                {% for image in gallery.images.all %}
-                  {% ifnotequal image.pk gallery.images.first.pk %}
-                    <div class="carousel-item">
-                      <a href="{% url 'images:image_detail' image.pk %}">
-                        <img class="images-gallery-image" src="{{ image.thumbnail_file.url }}" alt="images.title">
-                      </a>
-                    </div>
-                  {% endifnotequal %}
-                {% endfor %}
-              </div>
-              <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
-          </div>  
-        </div>
+        {% include "index_gallery.html" %}
       {% endif %}
       <!-- STOP gallery -->
     </div>
-    <!-- COL 2 -->
-    <!-- <div class="col">
-    </div> -->
-  </div>
-  <!-- ROW 3 -->
-  <div class="row">
-    <!-- COL 1 -->
-    <div class="col">
+    <div class="col-sm-6">
       <!-- START links -->
       {% if link %}
-        <div class="index-link-bg">
-          <li class="list-group-item index-link-li">
-            <!-- ROW 1 -->
-            <div class="row">
-              <div class="col-10">
-                <img src="/media/{{ link.image.thumbnail_file }}" class="updates-link-image float-left">
-                <a href="{{ link.url }}" class="updates-link">
-                  <h5 class="updates-link-title">{{ link.title }}</h5>
-                </a>
-                <p class="links-list-description">{{ link.description }}</p>
-              </div>
-            </div>
-            <br>
-            <!-- ROW 2 -->
-            <div class="row">
-              <div class="col-10">
-                <p class="updates-link">{{ link.url }}</p>
-              </div>
-            </div>
-          </li>
-        </div>
+        {% include "index_links.html" %}
       {% endif %}
       <!-- STOP links -->
     </div>
   </div>
-  <!-- ROW 4 -->
+  <!-- ROW 3 -->
   <div class="row">
     <div class="col">
-      <!-- START AD 1 -->
-      <div class="kbtech-title">
-        <div class="row">
-          <div class="col">
-            <h1>kbruder Tech</h1>
-            <h2 class="kbtech-subtitle">Information Technology Consulting</h2>
-            <p class="kbtech-services-overview">Cloud | IP networking | Infrastructure | Deployment | Cryptocurrency | Info Sec</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <p class="kbtech-services">Providing consultation and support to individuals and businesses requiring modern, secure, and cost-reducing IT solutions. Offering solution architecture, Information Security services and general information about emerging trends in Information Technology.</p>
-            <p class="kbtech-services">The biggest hurdle in IT services is trust. Begin a trust relationship with kbruder Tech. Send me a concise email message to <a href="mailto:help@kbruder.info">help@kbruder.info</a> today!</p>
-          </div>
-        </div>
-      </div>
-      <!-- END AD 1 -->
+        {% include "index_kbtech.html" %}
     </div>
   </div>
 </div>
