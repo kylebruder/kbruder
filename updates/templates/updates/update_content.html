@@ -19,15 +19,7 @@
           <a href="{% url 'images:image_detail' object.featured_img.pk %}">
             <img class="updates-featured-image" src="/media/{{ object.featured_img.image_file }}" alt="{{ object.featured_img.caption }}">
           </a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
           <p class="updates-featured-image-caption">{{ object.featured_img.caption }}</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
           <p class="updates-featured-image-caption"><i>{{ object.featured_img.credit }}</i>
         </div>
       </div>
