@@ -31,13 +31,10 @@
     </button>
     <!-- NAVBAR -->
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav mr-auto">
         {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'updates:update_list' %}">Updates</a> 
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'links:link_list' %}">Links</a> 
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'images:gallery_list' %}">Gallery</a> 
@@ -46,11 +43,40 @@
             <a class="nav-link" href="{% url 'images:image_list' %}">Images</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'admin:index' %}">Admin</a> 
+            <a class="nav-link" href="{% url 'links:link_list' %}">Links</a> 
           </li>
+        </ul>
+        <ul class="navbar-nav">
+          {% if user.first_name and user.last_name %}
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                {{ user.first_name }} {{ user.last_name }}
+              </a>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                {{ user }}
+              </a>
+            </li>
+          {% endif %}
+          {% if user.is_staff %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'admin:index' %}">Admin</a> 
+            </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
+          </li>
+          
         {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'updates:update_list' %}">Updates</a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'images:gallery_list' %}">Gallery</a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'images:image_list' %}">Images</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'links:link_list' %}">Links</a> 
