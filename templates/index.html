@@ -23,13 +23,19 @@
     </div>
     <div class="col-sm-6">
       <!-- START links -->
-      {% if link %}
-        {% include "index_links.html" %}
+      {% if image %}
+        {% include "index_image.html" %}
       {% endif %}
       <!-- STOP links -->
     </div>
   </div>
   <!-- ROW 3 -->
+  <div class="row">
+    <div class="col">
+        {% include "index_links.html" %}
+    </div>
+  </div>
+  <!-- ROW 4 -->
   <div class="row">
     <div class="col">
         {% include "index_kbtech.html" %}

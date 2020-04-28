@@ -1,15 +1,15 @@
 <div class="index-gallery-bg">
   <div class="row">
-    <div class="col-">
-      <img src="{{ gallery.images.first.thumbnail_file.url }}" class="index-gallery-thumbnail" alt="{{ gallery.images.first.title }}">
-    </div>
     <div class="col">
       <a href="{% url 'images:gallery_detail' gallery.slug %}">
-        <h3 class="images-gallery-title">{{ gallery.title }}</h5>
+        <h3 class="index-gallery-title">{{ gallery.title }}</h5>
       </a>
     </div>
   </div>
   <div class="row">
+    <div class="col-">
+      <img src="{{ gallery.images.first.thumbnail_file.url }}" class="index-gallery-thumbnail" alt="{{ gallery.images.first.title }}">
+    </div>
     <div class="col">
       <p class="">{{ gallery.caption }}</p>
     </div>

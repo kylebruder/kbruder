@@ -19,7 +19,7 @@ from django.core.files.images import ImageFile
 from django.urls import reverse
 from django.utils import timezone
 from accounts.models import Member
-from images.models import Gallery
+from images.models import Image, Gallery
 from links.models import Link
 from .models import Update
 
@@ -34,6 +34,7 @@ class HomePageView(TemplateView):
         context['latest_update'] = Update.objects.first()
         context['gallery'] = Gallery.objects.order_by('-weight', '-creation_date')[0]
         context['link'] = Link.objects.order_by('-weight', '-creation_date')[0]
+        context['image'] = Image.objects.order_by('-weight', '-creation_date')[0]
         return context
 
 class UpdatesCreateView(LoginRequiredMixin, CreateView):

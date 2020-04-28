@@ -22,6 +22,7 @@ from updates import views as updates
 urlpatterns = [
     path('', updates.HomePageView.as_view(), name='home'), 
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),
     path('updates/', include('updates.urls')),
     path('images/', include('images.urls')),
     path('links/', include('links.urls')),

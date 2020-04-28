@@ -1,0 +1,86 @@
+.index-bg {
+  background-color: #222222;
+  color: #eeeeee;
+  border-radius: 0px 0px 25px 25px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 40px;
+}
+
+.index-gallery-bg {
+  color: #ffffff;
+  background-color: #222222;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.index-gallery-thumbnail {
+  display: block;
+  max-width: auto;
+  max-height: 100px;
+  border-radius: 5px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.index-gallery-title {
+  font-family: 'Ibarra Real Nova', serif;
+}
+
+.index-headline-text {
+  background-color: #ffffff;
+  color: black;
+  font-family: 'Zilla Slab Highlight', cursive;
+  font-weight: bold;
+  text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
+  text-align: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.index-image {
+  max-width: auto;
+  max-height: 100px;
+  border-radius: 5px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.index-image-bg {
+  color: #ffffff;
+  background-color: #222222;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.index-image-title {
+  font-family: 'Ibarra Real Nova', serif;
+}
+
+.index-link-bg {
+  color: white;
+  background-color: #222222;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.index-link-li {
+  color: #ffffff;
+  background-color: #333333;
+}
+
+.index-links-thumbnail {
+  display: block;
+  max-width: auto;
+  max-height: 75px;
+  border-radius: 10px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}

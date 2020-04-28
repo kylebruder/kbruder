@@ -1,0 +1,37 @@
+.links-bg {
+  background-color: #222222;
+  color: #eeeeee;
+  border-radius: 0px 0px 25px 25px;
+  margin-bottom: 40px;
+}
+
+.links-list-description {
+  font-family: 'Tajawal', sans-serif;
+}
+
+.links-list-li {
+  background-color: #222222;
+  color: #ffffff;
+  padding: 20px;
+  border-bottom: solid 2px #111111;
+}
+
+.links-list-link {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75em;
+}
+
+.links-list-title {
+  font-family: 'Ibarra Real Nova', serif;
+}
+
+.links-list-thumbnail {
+  max-width: 100px;
+  max-height: 100px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+
+.links-title {
+  font-family: 'Ibarra Real Nova', serif;
+}
