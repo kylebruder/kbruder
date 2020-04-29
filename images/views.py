@@ -80,7 +80,7 @@ class ImageDeleteView(LoginRequiredMixin, DeleteView):
 class GalleryCreateView(LoginRequiredMixin, CreateView):
 
     model = Gallery
-    fields = ['title', 'slug', 'caption', 'images', 'tags', 'is_public']
+    fields = ['title', 'slug', 'cover_image', 'caption', 'images', 'tags', 'is_public']
     template_name_suffix = '_create_form'
 
     def form_valid(self, form):
@@ -129,9 +129,17 @@ class GalleryDetailView(DetailView):
 class GalleryUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Gallery
-    fields = ['title', 'slug', 'caption', 'images', 'tags', 'is_public']
+    fields = ['title', 'slug', 'cover_image', 'caption', 'images', 'tags', 'is_public']
     template_name_suffix = '_update_form'
 	
+    def get_success_url(self):
+        # return the slug with the success url
+        if 'slug' in self.kwargs:
+            slug = self.kwargs['slug']
+        else:
+            return reverse('images:gallery_list')
+        return reverse('images:gallery_detail', kwargs={'slug': slug})
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context

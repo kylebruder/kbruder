@@ -42,6 +42,7 @@ class Gallery(models.Model):
     slug = models.SlugField(max_length=40, unique=True)
     title = models.CharField(max_length=64, default="Untitled")
     caption = models.TextField(max_length=256, default="a curated collection of imagery")
+    cover_image = models.ForeignKey(Image, on_delete=models.CASCADE, related_name='cover')
     images = models.ManyToManyField(Image)
     tags = models.ManyToManyField(Tag)
     marshmallows = models.ManyToManyField(Marshmallow, blank=True)
