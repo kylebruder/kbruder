@@ -20,7 +20,7 @@ from .models import Image, Gallery
 class ImageCreateView(LoginRequiredMixin, CreateView):
 
     model = Image
-    fields = ['image_file', 'caption', 'title', 'credit', 'is_public']
+    fields = ['image_file', 'title', 'caption', 'credit', 'is_public']
     template_name_suffix = '_create_form'
 
     def form_valid(self, form):
