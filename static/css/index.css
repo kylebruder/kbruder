@@ -3,26 +3,30 @@
   color: #eeeeee;
   border-radius: 0px 0px 25px 25px;
   padding-bottom: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
   margin-bottom: 40px;
 }
 
 .index-gallery-bg {
   color: #ffffff;
   background-color: #222222;
-  padding: 10px;
   border-radius: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
+.index-gallery-li {
+  color: #ffffff;
+  background-color: #222222;
+  font-family: 'Ibarra Real Nova', serif;
+  font-size: 1.25em;
+}
+
 .index-gallery-thumbnail {
   display: block;
   max-width: auto;
-  max-height: 100px;
+  max-height: 250px;
   border-radius: 5px;
-  margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: 10px;
 }
 
@@ -31,11 +35,11 @@
 }
 
 .index-headline-text {
-  background-color: #ffffff;
-  color: black;
+  background-color: #222222;
+  color: #ffffff;
   font-family: 'Zilla Slab Highlight', cursive;
   font-weight: bold;
-  text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   text-align: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -43,10 +47,11 @@
 }
 
 .index-image {
+  display: block;
   max-width: auto;
-  max-height: 100px;
+  max-height: 250px;
   border-radius: 5px;
-  margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: 10px;
 }
 
@@ -55,8 +60,9 @@
   background-color: #222222;
   padding: 10px;
   border-radius: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+}
+
+.index-image-bg {
 }
 
 .index-image-title {
@@ -68,8 +74,6 @@
   background-color: #222222;
   padding: 10px;
   border-radius: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .index-link-li {
@@ -77,11 +81,28 @@
   background-color: #333333;
 }
 
-.index-links-thumbnail {
+.index-link-thumbnail {
   display: block;
   max-width: auto;
   max-height: 75px;
   border-radius: 10px;
-  margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: 10px;
 }
+
+.index-link-url {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75em;
+}
+
+.index-link-title {
+  font-family: 'Ibarra Real Nova', serif;
+}
+
+.index-update-li {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8em;
+  background-color: #222222;
+  color: #ffffff;
+}
+

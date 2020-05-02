@@ -46,28 +46,10 @@
             <a class="nav-link" href="{% url 'links:link_list' %}">Links</a> 
           </li>
         </ul>
-        <ul class="navbar-nav">
-          {% if user.first_name and user.last_name %}
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                {{ user.first_name }} {{ user.last_name }}
-              </a>
-          {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                {{ user }}
-              </a>
-            </li>
-          {% endif %}
-          {% if user.is_staff %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'admin:index' %}">Admin</a> 
-            </li>
-          {% endif %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
-          </li>
-          
+        <div class="btn-group">
+            {% include "./base_nav_add_dropdown.html" %}
+            {% include "./base_nav_user_dropdown.html" %}
+        </div>
         {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'updates:update_list' %}">Updates</a> 

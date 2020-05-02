@@ -1,0 +1,75 @@
+.studio-bg {
+  background-color: #222222;
+  color: #eeeeee;
+  border-radius: 0px 0px 25px 25px;
+  margin-bottom: 40px;
+}
+
+.studio-gallery-li {
+  background-color: #222222;
+  color: #ffffff;
+  padding: 20px;
+  border-bottom: solid 2px #111111;
+}
+
+.studio-gallery-thumbnail {
+  max-width: 100px;
+  max-height: 100px;
+  margin: 10px;
+}
+
+.studio-gallery-title {
+  font-family: 'Ibarra Real Nova', serif;
+}
+ 
+.studio-image-li {
+  background-color: #222222;
+  color: #ffffff;
+  padding: 20px;
+  border-bottom: solid 2px #111111;
+}
+
+.studio-image-thumbnail {
+  max-width: 100px;
+  max-height: 100px;
+  margin: 10px;
+}
+
+.studio-image-title {
+  font-family: 'Ibarra Real Nova', serif;
+}
+ 
+.studio-link-li {
+  background-color: #222222;
+  color: #ffffff;
+  padding: 20px;
+  border-bottom: solid 2px #111111;
+}
+
+.studio-link-thumbnail {
+  max-width: 100px;
+  max-height: 100px;
+  margin: 10px;
+}
+
+.studio-link-title {
+  font-family: 'Ibarra Real Nova', serif;
+}
+ 
+.studio-update-li {
+  background-color: #222222;
+  color: #ffffff;
+  padding: 20px;
+  border-bottom: solid 2px #111111;
+}
+
+.studio-update-thumbnail {
+  max-width: 100px;
+  max-height: 100px;
+  margin: 10px;
+}
+
+.studio-update-title {
+  font-family: 'Ibarra Real Nova', serif;
+}
+ 

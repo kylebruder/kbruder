@@ -1,36 +1,22 @@
 <li class="list-group-item images-gallery-li">
-  <div class="row">
-    <div class="col">
-      <a href="{% url 'images:gallery_detail' gallery.slug %}">
-        <h3 class="images-gallery-title">{{ gallery.title }}</h5>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-">
-      <img src="{{ gallery.cover_image.thumbnail_file.url }}" class="images-gallery-thumbnail" alt="{{ gallery.images.first.title }}">
-    </div>
-    <div class="col-sm">
-      <p class="images-gallery-caption">{{ gallery.caption }}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <p class="images-gallery-credit">
-        <i>curated by
-          {% if gallery.user.first_name and gallery.user.last_name %}
-            {{ gallery.user.first_name }} {{ gallery.user.last_name }}
-          {% else %}
-            {{ gallery.user }}
-          {% endif %}
-          {% if gallery.publication_date %}
-            on {{ gallery.publication_date|date:"M d, Y" }}
-          {% endif %}
-          {% if gallery.location %}
-            from {{ gallery.location }}
-          {% endif %}
-        </i>
-      </p>
-    </div>
-  </div>
+  <a href="{% url 'images:gallery_detail' gallery.slug %}">
+    <h3 class="images-gallery-title">{{ gallery.title }}</h5>
+  </a>
+  <img src="{{ gallery.cover_image.thumbnail_file.url }}" class="images-gallery-thumbnail float-left" alt="{{ gallery.images.first.title }}">
+  <p class="images-gallery-caption">{{ gallery.caption }}</p>
+  <p class="images-gallery-credit clear">
+    <i>curated by
+      {% if gallery.user.first_name and gallery.user.last_name %}
+        {{ gallery.user.first_name }} {{ gallery.user.last_name }}
+      {% else %}
+        {{ gallery.user }}
+      {% endif %}
+      {% if gallery.publication_date %}
+        on {{ gallery.publication_date|date:"M d, Y" }}
+      {% endif %}
+      {% if gallery.location %}
+        from {{ gallery.location }}
+      {% endif %}
+    </i>
+  </p>
 </li>

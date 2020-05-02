@@ -1,0 +1,16 @@
+<div class="dropdown">
+  <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {% if user.first_name and user.last_name %}
+      {{ user.first_name }} {{ user.last_name }}
+    {% else %}
+      {{ user }}
+    {% endif %}
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Studio</a>
+    {% if user.is_staff %}
+       <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
+    {% endif %}
+    <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
+  </div>
+</div>

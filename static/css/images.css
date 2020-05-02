@@ -1,5 +1,5 @@
 .images-bg {
-  background-color: #ffffff;
+  background-color: #dddddd;
   color: #222222;
   border-radius: 0px 0px 25px 25px;
   margin-bottom: 40px;
@@ -8,6 +8,7 @@
 .images-caption {
   font-family: 'Tajawal', sans-serif;
   text-align: left;
+  margin: 5px;
 }
 
 .images-card {
@@ -28,10 +29,13 @@
   color: #ffffff;
   font-family: 'Ibarra Real Nova', serif;
   text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .images-credit {
   text-align: right;
+  margin: 5px;
 }
 
 .images-gallery-bg {
@@ -78,8 +82,10 @@
 
 .images-gallery-thumbnail {
   display: block;
+  max-width: 100%;
+  max-height: 100px;
   border-radius: 10px;
-  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .images-gallery-title {
@@ -88,7 +94,7 @@
 
 .images-image {
   max-width: 100%;
-  max-height: 1500px;
+  max-height: 100%;
   display: block;
   margin: auto;
   border-radius: 5px;
@@ -97,8 +103,8 @@
 
 .images-thumbnail {
   display: block;
-  max-width: 200px;
-  max-height: auto;
+  max-width: 100%;
+  max-height: 100%;
   border-radius: 15px;
   padding: 10px;
   margin: auto;

@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 <div class ="container uniForm create-bg">
   <div class="container">
+    <h2 class="updates-title">New Update Submission Form</h2>
     <form  method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.as_p }}

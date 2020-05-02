@@ -1,18 +1,10 @@
 <div class="images-card float-left">
-  <div class="row">
-    <div class="col">
-      <a href="{% url 'images:image_detail' image.pk %}">
-        {% if image.thumbnail_file %}
-          <img src="{{ image.thumbnail_file.url }}" class="images-thumbnail" alt="{{ image.title }}">
-        {% else %}
-          <p class="images-card-title">Click here to see the image</p>
-        {% endif %}
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col images-card-title" >
-      <span class="">{{ image.title }}</span>
-    </div>
-  </div>
+  <span class="images-card-title">{{ image.title }}</span>
+  <a href="{% url 'images:image_detail' image.pk %}">
+    {% if image.thumbnail_file %}
+      <img src="{{ image.thumbnail_file.url }}" class="images-thumbnail" alt="{{ image.title }}">
+    {% else %}
+      <p class="images-card-title">Click here to see the image</p>
+    {% endif %}
+  </a>
 </div>

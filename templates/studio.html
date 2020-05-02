@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<div class="container studio-bg">
+  <div class="row">
+    <div class="col-sm-6">
+      {% include './studio_updates.html' %}
+    </div>
+    <div class="col-sm-6">
+      {% include './studio_galleries.html' %} 
+    </div>
+  </div>
+  {% include './studio_links.html' %}
+</div>
+{% endblock %}

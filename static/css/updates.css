@@ -78,6 +78,7 @@
 }
 
 .updates-list-caption {
+  font-family: 'Tajawal', sans-serif;
 }
 
 .updates-list-item {
@@ -89,7 +90,7 @@
   max-height: 100px;
   max-width: 100px;
   border-radius: 5px;
-  margin-left: 15px;
+  margin-right: 15px;
   margin-bottom: 10px;
 }
 

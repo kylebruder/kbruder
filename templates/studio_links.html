@@ -1,0 +1,13 @@
+<h3 class="studio-link-title">Your Links</h3>
+{% for l in links %}
+  <ul class="list-group">
+    <li class="list-group-item studio-link-li">
+    <a href="{{ l.url }}">
+      {{ l.title }}
+    </a>
+    <p class="studio-link">{{ l.url }}</p>
+  </li>
+{% endfor %}
+<p>
+  <a href="{% url 'links:link_list' %}">all links</a>
+</p>

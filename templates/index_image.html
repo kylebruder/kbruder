@@ -1,21 +1,14 @@
 <div class="container index-image-bg">
-  <div class="row">
-    <div class="col">
-      <h3 class="index-image-title">
-      <a href="{% url 'images:image_detail' pk=image.pk %}">
-        {{ image.title }}
-      </a>
-      </h3>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-">
-        <img src="{{ image.thumbnail_file.url }}" class="index-image" alt="{{ image.title }}">
-    </div>
-    <div class="col">
-      <p class="index-image-caption">
-        {{ image.caption }}
-      </p>
-    </div>
-  </div>
+  <h3 class="index-image-title">Featured Image</h3>
+  <h5 class="index-image-title">
+    <a href="{% url 'images:image_detail' image.pk %}">{{ image.title}}</a>
+  </h5>
+  <img src="{{ image.thumbnail_file.url }}" class="index-image float-left" alt="{{ image.title }}">
+  <p class="index-image-caption">{{ image.caption }}</p>
+  <p class="index-image-credit clear">{{ image.credit }}</p>
+  <p class="clear">
+    <a href="{% url 'images:image_list' %}">
+      more images
+    </a>
+  </p>
 </div>

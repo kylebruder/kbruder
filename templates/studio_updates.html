@@ -1,0 +1,28 @@
+<h3 class="studio-update-title">Your Updates</h3>
+<ul class="list-group list-group-flush">
+  {% for u in updates %}
+    <li class="list-group-item studio-gallery-li">
+      <h5 class="studio-update-title">
+        <a href="{% url 'updates:update_detail' u.slug %}">
+          {{ u.title }}
+          {% if not u.is_public %}
+            <span class="badge badge-secondary">Unpublished</span>
+          {% endif %}
+        </a>
+      </h5>
+      {% if u.featured_img %}
+        <img class="studio-update-thumbnail float-right" src="{{ u.featured_img.thumbnail_file.url }}">
+      {% endif %}
+      <p class="studio-update-status">
+        Created: {{ u.creation_date|date:"M d, Y" }}
+      </p>
+      <a href="{% url 'updates:update_update' u.slug %}">
+        <button type="button" class="btn btn-warning">Edit</button>
+      </a>
+      <div class="clear"></div>
+    </li>
+  {% endfor %}
+</ul>
+<p>
+  <a href="{% url 'updates:update_list' %}">all updates</a>
+</p>

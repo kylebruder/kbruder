@@ -1,0 +1,26 @@
+<div class="container index-update-bg">
+  <h3 class="index-image-title">
+    Recent Updates
+  </h3>
+  <ul class="list-group list-group-flush ml-3 mr-3 mt-1">
+    {% for u in updates %}
+      <li class="list-group-item p-0 border-0 index-update-li">
+        <div class="row">
+          <div class="col-">
+            {{ u.publication_date|date:"m/d/y" }}
+          </div>
+          <div class="col">
+            <a href="{% url 'updates:update_detail' u.slug %}">
+              {{ u.title }}
+            </a>
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+  <p>
+    <a href="{% url 'updates:update_list' %}">
+      more updates
+    </a>
+  </p>
+</div>

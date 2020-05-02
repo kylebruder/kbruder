@@ -1,17 +1,22 @@
 <div class="index-gallery-bg">
-  <div class="row">
-    <div class="col">
-      <a href="{% url 'images:gallery_detail' gallery.slug %}">
-        <h3 class="index-gallery-title">{{ gallery.title }}</h5>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-">
-      <img src="{{ gallery.images.first.thumbnail_file.url }}" class="index-gallery-thumbnail" alt="{{ gallery.images.first.title }}">
-    </div>
-    <div class="col">
-      <p class="">{{ gallery.caption }}</p>
-    </div>
-  </div>
+  <h3 class="index-image-title">Curated Galleries</h3>
+  <a href="{% url 'images:gallery_detail' gallery.slug %}">
+    <h5 class="index-gallery-title">{{ gallery.title }}</h5>
+  </a>
+  <img src="{{ gallery.cover_image.thumbnail_file.url }}" class="index-gallery-thumbnail float-left" alt="{{ gallery.images.first.title }}">
+  <p class="">{{ gallery.caption }}</p>
+  <ul class="list-group list-group-flush ml-3 mr-3 mt-1 clear">
+    {% for g in galleries %}
+      <li class="list-group-item p-0 border-0 index-gallery-li">
+        <a href="{% url 'images:gallery_detail' g.slug %}">
+          {{ g.title }}
+        </a>
+      </li>
+    {% endfor %}
+   </ul>
+  <p>
+    <a href="{% url 'images:gallery_list' %}">
+      more galleries
+    </a>
+  </p>
 </div>

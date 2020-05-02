@@ -31,10 +31,14 @@ class HomePageView(TemplateView):
         context = super().get_context_data(**kwargs)
         # use the last update on the homepage
         
-        context['latest_update'] = Update.objects.first()
+        context['update'] = Update.objects.first()
+        context['updates'] = Update.objects.all()[1:6]
         context['gallery'] = Gallery.objects.order_by('-weight', '-creation_date')[0]
+        context['galleries'] = Gallery.objects.order_by('-weight', '-creation_date')[1:6]
         context['link'] = Link.objects.order_by('-weight', '-creation_date')[0]
+        context['links'] = Link.objects.order_by('-weight', '-creation_date')[1:6]
         context['image'] = Image.objects.order_by('-weight', '-creation_date')[0]
+        context['images'] = Image.objects.order_by('-weight', '-creation_date')[1:6]
         return context
 
 class UpdatesCreateView(LoginRequiredMixin, CreateView):

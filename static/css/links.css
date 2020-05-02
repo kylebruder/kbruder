@@ -7,6 +7,7 @@
 
 .links-list-description {
   font-family: 'Tajawal', sans-serif;
+  margin: 5px;
 }
 
 .links-list-li {
@@ -29,7 +30,7 @@
   max-width: 100px;
   max-height: 100px;
   margin-bottom: 10px;
-  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .links-title {

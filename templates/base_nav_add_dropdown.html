@@ -1,0 +1,11 @@
+<div class="dropdown">
+  <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    New 
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="{% url 'images:image_create' %}">Image</a>
+    <a class="dropdown-item" href="{% url 'links:link_create' %}">Link</a>
+    <a class="dropdown-item" href="{% url 'images:gallery_create' %}">Gallery</a>
+    <a class="dropdown-item" href="{% url 'updates:update_create' %}">Update</a>
+  </div>
+</div>
