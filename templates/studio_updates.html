@@ -1,25 +1,32 @@
 <h4 class="studio-update-title">Your Updates</h4>
-<ul class="list-group list-group-flush">
-  {% for u in updates %}
-    <li class="list-group-item studio-gallery-li">
-      {% if u.featured_img %}
-        <img class="studio-update-thumbnail float-right" src="{{ u.featured_img.thumbnail_file.url }}">
-      {% endif %}
-      <h5 class="studio-update-title">
-        <a href="{% url 'updates:update_detail' u.slug %}">
-          {{ u.title }}
-        </a>
-      </h5>
-        {% if not u.is_public %}
-          <span class="badge badge-secondary">Unpublished</span>
+{% if updates %}
+  <ul class="list-group list-group-flush">
+    {% for u in updates %}
+      <li class="list-group-item studio-gallery-li">
+        {% if u.featured_img %}
+          <img class="studio-update-thumbnail float-right" src="{{ u.featured_img.thumbnail_file.url }}">
         {% endif %}
-      <p class="studio-update-status">
-        Created: {{ u.creation_date|date:"M d, Y" }}
-      </p>
-      <div class="clear"></div>
-    </li>
-  {% endfor %}
-</ul>
-<p>
-  <a href="{% url 'updates:update_list' %}">all updates</a>
-</p>
+        <h5 class="studio-update-title">
+          <a href="{% url 'updates:update_detail' u.slug %}">
+            {{ u.title }}
+          </a>
+        </h5>
+          {% if not u.is_public %}
+            <span class="badge badge-secondary">Unpublished</span>
+          {% endif %}
+        <p class="studio-update-status">
+          Created: {{ u.creation_date|date:"M d, Y" }}
+        </p>
+        <div class="clear"></div>
+      </li>
+    {% endfor %}
+    <p>
+      <a href="{% url 'updates:update_list' %}">all updates</a>
+    </p>
+  </ul>
+{% else %}
+  <p>You have not contributed any updates yet</p>
+  <a href="{% url 'updates:update_create' %}">
+    <button class="btn btn-success">New Update</button>
+  </a>
+{% endif %}
