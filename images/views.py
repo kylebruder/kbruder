@@ -36,6 +36,7 @@ class ImageListView(ListView):
 
     model = Image
     paginate_by = 12 
+    queryset = Image.objects.filter(is_public=True)
     ordering = ['-weight', '-creation_date']
 
     def get_context_data(self, **kwargs):
@@ -103,6 +104,7 @@ class GalleryListView(ListView):
 
     queryset = Gallery.objects.filter(is_public=True)
     paginate_by = 32
+    queryset = Gallery.objects.filter(is_public=True)
     ordering = ['-weight', '-creation_date']
 
     def get_context_data(self, **kwargs):

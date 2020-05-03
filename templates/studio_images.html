@@ -3,7 +3,7 @@
   {% for i in images %}
     <a href="{% url 'images:image_detail' i.pk %}">
       <div class="studio-images-card float-left" style="background-image:url('/media/{{ i.thumbnail_file }}')">
-        {% if not u.is_public %}
+        {% if not i.is_public %}
           <span class="badge badge-secondary">Unpublished</span>
         {% endif %}
       </div>

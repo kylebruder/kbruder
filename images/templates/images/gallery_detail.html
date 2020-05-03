@@ -6,14 +6,13 @@
   {% endifequal %}
   <h1 class="images-gallery-title">{{ object.title }}</h1>
   <p class="images-gallery-caption">{{ object.caption }}</p>
-  <div class="conatainer">
-    {% include "./gallery.html" %}
-  </div>
+  {% include "./gallery.html" %}
   {% if can_allocate %}
-      <a href="{% url 'images:promote_gallery' object.pk  %}">
-        <button type="button" class="btn btn-default">&#9829;</button>
-      </a>
+    <a href="{% url 'images:promote_gallery' object.pk  %}">
+      <button type="button" class="btn btn-default float-right">&#9829;</button>
+    </a>
+    <div class="clear"></div>
   {% endif %}
+  <br>
 </div>
-<br>
 {% endblock %}
