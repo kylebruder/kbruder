@@ -35,6 +35,15 @@
   margin: 10px;
 }
 
+.studio-images-card {
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-color: #222222;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .studio-image-title {
   font-family: 'Ibarra Real Nova', serif;
 }
@@ -66,7 +75,7 @@
 .studio-update-thumbnail {
   max-width: 100px;
   max-height: 100px;
-  margin: 10px;
+  margin: 5px;
 }
 
 .studio-update-title {

@@ -14,20 +14,17 @@ class StudioView(TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = User.objects.get(username=context['user'])
+        user = self.request.user
         context['galleries'] = Gallery.objects.filter(
-            user=user).order_by(
-                'is_public', 
-                '-creation_date',
-        )[:10]
-        #context['images'] = 
+            user=user
+        ).order_by('is_public', '-creation_date')[:5]
+        context['images'] = Image.objects.filter(
+            user=user
+        ).order_by('is_public', '-creation_date')[:24]
         context['links'] = Link.objects.filter(
-            user=user).order_by(
-                '-creation_date',
-        )[:10]
+            user=user
+        ).order_by( '-creation_date')[:5]
         context['updates'] = Update.objects.filter(
-            user=user).order_by(
-                'is_public',
-                '-creation_date',
-        )[:10]
+            user=user
+        ).order_by('is_public', '-creation_date')[:5]
         return context

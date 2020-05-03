@@ -27,7 +27,7 @@ urlpatterns = [
     path('updates/', include('updates.urls')),
     path('images/', include('images.urls')),
     path('links/', include('links.urls')),
-    path('studio/<slug:user>/', StudioView.as_view(), name='studio'),
+    path('studio/', StudioView.as_view(), name='studio'),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
