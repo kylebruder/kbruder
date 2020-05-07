@@ -18,11 +18,11 @@
 
 .updates-featured-image {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 750px;
   padding: 10px;
 }
 
-.updates-featured-image-caption {
+.updates-featured-image-credit {
   font-family: 'Tajawal', sans-serif;
   padding-left: 10px;
   padding-right: 10px;
@@ -56,7 +56,7 @@
   background-color: #111111;
   color: white;
   font-family: 'Zilla Slab Highlight', cursive;
-  /* text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black; */
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   text-align: center;
   background-size: cover;
   background-repeat: no-repeat;

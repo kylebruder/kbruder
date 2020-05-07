@@ -1,0 +1,6 @@
+<div class="container">
+  <a href="{% url 'images:image_detail' object.featured_img.pk %}">
+    <img class="updates-featured-image" src="/media/{{ object.featured_img.image_file }}" alt="{{ object.featured_img.caption }}">
+  </a>
+  <p class="updates-featured-image-credit"><i>{{ object.featured_img.credit }}</i></p>
+</div>

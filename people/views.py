@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import(
@@ -12,22 +11,20 @@ from django.utils import timezone
 from django.views.generic.edit import CreateView, FormView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-from tags.models import Tag
+from people.models import Artist
 
 # Create your views here.
 
-class TagCreateView(LoginRequiredMixin, CreateView):
+class ArtistCreateView(LoginRequiredMixin, CreateView):
 
-    model = Tag
-    fields = ['name']
+    model = Artist
+    fields = [
+        'name',
+        'home_town',
+        'image',
+        'links',
+    ]
     template_name_suffix = '_create_form'
-
-    def form_valid(self, form):
-        return super().form_valid(form)
-	
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
 
     def get_success_url(self):
         next_url = self.request.GET.get('next')
@@ -35,3 +32,4 @@ class TagCreateView(LoginRequiredMixin, CreateView):
             return next_url
         else:
             return reverse('studio')
+

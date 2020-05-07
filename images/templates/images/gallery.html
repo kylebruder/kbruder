@@ -1,18 +1,16 @@
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner images-gallery-carousel">
     <div class="carousel-item active">
-      <a href="{% url 'images:image_detail' object.images.first.pk %}">
-        <img class="images-gallery-image" src="{{ object.images.first.image_file.url }}" alt="object.images.first.title">
+      <a href="{% url 'images:image_detail' object.cover_image.pk %}">
+        <img class="images-gallery-image" src="{{ object.cover_image.image_file.url }}" alt="object.cover_image.title">
       </a>
     </div>
-    {% for image in object.images.all %}
-      {% ifnotequal image.pk object.images.first.pk %}
+    {% for p in object.pieces.all %}
         <div class="carousel-item">
-          <a href="{% url 'images:image_detail' image.pk %}">
-            <img class="images-gallery-image" src="{{ image.image_file.url }}" alt="images.title">
+          <a href="{% url 'images:image_detail' p.image.pk %}">
+            <img class="images-gallery-image" src="{{ p.image.image_file.url }}" alt="p.image.title">
           </a>
         </div>
-      {% endifnotequal %}
     {% endfor %}
   </div>
   <br>

@@ -20,18 +20,16 @@
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner updates-gallery-carousel">
             <div class="carousel-item active">
-              <a href="{% url 'images:image_detail' object.gallery.images.first.pk %}">
-                <img class="images-gallery-image" src="{{ object.gallery.images.first.image_file.url }}" alt="{{ object.gallery.images.first.title }}">
+              <a href="{% url 'images:image_detail' object.gallery.cover_image.pk %}">
+                <img class="images-gallery-image" src="{{ object.gallery.cover_image.image_file.url }}" alt="{{ object.gallery.cover_image.title }}">
               </a>
             </div>
-            {% for image in object.gallery.images.all %}
-              {% ifnotequal image.pk object.gallery.images.first.pk %}
-                <div class="carousel-item">
-                  <a href="{% url 'images:image_detail' image.pk %}">
-                    <img class="images-gallery-image" src="{{ image.image_file.url }}" alt="{{ images.title }}">
-                  </a>
-                </div>
-              {% endifnotequal %}
+            {% for p in object.gallery.pieces.all %}
+              <div class="carousel-item">
+                <a href="{% url 'images:image_detail' p.pk %}">
+                  <img class="images-gallery-image" src="{{ p.image_file.url }}" alt="{{ p.title }}">
+                </a>
+              </div>
             {% endfor %}
           </div>
           <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">

@@ -28,6 +28,8 @@ urlpatterns = [
     path('images/', include('images.urls')),
     path('links/', include('links.urls')),
     path('studio/', StudioView.as_view(), name='studio'),
+    path('tags/', include('tags.urls')),
+    path('people/', include('people.urls')),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

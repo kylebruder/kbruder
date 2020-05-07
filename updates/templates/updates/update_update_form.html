@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block body_block %}
-{% load crispy_forms_tags %}
-<div class ="container uniForm edit-bg">
+<div class ="container edit-bg">
   <div class="container">
+    <h2 class="updates-title">Update Modification Form</h2>
+    <br>
     <form  method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      {{ form.as_p }}
+      {% include 'form_fields.html' %}
       <input type="submit" value="Modify" class="btn btn-success">
     </form>
     <br>

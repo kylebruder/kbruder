@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block body_block %}
+  <div class ="container create-bg">
+    <div class="container">
+      <h2 class="images-title">New Artist Submission Form</h2>
+      <p>
+        The Artist object stores basic pertinent information about an individual artist.  Artists have an Image and may also have Links. If the Image or Links you would like to include have already been uploaded, select select them from the menus below. Otherwise, you can add them on the fly by pressing one of the buttons below.
+      </p>
+    </div>
+    {% include './artist_create_button_bar.html' %}
+    <br>
+    <br>
+    <div class="container">
+      <form  method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include 'form_fields.html' %}
+        <input type="submit" value="Submit" class="btn btn-success">
+      </form>
+      <br>
+    </div>
+  </div>
+{% endblock %}

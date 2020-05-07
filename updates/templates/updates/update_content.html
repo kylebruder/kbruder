@@ -11,32 +11,15 @@
 </div>
 <!-- STOP intro -->
 <!-- START main content -->
-<div class="row">
-  <div class="col">
-    {% if object.featured_img %}
-      <div class="row">
-        <div class="col">
-          <a href="{% url 'images:image_detail' object.featured_img.pk %}">
-            <img class="updates-featured-image" src="/media/{{ object.featured_img.image_file }}" alt="{{ object.featured_img.caption }}">
-          </a>
-          <p class="updates-featured-image-caption">{{ object.featured_img.caption }}</p>
-          <p class="updates-featured-image-caption"><i>{{ object.featured_img.credit }}</i>
-        </div>
-      </div>
-    {% endif %}
-    {% if object.content %}
-      <p class="updates-content">{{ object.content|linebreaksbr }}</p>
-    {% endif %}
-  </div>
-</div>
+{% if object.content %}
+  <p class="updates-content">{{ object.content|linebreaksbr }}</p>
+{% endif %}
+{% if object.featured_img %}
+  {% include './update_featured_img.html' %}
+{% endif %}
 <!-- STOP main content -->
 <!-- START conclusion -->
 {% if object.conclusion %}
-<div class="row">
-  <div class="col">
     <p class="updates-content">{{ object.conclusion|linebreaksbr }}</p>
-  </div>
-</div>
 {% endif %}
 <!-- STOP conclusion -->
-<br>

@@ -20,15 +20,13 @@
   </div>
   <!-- START marshmallow -->
   <div class="col-">
-    <div class="row">
-      <div class="col">
-        {% if can_allocate %}
-          <a href="{% url 'updates:promote' object.pk  %}">
-            <button type="button" class="btn btn-default float-right">&#9829;</button>
-          </a>
-        {% endif %}
+    {% if can_allocate %}
+      <div class="container">
+        <a href="{% url 'updates:promote' object.pk  %}">
+          <button type="button" class="btn btn-default float-right">&#9829;</button>
+        </a>
       </div>
-    </div>
+    {% endif %}
   </div>
   <!-- STOP marshmallow -->
 </div>

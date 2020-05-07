@@ -13,7 +13,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.core.files.images import ImageFile
 from accounts.models import Member
-from .models import Image, Gallery
+from .models import Image, Gallery, Piece
 
 # Create your views here.
 
@@ -31,6 +31,13 @@ class ImageCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if next_url:
+            return next_url
+        else:
+            return reverse('studio')
 
 class ImageListView(ListView):
 
@@ -81,20 +88,31 @@ class ImageDeleteView(LoginRequiredMixin, DeleteView):
 class GalleryCreateView(LoginRequiredMixin, CreateView):
 
     model = Gallery
-    fields = ['title', 'slug', 'cover_image', 'caption', 'images', 'tags', 'is_public']
+    fields = ['title', 'slug', 'cover_image', 'caption', 'pieces', 'tags', 'is_public']
     template_name_suffix = '_create_form'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-	
+
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if 'slug' in self.kwargs:
+            slug = self.kwargs['slug']
+        if next_url:
+            return next_url
+        elif 'slug' in self.kwargs:
+            slug = self.kwargs['slug']
+            return reverse('images:gallery_detail', kwargs={'slug': slug})
+        else:
+            return reverse('studio')	
+
     def get_success_url(self):
         # return the slug with the success url
         if 'slug' in self.kwargs:
             slug = self.kwargs['slug']
         else:
             return reverse('images:gallery_list')
-        return reverse('images:gallery_detail', kwargs={'slug': slug})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -154,6 +172,31 @@ class GalleryDeleteView(LoginRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+class PieceCreateView(LoginRequiredMixin, CreateView):
+
+    model = Piece
+    fields = [
+        'image',
+        'number',
+        'artists',
+        'medium',
+        'collection',
+        'price',
+        'currency',
+        'is_sold',
+        'contact_name',
+        'contact_email',
+        'contact_link',
+    ]
+    template_name_suffix = '_create_form'
+ 
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if next_url:
+            return next_url
+        else:
+            return reverse('studio')	
 
 def promote_image(request, pk):
     m = get_object_or_404(Member, pk=request.user.pk)

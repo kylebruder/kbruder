@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<div class ="container create-bg">
+  <div class="container">
+    <h2 class="images-title">New Tag</h2>
+  </div>
+  <br>
+  <div class="container">
+    <form  method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Add" class="btn btn-success">
+    </form>
+  </div>
+  <br>
+</div>
+{% endblock %}
