@@ -4,23 +4,14 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from images.models import Image, Gallery
 from links.models import Link
-from tags.models import Tag
-from marshmallows.models import Marshmallow
+from tags.models import MetaDataMixin
+from marshmallows.models import MarshmallowMixin
 
 # Create your models here.
 
-class Update(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class Update(MetaDataMixin, MarshmallowMixin):
     title = models.CharField(max_length=256, default="Untitled")
     slug = models.SlugField(max_length=40, unique=True)
-    creation_date = models.DateTimeField(default=timezone.now)
-    is_public = models.BooleanField(default=False)
-    publication_date = models.DateTimeField(
-        default=timezone.now,
-        blank=True,
-        null=True
-    )
-    weight = models.FloatField(default=0)
     location = models.CharField(
         max_length=256,
         default="an undisclosed location",
@@ -66,8 +57,7 @@ class Update(models.Model):
         null=True,
     )
     links = models.ManyToManyField(Link, blank=True)
-    tags = models.ManyToManyField(Tag, blank=True)
-    marshmallows = models.ManyToManyField(Marshmallow, blank=True)
+
     class Meta:
         ordering = ['-publication_date']
 

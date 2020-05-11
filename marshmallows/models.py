@@ -12,3 +12,11 @@ class Marshmallow(models.Model):
 
     def __str__(self):
         return '{} - {} - {}'.format(self.user, self.date, self.weight)	
+
+class MarshmallowMixin(models.Model):
+
+    class Meta:
+        abstract = True
+
+    marshmallows = models.ManyToManyField(Marshmallow, blank=True)
+    weight = models.FloatField(default=0)
