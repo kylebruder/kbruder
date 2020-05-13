@@ -1,0 +1,6 @@
+<div class="images-card float-left">
+  <span class="images-card-title">{{ piece.image.title }}</span>
+  <a href="{% url 'images:piece_detail' piece.slug %}">
+    <img src="{{ piece.image.thumbnail_file.url }}" class="images-thumbnail" alt="{{ piece.image.title }}">
+  </a>
+</div>

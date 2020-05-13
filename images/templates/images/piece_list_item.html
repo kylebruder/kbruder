@@ -1,0 +1,23 @@
+<li class="list-group-item updates-list-item">
+  <a href="{% url 'updates:update_detail' update.slug  %}" class="links-list-link">
+    <h4 class="updates-title">{{ update.title }}</h4>
+  </a>
+  <img src="{{ update.featured_img.thumbnail_file.url }}" class="updates-list-thumbnail float-left">
+  <p class="updates-list-caption">{{ update.headline }}</p>
+  <p class="updates-link clear">
+    <i>contributed by
+      {% if update.user.first_name and update.user.last_name %}
+        {{ update.user.first_name }} {{ update.user.last_name }}
+      {% else %}
+        {{ update.user }}
+      {% endif %}
+      {% if update.publication_date %}
+        on {{ update.publication_date|date:"M d, Y" }}
+      {% endif %}
+      {% if update.location %}
+        from {{ update.location }}
+      {% endif %}
+    </i>
+  </p>
+</li>
+

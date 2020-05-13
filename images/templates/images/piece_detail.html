@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block body_block %}
+<div class="container images-bg">
+  <br>
+  {% ifequal request.user object.user %}
+    <a href="{% url 'images:piece_update' object.slug %}">
+      <button type="button" class="btn btn-warning float-right">Edit</button>
+    </a>
+    <a href="{% url 'images:piece_delete' object.slug %}">
+      <button type="button" class="btn btn-danger float-right">Delete</button>
+    </a>
+    <br>
+  {% endifequal %}
+  <h3 class="images-title">{{ object.image.title }}</h3>
+  <img class="images-image" src="{{ object.image.image_file.url }}" alt="{{ object.image.title }}">
+  <div class="row">
+    <div class="col">
+      <p class="images-caption">{{ object.image.caption }}</p>
+      {% if object.is_sold %}
+        <p class="images-caption">This piece has been sold</p>
+      {% elif object.price and object.currency %}
+        <p class="images-caption">Price: {{ object.currency.symbol }}{{ object.price }}</p>
+        {% if object.contact_name %}
+          <p class="images-caption">Sold by: {{ object.contact_name }}</p>
+        {% endif %}
+        {% if object.contact_email %}
+          <p class="images-caption">Email: {{ object.contact_email }}</p>
+        {% endif %}
+        {% if object.contact_name %}
+          <p class="images-caption">Link: <a href="{{ object.contact_link }}">{{ object.contact_link }}</a></p>
+        {% endif %}
+      {% endif %}
+    </div>
+    <div class="col-">
+      {% if object.artists.count == 1 %}
+        <p class="images-caption">Artist: {{ object.artists.first }}</p>
+      {% elif object.artists.count >= 2 %}
+        <p class="images-caption">
+          Artists: {{ object.artists.first }}{% for artist in object.artists.all %}{% if artist != object.artists.first and artist != object.artists.last %}, {{ artist }}{% endif %}{% endfor %}
+          and {{ object.artists.last }}
+        </p>
+      {% else %}
+        Unknown Artist
+      {% endif %}
+      {% if object.medium %}
+        <p class="images-caption">
+          Medium: {{ object.medium }}
+        </p>
+      {% endif %}
+      {% if object.collection %}
+        <p class="images-caption">
+          Collection: {{ object.collection }}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+  {% if can_allocate %}
+    <a href="{% url 'images:promote_image' object.pk  %}">
+      <button type="button" class="btn btn-default float-right">&#9829;</button>
+    </a>
+    <div class="clear"></div>
+  {% endif %} 
+  <br>
+</div>
+<br>
+{% endblock %}

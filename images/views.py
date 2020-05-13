@@ -120,7 +120,6 @@ class GalleryCreateView(LoginRequiredMixin, CreateView):
 
 class GalleryListView(ListView):
 
-    queryset = Gallery.objects.filter(is_public=True)
     paginate_by = 32
     queryset = Gallery.objects.filter(is_public=True)
     ordering = ['-weight', '-creation_date']
@@ -132,7 +131,6 @@ class GalleryListView(ListView):
 class GalleryDetailView(DetailView):
 
     model = Gallery
-    paginate_by = 32
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -149,7 +147,7 @@ class GalleryDetailView(DetailView):
 class GalleryUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Gallery
-    fields = ['title', 'slug', 'cover_image', 'caption', 'images', 'tags', 'is_public']
+    fields = ['title', 'slug', 'cover_image', 'caption', 'pieces', 'tags', 'is_public']
     template_name_suffix = '_update_form'
 	
     def get_success_url(self):
@@ -158,7 +156,7 @@ class GalleryUpdateView(LoginRequiredMixin, UpdateView):
             slug = self.kwargs['slug']
         else:
             return reverse('images:gallery_list')
-        return reverse('images:gallery_detail', kwargs={'slug': slug})
+        return reverse('studio')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -167,7 +165,7 @@ class GalleryUpdateView(LoginRequiredMixin, UpdateView):
 class GalleryDeleteView(LoginRequiredMixin, DeleteView):
 
     model = Gallery
-    success_url = reverse_lazy('')
+    success_url = reverse_lazy('studio')
 	
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -177,6 +175,7 @@ class PieceCreateView(LoginRequiredMixin, CreateView):
 
     model = Piece
     fields = [
+        'slug',
         'image',
         'number',
         'artists',
@@ -198,10 +197,80 @@ class PieceCreateView(LoginRequiredMixin, CreateView):
         else:
             return reverse('studio')	
 
+class PieceListView(ListView):
+
+    paginate_by = 32
+    queryset = Piece.objects.filter(is_public=True)
+    ordering = ['-weight', '-creation_date']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+class PieceDetailView(DetailView):
+
+    model = Piece
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Tell the template whether or not to render the marshmallow
+        u = self.request.user
+        if u.is_authenticated:
+            # get the users Member function
+            m = get_object_or_404(Member, pk=u.pk)
+            context['can_allocate'] = m.check_can_allocate_weight
+        else:
+            context['can_allocate'] = False
+        return context
+
+class GalleryUpdateView(LoginRequiredMixin, UpdateView):
+
+    pass
+
+class PieceUpdateView(LoginRequiredMixin, UpdateView):
+
+    model = Piece
+    fields = [
+        'image',
+        'number',
+        'artists',
+        'medium',
+        'collection',
+        'price',
+        'currency',
+        'is_sold',
+        'contact_name',
+        'contact_email',
+        'contact_link',
+    ]
+    template_name_suffix = '_update_form'
+	
+    def get_success_url(self):
+        # return the slug with the success url
+        if 'slug' in self.kwargs:
+            slug = self.kwargs['slug']
+        else:
+            return reverse('images:pieces_list')
+        return reverse('studio')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+		
+class PieceDeleteView(LoginRequiredMixin, DeleteView):
+
+    model = Piece
+    success_url = reverse_lazy('studio')
+	
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
 def promote_image(request, pk):
     m = get_object_or_404(Member, pk=request.user.pk)
     o = get_object_or_404(Image, pk=pk)
-    successful, link, weight  = m.allocate_weight(o)
+    successful, link, weight = m.allocate_weight(o)
     if successful:
         messages.add_message(
             request, messages.INFO,

@@ -23,8 +23,15 @@ class ArtistCreateView(LoginRequiredMixin, CreateView):
         'home_town',
         'image',
         'links',
+        'statement',
+        'media',
+        'is_public',
     ]
     template_name_suffix = '_create_form'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
     def get_success_url(self):
         next_url = self.request.GET.get('next')
