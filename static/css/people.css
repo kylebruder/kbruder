@@ -1,0 +1,65 @@
+.people-artist-bg {
+  background-color: #222222;
+  color: #eeeeee;
+  border-radius: 0px 0px 25px 25px;
+  margin-bottom: 40px;
+}
+
+.people-artist-caption {
+ font-family: 'Tajawal', sans-serif;
+ max-width: 500px;
+}
+
+.people-artist-image {
+  max-width: 500px;
+  max-height: 500px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.people-artist-list-item {
+  background-color: #222222;
+  color: #eeeeee;
+  max-width: 500px;
+  border-bottom: solid 2px #111111;
+}
+
+.people-artist-meta {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.people-artist-piece-card {
+  display: block;
+  width: 275px;
+  height: 275px;
+  background-color: #222222;
+  padding: 10px;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.people-artist-piece-image {
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
+  margin: auto;
+}
+
+.people-artist-piece-image-title {
+  font-family: 'Ibarra Real Nova', serif;
+  display: table;
+  margin: 0 auto;
+}
+
+.people-artist-thumbnail {
+  max-height: 100px;
+  max-width: 100px;
+  border-radius: 5px;
+  margin-right: 15px;
+  margin-bottom: 10px; 
+}
+
+.people-artist-title {
+  font-family: 'Ibarra Real Nova', serif;
+}
+

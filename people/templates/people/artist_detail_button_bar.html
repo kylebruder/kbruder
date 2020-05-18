@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col">
+    <a href="{% url 'people:artist_delete' object.slug %}">
+      <button type="button" class="btn btn-danger float-right">Delete</button>
+    </a>
+    <a href="{% url 'people:artist_update' object.slug %}">
+      <button type="button" class="btn btn-warning float-right">Edit</button>
+    </a>
+  </div>
+</div>

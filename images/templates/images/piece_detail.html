@@ -2,33 +2,28 @@
 {% block body_block %}
 <div class="container images-bg">
   <br>
-  {% ifequal request.user object.user %}
-    <a href="{% url 'images:piece_update' object.slug %}">
-      <button type="button" class="btn btn-warning float-right">Edit</button>
-    </a>
-    <a href="{% url 'images:piece_delete' object.slug %}">
-      <button type="button" class="btn btn-danger float-right">Delete</button>
-    </a>
-    <br>
-  {% endifequal %}
-  <h3 class="images-title">{{ object.image.title }}</h3>
   <img class="images-image" src="{{ object.image.image_file.url }}" alt="{{ object.image.title }}">
   <div class="row">
     <div class="col">
-      <p class="images-caption">{{ object.image.caption }}</p>
+      <h3 class="images-title">{{ object.image.title }}</h3>
+      {% if object.description %}
+        <p class="images-piece-description">{{ object.description }}</p>
+        <br>
+      {% endif %}
       {% if object.is_sold %}
         <p class="images-caption">This piece has been sold</p>
       {% elif object.price and object.currency %}
-        <p class="images-caption">Price: {{ object.currency.symbol }}{{ object.price }}</p>
+        <p class="images-caption">Price: {{ object.currency.symbol }} {{ object.price }}</p>
         {% if object.contact_name %}
-          <p class="images-caption">Sold by: {{ object.contact_name }}</p>
+          <p class="images-caption">Offered by: {{ object.contact_name }}</p>
         {% endif %}
         {% if object.contact_email %}
-          <p class="images-caption">Email: {{ object.contact_email }}</p>
+          <p class="images-caption"><a href="mailto:{{object.contact_email}}">{{ object.contact_email }}</a></p>
         {% endif %}
         {% if object.contact_name %}
-          <p class="images-caption">Link: <a href="{{ object.contact_link }}">{{ object.contact_link }}</a></p>
+          <p class="images-caption"><a href="{{ object.contact_link }}">{{ object.contact_link }}</a></p>
         {% endif %}
+        <br>
       {% endif %}
     </div>
     <div class="col-">
@@ -54,8 +49,16 @@
       {% endif %}
     </div>
   </div>
+  {% ifequal request.user object.user %}
+    <a href="{% url 'images:piece_update' object.slug %}">
+      <button type="button" class="btn btn-warning">Edit</button>
+    </a>
+    <a href="{% url 'images:piece_delete' object.slug %}">
+      <button type="button" class="btn btn-danger">Delete</button>
+    </a> 
+  {% endifequal %}
   {% if can_allocate %}
-    <a href="{% url 'images:promote_image' object.pk  %}">
+    <a href="{% url 'images:promote_piece' object.pk  %}">
       <button type="button" class="btn btn-default float-right">&#9829;</button>
     </a>
     <div class="clear"></div>

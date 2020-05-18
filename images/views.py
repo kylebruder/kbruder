@@ -177,6 +177,7 @@ class PieceCreateView(LoginRequiredMixin, CreateView):
     fields = [
         'slug',
         'image',
+        'description',
         'number',
         'artists',
         'medium',
@@ -190,6 +191,10 @@ class PieceCreateView(LoginRequiredMixin, CreateView):
     ]
     template_name_suffix = '_create_form'
  
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
     def get_success_url(self):
         next_url = self.request.GET.get('next')
         if next_url:
@@ -223,15 +228,12 @@ class PieceDetailView(DetailView):
             context['can_allocate'] = False
         return context
 
-class GalleryUpdateView(LoginRequiredMixin, UpdateView):
-
-    pass
-
 class PieceUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Piece
     fields = [
         'image',
+        'description',
         'number',
         'artists',
         'medium',
@@ -267,9 +269,9 @@ class PieceDeleteView(LoginRequiredMixin, DeleteView):
         return context
 
 
-def promote_image(request, pk):
+def promote_piece(request, pk):
     m = get_object_or_404(Member, pk=request.user.pk)
-    o = get_object_or_404(Image, pk=pk)
+    o = get_object_or_404(Piece, pk=pk)
     successful, link, weight = m.allocate_weight(o)
     if successful:
         messages.add_message(
@@ -285,7 +287,7 @@ def promote_image(request, pk):
             messages.ERROR,
             'You failed to give a marshmallow to {}'.format(link)
         )
-    return HttpResponseRedirect(reverse('images:image_list'))
+    return HttpResponseRedirect(reverse('images:piece_list'))
 
 def promote_gallery(request, pk):
     m = get_object_or_404(Member, pk=request.user.pk)

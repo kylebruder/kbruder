@@ -3,8 +3,8 @@ from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
 from .views import (ImageCreateView, ImageListView, ImageDetailView,
     ImageUpdateView, ImageDeleteView, GalleryCreateView, GalleryListView,
     GalleryDetailView, GalleryUpdateView, GalleryDeleteView, PieceCreateView,
-    PieceListView, PieceDetailView, PieceUpdateView, PieceDeleteView, promote_image,
-    promote_gallery)
+    PieceListView, PieceDetailView, PieceUpdateView, PieceDeleteView,
+    promote_gallery, promote_piece)
 
 app_name = "images"
 
@@ -28,16 +28,6 @@ urlpatterns = [
         'modify/<int:pk>/',
         ImageUpdateView.as_view(),
         name='image_update'
-    ),
-    #path(
-    #    'delete/<int:pk>/',
-    #    ImageDeleteView.as_view(),
-    #    name='image_delete'
-    #),
-    path(
-        'promote/<int:pk>/',
-        promote_image,
-        name='promote_image'
     ),
     path(
         'gallery/create/',
@@ -70,28 +60,33 @@ urlpatterns = [
         name='promote_gallery'
     ),
     path(
-        'pieces/create/',
+        'artworks/add/',
         PieceCreateView.as_view(),
         name='piece_create'
     ),
     path(
-        'pieces/modify/<slug:slug>/',
+        'artworks/modify/<slug:slug>/',
         PieceUpdateView.as_view(),
         name='piece_update'
     ),
     path(
-        'pieces/',
+        'artworks/',
         PieceListView.as_view(),
         name='piece_list'
     ),
     path(
-        'pieces/<slug:slug>/',
+        'artworks/<slug:slug>/',
         PieceDetailView.as_view(),
         name='piece_detail'
     ),
     path(
-        'pieces/delete/<slug:slug>/',
+        'artworks/delete/<slug:slug>/',
         PieceDeleteView.as_view(),
         name='piece_delete'
+    ),
+    path(
+        'artworks/promote/<int:pk>/',
+        promote_piece,
+        name='promote_piece'
     ),
 ]

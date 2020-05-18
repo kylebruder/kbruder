@@ -40,3 +40,57 @@ class ArtistCreateView(LoginRequiredMixin, CreateView):
         else:
             return reverse('studio')
 
+class ArtistListView(ListView):
+
+    queryset = Artist.objects.filter(is_public=True)
+    paginate_by = 16
+    ordering = ['-weight', '-creation_date',]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+class ArtistDetailView(DetailView):
+
+    model = Artist
+
+    def get_context_data(self, **kwargs):
+        artist = Artist.objects.get(slug=self.object.slug)
+        context = super().get_context_data(**kwargs)
+        context['pieces'] = artist.piece_set.all()
+        return context
+
+class ArtistUpdateView(LoginRequiredMixin, UpdateView):
+
+    model = Artist
+    fields = [
+        'name',
+        'home_town',
+        'image',
+        'links',
+        'statement',
+        'media',
+        'is_public',
+    ]
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if next_url:
+            return next_url
+        else:
+            if 'slug' in self.kwargs:
+                slug = self.kwargs['slug']
+            else:
+                return reverse('people:artist_list')
+            return reverse('people:artist_detail', kwargs={'slug': slug})
+
+class ArtistDeleteView(LoginRequiredMixin, DeleteView):
+
+    model = Artist
+    success_url = reverse_lazy('people:artist_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+

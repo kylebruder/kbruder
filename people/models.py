@@ -11,6 +11,7 @@ from tags.models import MetaDataMixin
 # Base Model
 class Person(MetaDataMixin, MarshmallowMixin):
 
+    slug = models.SlugField(max_length=40, unique=True)
     name = models.CharField(max_length=24, unique=True,)
     home_town = models.CharField(max_length=24, blank=True, null=True,)
     image = models.ForeignKey('images.image', on_delete=models.CASCADE,)

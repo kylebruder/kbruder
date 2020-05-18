@@ -1,0 +1,6 @@
+<div class="people-artist-piece-card float-left">
+  <p class="people-artist-piece-image-title">{{ piece.image.title }}</p>
+  <a href="{% url 'images:piece_detail' piece.slug %}">
+    <img src="{{ piece.image.thumbnail_file.url }}" class="people-artist-piece-image" alt="{{ piece.image.title }}">
+  </a>
+</div>

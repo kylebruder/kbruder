@@ -1,0 +1,7 @@
+<li class="list-group-item people-artist-list-item">
+  <a href="{% url 'people:artist_detail' artist.slug %}" class="">
+    <h4 class="people-artist-title">{{ artist.name }}</h4>
+  </a>
+  <img src="{{ artist.image.thumbnail_file.url }}" class="people-artist-thumbnail float-left" alt="{{ artist.image.caption }}">
+  <p class="people-artist-caption">"{{ artist.statement }}"</p>
+</li>

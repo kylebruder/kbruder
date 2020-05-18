@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<div class="container links-bg">
+  {% include "./artist_list_button_bar.html" %}
+  {% if object_list %}
+    {% include "page_control.html" %}
+    <ul class="list-group">
+      {% for artist in object_list %}
+        {% include "./artist_list_item.html" %}
+      {% endfor %}
+    </ul>
+    {% include "page_control.html" %}
+  {% else %}
+    <p>No one has admitted to being an "artist" yet. Check back soon.</p>
+  {% endif %}
+</div>
+{% endblock %}
