@@ -33,6 +33,7 @@ class Piece(MetaDataMixin, MarshmallowMixin):
 
     slug = models.SlugField(max_length=40, unique=True, null=True)
     image = models.ForeignKey('images.image', on_delete=models.CASCADE, related_name='piece',)
+    detail_images = models.ManyToManyField(Image, blank=True, related_name='piece_detail_images')
     description = models.TextField(max_length=256, blank=True, null=True)
     number = models.PositiveIntegerField(default=1)
     artists = models.ManyToManyField(Artist, blank=True,)

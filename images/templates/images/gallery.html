@@ -1,13 +1,11 @@
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner images-gallery-carousel">
     <div class="carousel-item active">
-      <a href="{% url 'images:image_detail' object.cover_image.pk %}">
         <img class="images-gallery-image" src="{{ object.cover_image.image_file.url }}" alt="object.cover_image.title">
-      </a>
     </div>
     {% for p in object.pieces.all %}
         <div class="carousel-item">
-          <a href="{% url 'images:image_detail' p.image.pk %}">
+          <a href="{% url 'images:piece_detail' p.slug %}">
             <img class="images-gallery-image" src="{{ p.image.image_file.url }}" alt="p.image.title">
           </a>
         </div>

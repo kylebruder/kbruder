@@ -1,5 +1,4 @@
 {% if object.gallery %}
-  <!-- ROW 1 -->
   <div class="row">
     <div class="col">
       <a href="{% url 'images:gallery_detail' object.gallery.slug %}">
@@ -7,42 +6,39 @@
       </a>
     </div>
   </div>
-  <!-- ROW 2 -->
   <div class="row">
-    <div class="col">
-      <p class="updates-gallery-caption">{{ object.gallery.caption }}</p>
+    <div class="col-sm-6">
+      <div class="container">
+        <a href="{% url 'images:gallery_detail' object.gallery.slug %}">
+          <img class="images-gallery-image" src="{{ object.gallery.cover_image.image_file.url }}" alt="{{ object.gallery.cover_image.title }}">
+        </a>
+      </div>
     </div>
-  </div>
-  <!-- ROW 3 -->
-  <div class="row">
-    <div class="col">
+    <div class="col-sm-3">
+      <p class="updates-gallery-captioni float-left">{{ object.gallery.caption }}</p>
+    </div>
+    <div class="col-sm-3">
       <div class="container">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner updates-gallery-carousel">
+          <div class="carousel-inner updates-gallery-carousel-inner">
             <div class="carousel-item active">
-              <a href="{% url 'images:image_detail' object.gallery.cover_image.pk %}">
-                <img class="images-gallery-image" src="{{ object.gallery.cover_image.image_file.url }}" alt="{{ object.gallery.cover_image.title }}">
+              <a href="{% url 'images:gallery_detail' object.gallery.slug %}">
+                <img class="images-gallery-image" src="{{ object.gallery.pieces.first.image.thumbnail_file.url }}" alt="{{ object.gallery.cover_image.title }}">
               </a>
             </div>
-            {% for p in object.gallery.pieces.all %}
+          </div>
+          {% for p in object.gallery.pieces.all %}
+            {% if p != object.gallery.pieces.first %}
               <div class="carousel-item">
-                <a href="{% url 'images:image_detail' p.pk %}">
-                  <img class="images-gallery-image" src="{{ p.image_file.url }}" alt="{{ p.title }}">
+                <a href="{% url 'images:gallery_detail' object.gallery.slug %}">
+                  <img class="images-gallery-image" src="{{ p.image.thumbnail_file.url }}" alt="{{ p.image.title }}">
                 </a>
               </div>
-            {% endfor %}
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
+            {% endif %}
+          {% endfor %}
         </div>
       </div>
     </div>
   </div>
+  <br>
 {% endif %}
-<br>

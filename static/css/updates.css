@@ -33,13 +33,21 @@
   padding-bottom: 20px;
 }
 
-.updates-gallery-carousel {
-  width: 100%;
-  height: 600px;
+.updates-gallery-carousel-inner {
+  width: auto;
+  height: 200px;
 }
 
 .updates-gallery-title {
   font-family: 'Ibarra Real Nova', serif;
+}
+
+.updates-gallery-image {
+  max-width: 100%;
+  max-height: auto;
+  display: block;
+  margin: auto;
+  border-radius: 5px;
 }
 
 .updates-headline-list {

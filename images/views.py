@@ -156,7 +156,7 @@ class GalleryUpdateView(LoginRequiredMixin, UpdateView):
             slug = self.kwargs['slug']
         else:
             return reverse('images:gallery_list')
-        return reverse('studio')
+        return reverse('images:gallery_detail', kwargs={'slug': slug})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -177,6 +177,7 @@ class PieceCreateView(LoginRequiredMixin, CreateView):
     fields = [
         'slug',
         'image',
+        'detail_images',
         'description',
         'number',
         'artists',
@@ -233,6 +234,7 @@ class PieceUpdateView(LoginRequiredMixin, UpdateView):
     model = Piece
     fields = [
         'image',
+        'detail_images',
         'description',
         'number',
         'artists',
