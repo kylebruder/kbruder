@@ -20,6 +20,7 @@ class ArtistCreateView(LoginRequiredMixin, CreateView):
     model = Artist
     fields = [
         'name',
+        'slug',
         'home_town',
         'image',
         'links',
@@ -38,7 +39,12 @@ class ArtistCreateView(LoginRequiredMixin, CreateView):
         if next_url:
             return next_url
         else:
-            return reverse('studio')
+            if 'slug' in self.kwargs:
+                slug = self.kwargs['slug']
+            else:
+                return reverse('people:artist_list')
+            return reverse_lazy('people:artist_detail', kwargs={'slug': slug})
+
 
 class ArtistListView(ListView):
 
@@ -83,7 +89,7 @@ class ArtistUpdateView(LoginRequiredMixin, UpdateView):
                 slug = self.kwargs['slug']
             else:
                 return reverse('people:artist_list')
-            return reverse('people:artist_detail', kwargs={'slug': slug})
+            return reverse_lazy('people:artist_detail', kwargs={'slug': slug})
 
 class ArtistDeleteView(LoginRequiredMixin, DeleteView):
 

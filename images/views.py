@@ -183,6 +183,7 @@ class PieceCreateView(LoginRequiredMixin, CreateView):
         'artists',
         'medium',
         'collection',
+        'is_public',
         'price',
         'currency',
         'is_sold',
@@ -243,6 +244,7 @@ class PieceUpdateView(LoginRequiredMixin, UpdateView):
         'price',
         'currency',
         'is_sold',
+        'is_public',
         'contact_name',
         'contact_email',
         'contact_link',
@@ -255,7 +257,7 @@ class PieceUpdateView(LoginRequiredMixin, UpdateView):
             slug = self.kwargs['slug']
         else:
             return reverse('images:pieces_list')
-        return reverse('studio')
+        return reverse('images:piece_list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
