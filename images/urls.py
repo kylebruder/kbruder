@@ -80,7 +80,7 @@ urlpatterns = [
         name='piece_detail'
     ),
     path(
-        'artworks/delete/<slug:slug>/',
+        'artworks/delete/<int:pk>/',
         PieceDeleteView.as_view(),
         name='piece_delete'
     ),

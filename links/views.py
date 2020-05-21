@@ -10,6 +10,7 @@ from django.utils import timezone
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView, UpdateView, DeleteView
 from django.views.generic.list import ListView
+from accounts.mixins import UserObjectProtectionMixin
 from accounts.models import Member
 from .models import Link
 
@@ -59,7 +60,7 @@ class LinkDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         return context
 
-class LinkUpdateView(LoginRequiredMixin, UpdateView):
+class LinkUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView):
 
     model = Link
     fields = ['title','description', 'url']
@@ -69,10 +70,12 @@ class LinkUpdateView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         return context
 
-class LinkDeleteView(LoginRequiredMixin, DeleteView):
+class LinkDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView):
 
     model = Link
-    success_url = reverse_lazy('links:link_list')
+
+    def get_success_url(self):
+        return reverse_lazy('links:link_list')
  
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

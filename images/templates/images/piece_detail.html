@@ -53,7 +53,7 @@
     <a href="{% url 'images:piece_update' object.slug %}">
       <button type="button" class="btn btn-warning">Edit</button>
     </a>
-    <a href="{% url 'images:piece_delete' object.slug %}">
+    <a href="{% url 'images:piece_delete' object.pk %}">
       <button type="button" class="btn btn-danger">Delete</button>
     </a> 
   {% endifequal %}

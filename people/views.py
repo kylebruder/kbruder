@@ -11,6 +11,7 @@ from django.utils import timezone
 from django.views.generic.edit import CreateView, FormView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from accounts.mixins import UserObjectProtectionMixin
 from people.models import Artist
 
 # Create your views here.
@@ -66,7 +67,7 @@ class ArtistDetailView(DetailView):
         context['pieces'] = artist.piece_set.all()
         return context
 
-class ArtistUpdateView(LoginRequiredMixin, UpdateView):
+class ArtistUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView):
 
     model = Artist
     fields = [
@@ -91,12 +92,13 @@ class ArtistUpdateView(LoginRequiredMixin, UpdateView):
                 return reverse('people:artist_list')
             return reverse_lazy('people:artist_detail', kwargs={'slug': slug})
 
-class ArtistDeleteView(LoginRequiredMixin, DeleteView):
+class ArtistDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView):
 
     model = Artist
-    success_url = reverse_lazy('people:artist_list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
+    def get_success_url(self):
+        return reverse_lazy('people:artist_list')

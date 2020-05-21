@@ -19,6 +19,7 @@ from django.core.files.images import ImageFile
 from django.urls import reverse
 from django.utils import timezone
 from accounts.models import Member
+from accounts.mixins import UserObjectProtectionMixin
 from images.models import Image, Gallery
 from links.models import Link
 from .models import Update
@@ -105,7 +106,7 @@ class UpdatesDetailView(DetailView):
             context['can_allocate'] = False
         return context
 
-class UpdatesUpdateView(LoginRequiredMixin, UpdateView):
+class UpdatesUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView):
 
     model = Update
     fields = [
@@ -142,10 +143,10 @@ class UpdatesUpdateView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         return context
 
-class UpdatesDeleteView(DeleteView):
+class UpdatesDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView):
 
     model = Update
-
+       
     def get_success_url(self):
       return reverse('updates:update_list')
 

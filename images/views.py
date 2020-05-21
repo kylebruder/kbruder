@@ -12,6 +12,7 @@ from django.views.generic.edit import CreateView, FormView, UpdateView, DeleteVi
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.core.files.images import ImageFile
+from accounts.mixins import UserObjectProtectionMixin
 from accounts.models import Member
 from .models import Image, Gallery, Piece
 
@@ -144,7 +145,7 @@ class GalleryDetailView(DetailView):
             context['can_allocate'] = False
         return context
 
-class GalleryUpdateView(LoginRequiredMixin, UpdateView):
+class GalleryUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView):
 
     model = Gallery
     fields = ['title', 'slug', 'cover_image', 'caption', 'pieces', 'tags', 'is_public']
@@ -162,11 +163,13 @@ class GalleryUpdateView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         return context
 		
-class GalleryDeleteView(LoginRequiredMixin, DeleteView):
+class GalleryDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView):
 
     model = Gallery
-    success_url = reverse_lazy('studio')
 	
+    def get_success_url(self):
+        return reverse_lazy('images:gallery_list')
+      
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
@@ -230,7 +233,7 @@ class PieceDetailView(DetailView):
             context['can_allocate'] = False
         return context
 
-class PieceUpdateView(LoginRequiredMixin, UpdateView):
+class PieceUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView):
 
     model = Piece
     fields = [
@@ -263,11 +266,13 @@ class PieceUpdateView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         return context
 		
-class PieceDeleteView(LoginRequiredMixin, DeleteView):
+class PieceDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView):
 
     model = Piece
-    success_url = reverse_lazy('studio')
 	
+    def get_success_url(self):
+        return reverse_lazy('studio')
+        
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
