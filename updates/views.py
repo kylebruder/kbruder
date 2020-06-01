@@ -98,13 +98,10 @@ class UpdatesCreateView(LoginRequiredMixin, CreateView):
     ]
     template_name_suffix = '_create_form'
     
-    def get_success_url(self):
+    def get_success_url(self, **kwargs):
         # return the slug with the success url
-        if 'slug' in self.kwargs:
-            slug = self.kwargs['slug']
-        else:
-            return reverse('updates:update_list')
-        return reverse('updates:update_detail', kwargs={'slug': slug})
+        if kwargs != None:
+          return reverse_lazy('updates:update_detail', kwargs={'slug': self.object.slug})
 
     def form_valid(self, form):
         form.instance.creation_date = timezone.now()
@@ -132,7 +129,12 @@ class UpdatesUserListView(ListView):
     ordering = ['-publication_date']
 
     def get_queryset(self):
-        return Update.objects.filter(user=self.request.user)
+        return Update.objects.filter(
+            user=self.request.user,
+        ).order_by(
+            'is_public',
+            '-publication_date',
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -178,12 +180,13 @@ class UpdatesUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateVie
     template_name_suffix = '_update_form'
     
     def get_success_url(self):
-        # return the slug with the success url
-        if 'slug' in self.kwargs:
-            slug = self.kwargs['slug']
+        next_url = self.request.GET.get('next')
+        if next_url:
+            return next_url
         else:
-            return reverse('updates:update_list')
-        return reverse('updates:update_detail', kwargs={'slug': slug})
+            return reverse_lazy('updates:update_detail', 
+                kwargs={'slug': self.object.slug}
+            )
 
     #def form_valid(self, form):
     #    return super().form_valid(form)
@@ -197,7 +200,9 @@ class UpdatesDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteVie
     model = Update
        
     def get_success_url(self):
-      return reverse('updates:update_list')
+        return reverse('updates:update_user_list',
+            kwargs={'user': self.request.user}
+        )
 
 # promote view for marshmallow weight allocation
 def promote_update(request, pk):

@@ -1,13 +1,30 @@
-<li class="list-group-item people-artist-list-item">
-  <div class="row">
-    <div class="col-sm-3">
-      <img src="{{ artist.image.thumbnail_file.url }}" class="people-artist-thumbnail" alt="{{ artist.image.caption }}">
+{% if artist.is_public or artist.user == request.user %}
+  <li class="list-group-item people-artist-list-item">
+    <div class="row">
+      <div class="col-sm-3">
+        <img src="{{ artist.image.thumbnail_file.url }}" class="people-artist-thumbnail" alt="{{ artist.image.caption }}">
+      </div>
+      <div class="col-lg">
+        <a href="{% url 'people:artist_detail' artist.slug %}" class="">
+          <h3 class="people-artist-caption">{{ artist.name }}</h3>
+        </a>
+        {% if not artist.is_public %}
+          <span class="badge badge-secondary">Unpublished</span>
+        {% endif %}
+        {% if artist.statement %}
+          <p class="people-artist-caption">"{{ artist.statement }}"</p>
+        {% endif %}
+        {% if user_only and artist.user == request.user %}
+          <a href="{% url 'people:artist_update' artist.slug %}?next={{ request.path }}">
+            <button class="btn-sm btn-warning">Edit</button>
+          </a>
+          {% if not artist.is_public %}
+            <a href="{% url 'people:artist_delete' artist.pk %}?next={{ request.path }}">
+              <button class="btn-sm btn-danger">Delete</button>
+            </a>
+          {% endif %}
+        {% endif %}
+      </div>
     </div>
-    <div class="col-sm">
-      <a href="{% url 'people:artist_detail' artist.slug %}" class="">
-        <h3 class="people-artist-caption">{{ artist.name }}</h3>
-      </a>
-      <p class="people-artist-caption">"{{ artist.statement }}"</p>
-    </div>
-  </div>
-</li>
+  </li>
+{% endif %}

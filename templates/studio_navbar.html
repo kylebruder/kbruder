@@ -1,0 +1,29 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+  <a class="nav-item navbar-brand" href="/">kbruder.info</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- NAVBAR -->
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'updates:update_user_list' user %}">Your Updates</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'images:gallery_user_list' user %}">Your Galleries</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'people:artist_user_list' user %}">Your Artists</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'images:piece_user_list' user %}">Your Artwork</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'links:link_user_list' user %}">Your Links</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'images:image_user_list' user %}">Your Images</a>
+        </li>
+    </ul>
+  </div>
+</nav>

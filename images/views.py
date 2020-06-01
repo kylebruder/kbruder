@@ -43,7 +43,7 @@ class ImageCreateView(LoginRequiredMixin, CreateView):
 class ImageListView(ListView):
 
     model = Image
-    paginate_by = 12 
+    paginate_by = 30
     queryset = Image.objects.filter(is_public=True)
     ordering = ['-weight', '-creation_date']
 
@@ -54,7 +54,7 @@ class ImageListView(ListView):
 class ImageUserListView(ListView):
 
     model = Image
-    paginate_by = 12 
+    paginate_by = 30 
     ordering = ['is_public', '-creation_date']
 
     def get_queryset(self, *args, **kwargs):
@@ -149,6 +149,11 @@ class GalleryUserListView(LoginRequiredMixin, ListView):
     paginate_by = 16
     ordering = ['-weight', '-creation_date']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_only'] = True
+        return context
+
     def get_queryset(self):
         return Gallery.objects.filter(user=self.request.user)
 
@@ -236,7 +241,7 @@ class PieceCreateView(LoginRequiredMixin, CreateView):
 
 class PieceListView(ListView):
 
-    paginate_by = 32
+    paginate_by = 30
     queryset = Piece.objects.filter(is_public=True)
     ordering = ['-weight', '-creation_date']
 
@@ -246,7 +251,12 @@ class PieceListView(ListView):
 
 class PieceUserListView(LoginRequiredMixin, ListView):
 
-    paginate_by = 32
+    paginate_by = 30
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_only'] = True
+        return context
 
     def get_queryset(self):
         return Piece.objects.filter(

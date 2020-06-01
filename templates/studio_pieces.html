@@ -1,10 +1,13 @@
 <h4 class="studio-gallery-title">Your Artworks</h4>
+<a href="{% url 'images:piece_create' %}?next={{ request.path }}">
+  <button class="btn-sm btn-primary">New</button>
+</a>
 {% if pieces %}
   {% for p in pieces %}
     <ul class="list-group">
       <li class="list-group-item studio-gallery-li">
         <img class="studio-gallery-thumbnail float-right" src="{{ p.image.thumbnail_file.url }}" alt="{{ p.image.caption }}">
-        <h5 class="studio-gallery-title">
+        <h5 class="">
           <a href="{% url 'images:piece_detail' p.slug %}">
             {{ p.image.title }}
           </a>
@@ -15,6 +18,14 @@
         <p class="studio-gallery-status">
           Created: {{ p.creation_date|date:"M d, Y" }}
         </p>
+        <a href="{% url 'images:piece_update' p.slug %}?next={{ request.path }}">
+          <button class="btn-sm btn-warning">Edit</button>
+        </a>
+        {% if not p.is_public %}
+          <a href="{% url 'images:piece_delete' p.pk %}?next={{ request.path }}">
+            <button class="btn-sm btn-danger">Delete</button>
+          </a>
+        {% endif %}
         <div class="clear"></div>
     </li>
   {% endfor %}

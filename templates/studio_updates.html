@@ -1,4 +1,7 @@
 <h4 class="studio-update-title">Your Updates</h4>
+<a href="{% url 'updates:update_create' %}?next={{ request.path }}">
+  <button class="btn-sm btn-primary">New</button>
+</a>
 {% if updates %}
   <ul class="list-group list-group-flush">
     {% for u in updates %}
@@ -6,7 +9,7 @@
         {% if u.featured_img %}
           <img class="studio-update-thumbnail float-right" src="{{ u.featured_img.thumbnail_file.url }}">
         {% endif %}
-        <h5 class="studio-update-title">
+        <h5 class="">
           <a href="{% url 'updates:update_detail' u.slug %}">
             {{ u.title }}
           </a>
@@ -17,6 +20,14 @@
         <p class="studio-update-status">
           Created: {{ u.creation_date|date:"M d, Y" }}
         </p>
+        <a href="{% url 'updates:update_update' u.slug %}?next={{ request.path }}">
+          <button class="btn-sm btn-warning">Edit</button>
+        </a>
+        {% if not u.is_public %}
+          <a href="{% url 'updates:update_delete' u.pk %}?next={{ request.path }}">
+            <button class="btn-sm btn-danger">Delete</button> 
+          </a>
+        {% endif %}
         <div class="clear"></div>
       </li>
     {% endfor %}

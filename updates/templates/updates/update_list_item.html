@@ -1,17 +1,27 @@
 {% if update.is_public or update.user == request.user %}  
   <li class="list-group-item updates-list-item">
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-3">
         {% if update.featured_img %}
           <img src="{{ update.featured_img.thumbnail_file.url }}" class="updates-list-thumbnail float-left">
         {% endif %}
       </div>
-      <div class="col-sm">
+      <div class="col-lg">
         <a href="{% url 'updates:update_detail' update.slug  %}" class="links-list-link">
           <h3 class="updates-list-caption">{{ update.title }}</h3>
         </a>
         {% if not update.is_public %}
           <span class="badge badge-secondary">Unpublished</span>
+        {% endif %}
+        {% if user_only and update.user == request.user %}
+          <a href="{% url 'updates:update_update' update.slug %}?next={{ request.path }}">
+            <button class="btn-sm btn-warning">Edit</button>
+          </a>
+          {% if not update.is_public %}
+            <a href="{% url 'updates:update_delete' update.pk %}?next={{ request.path }}">
+              <button class="btn-sm btn-danger">Delete</button>
+            </a>
+          {% endif %}
         {% endif %}
         <p class="updates-list-caption">{{ update.headline }}</p>
         <p class="updates-list-date">

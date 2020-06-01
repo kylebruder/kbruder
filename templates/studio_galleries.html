@@ -1,4 +1,7 @@
 <h4 class="studio-gallery-title">Your Galleries</h4>
+  <a href="{% url 'images:gallery_create' %}?next={{ request.path }}">
+    <button class="btn-sm btn-primary">New</button>
+  </a>
 {% if galleries %}
   {% for g in galleries %}
     <ul class="list-group">
@@ -6,7 +9,7 @@
         {% if g.cover_image %}
           <img class="studio-gallery-thumbnail float-right" src="{{ g.cover_image.thumbnail_file.url }}" alt="{{ g.cover_image.caption }}">
         {% endif %}
-        <h5 class="studio-gallery-title">
+        <h5 class="">
           <a href="{% url 'images:gallery_detail' g.slug %}">
             {{ g.title }}
           </a>
@@ -17,6 +20,14 @@
         <p class="studio-gallery-status">
           Created: {{ g.creation_date|date:"M d, Y" }}
         </p>
+        <a href="{% url 'images:gallery_update' g.slug %}?next={{ request.path }}">
+          <button class="btn-sm btn-warning">Edit</button>
+        </a>
+        {% if not g.is_public %}
+          <a href="{% url 'images:gallery_delete' g.pk %}?next={{ request.path }}">
+            <button class="btn-sm btn-danger">Delete</button>
+          </a>
+        {% endif %}
         <div class="clear"></div>
     </li>
   {% endfor %}

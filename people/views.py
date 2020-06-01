@@ -68,9 +68,10 @@ class ArtistUserListView(ListView):
             user=self.request.user
         ).order_by('is_public', '-creation_date')
 
-    def get_context_date(self, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_only'] = True
+        return context
 
 class ArtistDetailView(DetailView):
 

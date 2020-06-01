@@ -1,4 +1,7 @@
 <h4 class="studio-gallery-title">Your Artists</h4>
+<a href="{% url 'people:artist_create' %}?next={{ request.path }}">
+  <button class="btn-sm btn-primary">New</button>
+</a>
 {% if artists %}
   {% for a in artists %}
     <ul class="list-group">
@@ -6,7 +9,7 @@
         {% if a.image %}
           <img class="studio-gallery-thumbnail float-right" src="{{ a.image.thumbnail_file.url }}" alt="{{ a.image.caption }}">
         {% endif %}
-        <h5 class="studio-gallery-title">
+        <h5 class="">
           <a href="{% url 'people:artist_detail' a.slug %}">
             {{ a.name }}
           </a>
@@ -17,11 +20,19 @@
         <p class="studio-gallery-status">
           Created: {{ a.creation_date|date:"M d, Y" }}
         </p>
+        <a href="{% url 'people:artist_update' a.slug %}?next={{ request.path }}">
+          <button class="btn-sm btn-warning">Edit</button>
+        </a>
+        {% if not a.is_public %}
+          <a href="{% url 'people:artist_delete' a.pk %}">
+            <button class="btn-sm btn-danger">Delete</button>
+          </a>
+        {% endif %}
         <div class="clear"></div>
     </li>
   {% endfor %}
   <p>
-    <a href="{% url 'people:artist_list' %}">more ...</a>
+    <a href="{% url 'people:artist_user_list' user %}">more ...</a>
   </p>
 {% else %}
   <p>You have not profiled any artist yet</p>
@@ -29,3 +40,5 @@
     <button class="btn btn-success">New Artist</button>
   </a>
 {% endif %}
+<br>
+<br>

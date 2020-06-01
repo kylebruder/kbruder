@@ -23,6 +23,9 @@ class LinkCreateView(LoginRequiredMixin, CreateView):
     template_name_suffix = '_create_form'
     success_url = reverse_lazy('links:link_list')
 
+    def get_success_url(self):
+        return reverse('links:link_user_list', kwargs={'user': self.request.user})
+
     def form_valid(self, form):
         form.instance.creation_date = timezone.now()
         form.instance.user = self.request.user
@@ -52,6 +55,26 @@ class LinkListView(ListView):
 
         return context
 
+class LinkUserListView(LoginRequiredMixin, ListView):
+
+    model = Link
+    paginate_by = 16
+    ordering = ['-publication_date']
+
+    def get_queryset(self):
+        return Link.objects.filter(
+            user=self.request.user,
+        ).order_by(
+            'is_public',
+            '-publication_date',
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_only'] = True
+        return context
+
+
 class LinkDetailView(DetailView):
 
     model = Link
@@ -66,6 +89,15 @@ class LinkUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView):
     fields = ['title','description', 'url']
     template_name_suffix = '_update_form'
 
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if next_url:
+            return next_url
+        else:
+            return reverse_lazy('links:link_detail',
+                kwargs={'slug': self.object.slug}
+            )
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
@@ -75,7 +107,9 @@ class LinkDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView):
     model = Link
 
     def get_success_url(self):
-        return reverse_lazy('links:link_list')
+        return reverse('links:link_user_list',
+            kwargs={'user': self.request.user}
+        )
  
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

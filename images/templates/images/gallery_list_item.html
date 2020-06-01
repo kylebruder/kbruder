@@ -1,27 +1,41 @@
-<li class="list-group-item images-gallery-li">
-  <div class="row">
-    <div class="col-sm">
-      <img src="{{ gallery.cover_image.image_file.url }}" class="images-gallery-list-image float-left" alt="{{ gallery.images.first.title }}">
-    </div>
-    <div class="col-sm">
-      <a href="{% url 'images:gallery_detail' gallery.slug %}">
-        <h3 class="images-gallery-caption">{{ gallery.title }}</h3>
-      </a>
-      <p class="images-gallery-caption">{{ gallery.caption }}</p>
-      <p class="images-gallery-credit clear">
-      <i>curated by
-        {% if gallery.user.first_name and gallery.user.last_name %}
-          {{ gallery.user.first_name }} {{ gallery.user.last_name }}
-        {% else %}
-          {{ gallery.user }}
+{% if gallery.is_public or update.user == request.user %}
+  <li class="list-group-item images-gallery-li">
+    <div class="row">
+      <div class="col-sm">
+        <img src="{{ gallery.cover_image.image_file.url }}" class="images-gallery-list-image float-left" alt="{{ gallery.images.first.title }}">
+      </div>
+      <div class="col-sm">
+        <a href="{% url 'images:gallery_detail' gallery.slug %}">
+          <h3 class="images-gallery-caption">{{ gallery.title }}</h3>
+        </a>
+        <p class="images-gallery-caption">{{ gallery.caption }}</p>
+        <p class="images-gallery-credit clear">
+        <i>curated by
+          {% if gallery.user.first_name and gallery.user.last_name %}
+            {{ gallery.user.first_name }} {{ gallery.user.last_name }}
+          {% else %}
+            {{ gallery.user }}
+          {% endif %}
+          {% if gallery.publication_date %}
+            on {{ gallery.publication_date|date:"M d, Y" }}
+          {% endif %}
+          {% if gallery.location %}
+            from {{ gallery.location }}
+          {% endif %}</i></p>
+        {% if not gallery.is_public %}
+          <span class="badge badge-secondary">Unpublished</span>
         {% endif %}
-        {% if gallery.publication_date %}
-          on {{ gallery.publication_date|date:"M d, Y" }}
+        {% if user_only and gallery.user == request.user %}
+          <a href="{% url 'images:gallery_update' gallery.slug %}?next={{ request.path }}">
+            <button class="btn-sm btn-warning">Edit</button>
+          </a>
         {% endif %}
-        {% if gallery.location %}
-          from {{ gallery.location }}
+        {% if not gallery.is_public %}
+          <a href="{% url 'images:gallery_delete' gallery.pk %}?next={{ request.path }}">
+            <button class="btn-sm btn-danger">Delete</button>
+          </a>
         {% endif %}
       </div>
-    </i>
-  </p>
-</li>
+    </div> 
+  </li>
+{% endif %}

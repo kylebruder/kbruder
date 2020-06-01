@@ -1,16 +1,28 @@
 <h4 class="studio-link-title">Your Links</h4>
+<a href="{% url 'links:link_create' %}">
+  <button class="btn-sm btn-primary">New</button>
+</a>
 {% if links %}
-  {% for l in links %}
-    <ul class="list-group">
+  <ul class="list-group">
+    {% for l in links %}
       <li class="list-group-item studio-link-li">
-      <a href="{{ l.url }}">
-        {{ l.title }}
-      </a>
-      <p class="studio-link">{{ l.url }}</p>
-    </li>
-  {% endfor %}
+        <a href="{{ l.url }}">
+          {{ l.title }}
+        </a>
+        <p class="studio-link">{{ l.url }}</p>
+        <a href="{% url 'links:link_update' l.pk %}?next={{ request.path }}">
+          <button class="btn-sm btn-warning">Edit</button>
+        </a>
+        {% if not l.is_public %}
+          <a href="{% url 'links:link_delete' l.pk %}?next={{ request.path }}">
+            <button class="btn-sm btn-danger">Delete</button>
+          </a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
   <p>
-    <a href="{% url 'links:link_list' %}">all links</a>
+    <a href="{% url 'links:link_user_list' user %}">more ...</a>
   </p>
 {% else %}
   <p>You have not contributed any links yet</p>
