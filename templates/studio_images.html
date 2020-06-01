@@ -11,7 +11,7 @@
   {% endfor %}
   <div class="clear"></div>
   <p>
-    <a href="{% url 'images:image_list' %}">all images</a>
+    <a href="{% url 'images:image_user_list' user=user %}">more</a>
   </p>
 {% else %}
   <p>You have not contributed any images yet</p>

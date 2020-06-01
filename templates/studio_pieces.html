@@ -1,0 +1,31 @@
+<h4 class="studio-gallery-title">Your Artworks</h4>
+{% if pieces %}
+  {% for p in pieces %}
+    <ul class="list-group">
+      <li class="list-group-item studio-gallery-li">
+        <img class="studio-gallery-thumbnail float-right" src="{{ p.image.thumbnail_file.url }}" alt="{{ p.image.caption }}">
+        <h5 class="studio-gallery-title">
+          <a href="{% url 'images:piece_detail' p.slug %}">
+            {{ p.image.title }}
+          </a>
+        </h5>
+        {% if not p.is_public %}
+          <span class="badge badge-secondary">Unpublished</span>
+        {% endif %}
+        <p class="studio-gallery-status">
+          Created: {{ p.creation_date|date:"M d, Y" }}
+        </p>
+        <div class="clear"></div>
+    </li>
+  {% endfor %}
+  <p>
+    <a href="{% url 'images:piece_user_list' request.user %}">more ...</a>
+  </p>
+{% else %}
+  <p>You have not contributed any artwork yet</p>
+  <a href="{% url 'images:piece_create' %}">
+    <button class="btn btn-success">New Piece</button>
+  </a>
+  <br>
+  <br>
+{% endif %}

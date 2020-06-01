@@ -20,8 +20,9 @@ from django.urls import reverse
 from django.utils import timezone
 from accounts.models import Member
 from accounts.mixins import UserObjectProtectionMixin
-from images.models import Image, Gallery
+from images.models import Image, Gallery, Piece
 from links.models import Link
+from people.models import Artist
 from .models import Update
 
 class HomePageView(TemplateView):
@@ -32,14 +33,48 @@ class HomePageView(TemplateView):
         context = super().get_context_data(**kwargs)
         # use the last update on the homepage
         
-        context['update'] = Update.objects.first()
-        context['updates'] = Update.objects.all()[1:6]
-        context['gallery'] = Gallery.objects.order_by('-weight', '-creation_date')[0]
-        context['galleries'] = Gallery.objects.order_by('-weight', '-creation_date')[1:6]
-        context['link'] = Link.objects.order_by('-weight', '-creation_date')[0]
-        context['links'] = Link.objects.order_by('-weight', '-creation_date')[1:6]
-        context['image'] = Image.objects.order_by('-weight', '-creation_date')[0]
-        context['images'] = Image.objects.order_by('-weight', '-creation_date')[1:6]
+        context['update'] = Update.objects.filter(is_public=True).first()
+        context['updates'] = Update.objects.filter(is_public=True).all()[1:16]
+        context['gallery'] = Gallery.objects.filter(
+            is_public=True
+        ).order_by(
+            '-weight', 
+            '-creation_date'
+        )[0]
+        context['galleries'] = Gallery.objects.filter(
+             is_public=True
+        ).order_by(
+            '-weight',
+            '-creation_date'
+        )[1:10]
+        context['links'] = Link.objects.order_by(
+            '-weight',
+            '-creation_date'
+        )[0:10]
+        context['artist'] = Artist.objects.filter(
+            is_public=True
+        ).order_by(
+            '-weight',
+            '-creation_date'
+        )[0]
+        context['artists'] = Artist.objects.filter(
+            is_public=True
+        ).order_by(
+            '-weight',
+            '-creation_date'
+        )[1:10]
+        context['piece'] = Piece.objects.filter(
+            is_public=True
+        ).order_by(
+            '-weight',
+            '-creation_date'
+        )[0]
+        context['pieces'] = Piece.objects.filter(
+            is_public=True
+        ).order_by(
+            '-weight',
+            '-creation_date'
+        )[1:10]
         return context
 
 class UpdatesCreateView(LoginRequiredMixin, CreateView):
@@ -88,6 +123,20 @@ class UpdatesListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        return context
+
+class UpdatesUserListView(ListView):
+
+    model = Update
+    paginate_by = 16 
+    ordering = ['-publication_date']
+
+    def get_queryset(self):
+        return Update.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_only'] = True
         return context
 
 class UpdatesDetailView(DetailView):

@@ -1,12 +1,12 @@
 <div class="row">
   <div class="col">
-    <h3 class="updates-list-title">Updates</h3>
+    <h3 class="images-title">Artworks</h3>
   </div>
-  {% if request.user.is_authenticated %}
+  {% if user.is_authenticated %}
     <div class="col-">
       <div class="container">
-        <a href="{% url 'updates:update_create' %}">
-          <button type="button" class="btn btn-primary float-left">New Update</button>
+        <a href="{% url 'images:piece_create' %}">
+          <button type="button" class="btn btn-primary float-left">New Piece</button>
         </a>
       </div>
     </div>

@@ -21,7 +21,7 @@
       </li>
     {% endfor %}
     <p>
-      <a href="{% url 'updates:update_list' %}">all updates</a>
+      <a href="{% url 'updates:update_user_list' user %}">more ...</a>
     </p>
   </ul>
 {% else %}
@@ -29,4 +29,6 @@
   <a href="{% url 'updates:update_create' %}">
     <button class="btn btn-success">New Update</button>
   </a>
+  <br>
+  <br>
 {% endif %}

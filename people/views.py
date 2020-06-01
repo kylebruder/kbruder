@@ -12,6 +12,7 @@ from django.views.generic.edit import CreateView, FormView, UpdateView, DeleteVi
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from accounts.mixins import UserObjectProtectionMixin
+from accounts.models import Member
 from people.models import Artist
 
 # Create your views here.
@@ -57,13 +58,36 @@ class ArtistListView(ListView):
         context = super().get_context_data(**kwargs)
         return context
 
+class ArtistUserListView(ListView):
+
+    model = Artist
+    paginate_by = 16
+
+    def get_queryset(self):
+        return Artist.objects.filter(
+            user=self.request.user
+        ).order_by('is_public', '-creation_date')
+
+    def get_context_date(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_only'] = True
+
 class ArtistDetailView(DetailView):
 
     model = Artist
 
     def get_context_data(self, **kwargs):
-        artist = Artist.objects.get(slug=self.object.slug)
         context = super().get_context_data(**kwargs)
+        # Tell the template whether or not to render the marshmallow
+        u = self.request.user
+        if u.is_authenticated:
+            print("AUTH OK!")
+            # get the users Member function
+            m = get_object_or_404(Member, pk=u.pk)
+            context['can_allocate'] = m.check_can_allocate_weight()
+        else:
+            context['can_allocate'] = False
+        artist = Artist.objects.get(slug=self.object.slug)
         context['pieces'] = artist.piece_set.all()
         return context
 
@@ -102,3 +126,23 @@ class ArtistDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView
 
     def get_success_url(self):
         return reverse_lazy('people:artist_list')
+
+def promote_artist(request, pk):
+    m = get_object_or_404(Member, pk=request.user.pk)
+    o = get_object_or_404(Artist, pk=pk)
+    successful, link, weight  = m.allocate_weight(o)
+    if successful:
+        messages.add_message(
+            request, messages.INFO,
+            'You gave a marshmallow to {} weighing {}'.format(
+                link,
+                round(weight, 2)
+            )
+       )
+    else:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            'You failed to give a marshmallow to {}'.format(link)
+        )
+    return HttpResponseRedirect(reverse('people:artist_list'))

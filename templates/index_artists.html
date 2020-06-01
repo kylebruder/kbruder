@@ -1,0 +1,20 @@
+<h3 class="people-artist-title">Artists</h3>
+<a href="{% url 'people:artist_detail' artist.slug %}" class="">
+  <h4 class="people-artist-caption">{{ artist.name }}</h4>
+</a>
+<img src="{{ artist.image.thumbnail_file.url }}" class="index-artist-thumbnail float-left" alt="{{ artist.image.caption }}">
+<p class="people-artist-caption">"{{ artist.statement }}"</p>
+<div class="clear"></div>
+<br>
+{% if artists %}
+{% for a in artists%}
+  <a href="{% url 'people:artist_detail' a.slug %}">
+    <div class="studio-images-card float-left" style="background-image:url('/media/{{ a.image.thumbnail_file }}')">
+    </div>
+  </a>
+{% endfor %}
+<div class="clear"></div>
+<p>
+  <a href="{% url 'people:artist_list' %}">more ...</a>
+</p>
+{% endif %}

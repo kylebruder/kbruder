@@ -1,22 +1,27 @@
 <li class="list-group-item images-gallery-li">
-  <a href="{% url 'images:gallery_detail' gallery.slug %}">
-    <h3 class="images-gallery-title">{{ gallery.title }}</h5>
-  </a>
-  <img src="{{ gallery.cover_image.thumbnail_file.url }}" class="images-gallery-thumbnail float-left" alt="{{ gallery.images.first.title }}">
-  <p class="images-gallery-caption">{{ gallery.caption }}</p>
-  <p class="images-gallery-credit clear">
-    <i>curated by
-      {% if gallery.user.first_name and gallery.user.last_name %}
-        {{ gallery.user.first_name }} {{ gallery.user.last_name }}
-      {% else %}
-        {{ gallery.user }}
-      {% endif %}
-      {% if gallery.publication_date %}
-        on {{ gallery.publication_date|date:"M d, Y" }}
-      {% endif %}
-      {% if gallery.location %}
-        from {{ gallery.location }}
-      {% endif %}
+  <div class="row">
+    <div class="col-sm">
+      <img src="{{ gallery.cover_image.image_file.url }}" class="images-gallery-list-image float-left" alt="{{ gallery.images.first.title }}">
+    </div>
+    <div class="col-sm">
+      <a href="{% url 'images:gallery_detail' gallery.slug %}">
+        <h3 class="images-gallery-caption">{{ gallery.title }}</h3>
+      </a>
+      <p class="images-gallery-caption">{{ gallery.caption }}</p>
+      <p class="images-gallery-credit clear">
+      <i>curated by
+        {% if gallery.user.first_name and gallery.user.last_name %}
+          {{ gallery.user.first_name }} {{ gallery.user.last_name }}
+        {% else %}
+          {{ gallery.user }}
+        {% endif %}
+        {% if gallery.publication_date %}
+          on {{ gallery.publication_date|date:"M d, Y" }}
+        {% endif %}
+        {% if gallery.location %}
+          from {{ gallery.location }}
+        {% endif %}
+      </div>
     </i>
   </p>
 </li>

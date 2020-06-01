@@ -20,7 +20,6 @@
 .people-artist-list-item {
   background-color: #222222;
   color: #eeeeee;
-  max-width: 500px;
   border-bottom: solid 2px #111111;
 }
 
@@ -51,9 +50,8 @@
 }
 
 .people-artist-thumbnail {
-  max-height: 100px;
-  max-width: 100px;
-  border-radius: 5px;
+  max-height: 250px;
+  max-width: 250px;
   margin-right: 15px;
   margin-bottom: 10px; 
 }

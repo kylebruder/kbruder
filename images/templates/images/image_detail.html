@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body_block %}
-<div class="container images-bg">
+<div class="container-fluid images-bg">
   <br>
   {% ifequal request.user object.user %}
     <a href="{% url 'images:image_update' object.pk %}">

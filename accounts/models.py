@@ -31,10 +31,13 @@ class Member(User):
         '''
         # get n seconds ago
         t = timezone.now() - datetime.timedelta(seconds=n)
-        q = Profile.objects.select_related('user').get(user=self).last_weight_allocation
-        if t > q:
-            return True
-        else:
+        try:
+            q = Profile.objects.select_related('user').get(user=self).last_weight_allocation
+            if t > q:
+                return True
+            else:
+                return False
+        except:
             return False
 
     def get_user_adjusted_weight(self, n=30, m=5):

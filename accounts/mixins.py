@@ -5,7 +5,7 @@ class UserObjectProtectionMixin:
 
     def form_valid(self, form):
         if self.request.user == self.object.user:
-            self.object.save()
+            form.save()
             messages.add_message(
                 self.request, messages.INFO,
                 '{} has been successfully modified.'.format(self.object)

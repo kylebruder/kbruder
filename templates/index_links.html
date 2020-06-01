@@ -1,11 +1,12 @@
-<div class="index-link-bg">
-  <h3 class="index-link-title">
-    Links From Around the Internet
-  </h3>
-  <a href="{{ link.url }}" class="links-list-link">
-    <h5 class="links-list-title">{{ link.title }}</h5>
-  </a>
-  <img src="{{ link.image.thumbnail_file.url }}" class="index-link-thumbnail float-left">
-  <p class="index-link-description">{{ link.description }}</p>
-  <p class="links-list-link clear">{{ link.url }}</p>
+<div class="index-updates-bg">
+  <h3 class="index-link-title">Links From Around the Internet</h3>
+  <ul class="list-group">
+    {% for link in links %}
+      <li class="list-group-item index-link-li">
+        <a href="{{ link.url }}">
+          {{ link.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
 </div>

@@ -9,34 +9,42 @@
         {% include "index_update.html" %}
       </div>
     {% endif %}
+  </div>
+  <!-- ROW 3 -->
+  <div class="row">
     {% if updates %}
-      <div class="col-">
+      <div class="col-md">
         {% include "index_updates.html" %}
       </div>
     {% endif %}
   </div>
   <!-- ROW 2 -->
   <div class="row">
-    {% if galleries %}
+    {% if gallery %}
       <div class="col-sm">
           {% include "index_gallery.html" %}
       </div>
     {% endif %}
-    {% if images %}
+    {% if artist %}
       <div class="col-sm">
-          {% include "index_image.html" %}
+          {% include "index_artists.html" %}
+      </div>
+    {% endif %}
+    {% if piece %}
+      <div class="col-sm">
+          {% include "index_pieces.html" %}
       </div>
     {% endif %}
   </div>
-  {% if links %}
-    <!-- ROW 3 -->
-    <div class="row">
+  <!-- ROW 4 -->
+  <div class="row">
+    {% if links %}
       <div class="col-sm">
         {% include "index_links.html" %}
       </div>
-    </div>
-  {% endif %}
-  <!-- ROW 4 -->
+    {% endif %}
+  </div>
+  <!-- ROW 5 -->
   <div class="row">
     <div class="col">
         {% include "index_kbtech.html" %}

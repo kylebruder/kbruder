@@ -21,7 +21,7 @@
     </li>
   {% endfor %}
   <p>
-    <a href="{% url 'images:gallery_list' %}">all galleries</a>
+    <a href="{% url 'images:gallery_user_list' request.user %}">more ...</a>
   </p>
 {% else %}
   <p>You have not contributed any galleries yet</p>

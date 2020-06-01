@@ -1,21 +1,70 @@
 {% extends "base.html" %}
 {% block body_block %}
-<div class="container images-bg">
+<div class="container images-gallery-bg">
+  {% ifequal request.user object.user %}
+    <a href="{% url 'images:piece_delete' object.pk %}">
+      <button type="button" class="btn btn-danger float-right">Delete</button>
+    </a> 
+    <a href="{% url 'images:piece_update' object.slug %}">
+      <button type="button" class="btn btn-warning float-right">Edit</button>
+    </a>
+  {% endifequal %}
   <br>
-  <img class="images-image" src="{{ object.image.image_file.url }}" alt="{{ object.image.title }}">
+  <a href="{% url 'images:image_detail' object.image.pk %}">
+    <img class="images-image" src="{{ object.image.image_file.url }}" alt="{{ object.image.title }}">
+  </a>
   <div class="row">
-    <div class="col">
+    <div class="col-sm">
       <h3 class="images-title">{{ object.image.title }}</h3>
       {% if object.description %}
         <p class="images-piece-description">{{ object.description }}</p>
-        <br>
       {% endif %}
+      {% if object.artists.count == 1 %}
+        <p class="images-caption">
+          <i>Artist:</i>
+          <a href="{% url 'people:artist_detail' object.artists.first.slug %}">
+            {{ object.artists.first }}
+          </a>
+      </p>
+      {% elif object.artists.count >= 2 %}
+        <p class="images-caption">
+          <i>Artists:</i>
+          <a href="{% url 'people:artist_detail' object.artists.first.slug %}">
+            {{ object.artists.first }}
+          </a>
+          {% for artist in object.artists.all %}
+            {% if artist != object.artists.first and artist != object.artists.last %},
+              <a href="{% url 'people:artist_detail' artist.slug %}">
+                {{ artist }}
+              </a>
+            {% endif %}
+          {% endfor %}
+          and
+          <a href="{% url 'people:artist_detail' object.artists.last.slug %}">
+            {{ object.artists.last }}
+          </a>
+        </p>
+      {% else %}
+        <p class="images-caption"><i>Unknown Artist</i></p>
+      {% endif %}
+      {% if object.medium %}
+        <p class="images-caption">
+          <i>Medium:</i> {{ object.medium }}
+        </p>
+      {% endif %}
+      {% if object.collection %}
+        <p class="images-caption">
+          <i>Collection:</i> {{ object.collection }}
+        </p>
+      {% endif %}
+    </div>
+    <div class="col-sm-4">
       {% if object.is_sold %}
-        <p class="images-caption">This piece has been sold</p>
+        <p class="images-caption"><i>This piece has been sold</i></p>
       {% elif object.price and object.currency %}
-        <p class="images-caption">Price: {{ object.currency.symbol }} {{ object.price }}</p>
+        <p class="images-caption"><i>Price:</i> {{ object.currency.symbol }} {{ object.price }}</p>
         {% if object.contact_name %}
-          <p class="images-caption">Offered by: {{ object.contact_name }}</p>
+          <p class="images-caption"><i>Offered by:</i> {{ object.contact_name }}</p>
         {% endif %}
         {% if object.contact_email %}
           <p class="images-caption"><a href="mailto:{{object.contact_email}}">{{ object.contact_email }}</a></p>
@@ -26,37 +75,7 @@
         <br>
       {% endif %}
     </div>
-    <div class="col-">
-      {% if object.artists.count == 1 %}
-        <p class="images-caption">Artist: {{ object.artists.first }}</p>
-      {% elif object.artists.count >= 2 %}
-        <p class="images-caption">
-          Artists: {{ object.artists.first }}{% for artist in object.artists.all %}{% if artist != object.artists.first and artist != object.artists.last %}, {{ artist }}{% endif %}{% endfor %}
-          and {{ object.artists.last }}
-        </p>
-      {% else %}
-        Unknown Artist
-      {% endif %}
-      {% if object.medium %}
-        <p class="images-caption">
-          Medium: {{ object.medium }}
-        </p>
-      {% endif %}
-      {% if object.collection %}
-        <p class="images-caption">
-          Collection: {{ object.collection }}
-        </p>
-      {% endif %}
-    </div>
   </div>
-  {% ifequal request.user object.user %}
-    <a href="{% url 'images:piece_update' object.slug %}">
-      <button type="button" class="btn btn-warning">Edit</button>
-    </a>
-    <a href="{% url 'images:piece_delete' object.pk %}">
-      <button type="button" class="btn btn-danger">Delete</button>
-    </a> 
-  {% endifequal %}
   {% if can_allocate %}
     <a href="{% url 'images:promote_piece' object.pk  %}">
       <button type="button" class="btn btn-default float-right">&#9829;</button>

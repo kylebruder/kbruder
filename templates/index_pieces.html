@@ -1,0 +1,20 @@
+<h3 class="index-image-title">Art/Photo</h3>
+<a href="{% url 'images:piece_detail' piece.slug %}">
+  <h5 class="index-gallery-caption">{{ piece.image.title }}</h5>
+</a>
+<img src="{{ piece.image.thumbnail_file.url }}" class="index-gallery-thumbnail float-left" alt="{{ piece.image.title }}">
+<p class="index-gallery-caption">{{ piece.description }}</p>
+<div class="clear"></div>
+<br>
+{% if pieces %}
+  {% for p in pieces %}
+    <a href="{% url 'images:piece_detail' p.slug %}">
+      <div class="studio-images-card float-left" style="background-image:url('/media/{{ p.image.thumbnail_file }}')">
+      </div>
+    </a>
+  {% endfor %}
+  <div class="clear"></div>
+  <p>
+    <a href="{% url 'images:piece_list' %}">more ...</a>
+  </p>
+{% endif %}

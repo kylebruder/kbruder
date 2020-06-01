@@ -38,7 +38,7 @@ class Piece(MetaDataMixin, MarshmallowMixin):
     number = models.PositiveIntegerField(default=1)
     artists = models.ManyToManyField(Artist, blank=True,)
     medium = models.CharField(max_length=32, default="unknown")
-    collection = models.CharField(max_length=32, default="unknown")
+    collection = models.CharField(max_length=32, blank=True, null=True,)
     price = models.FloatField(blank=True, null=True)
     currency = models.ForeignKey('metrics.currency', on_delete=models.CASCADE, blank=True, null=True)
     is_sold = models.BooleanField(default=False)
@@ -53,7 +53,7 @@ class Piece(MetaDataMixin, MarshmallowMixin):
         return reverse('images:gallery_detail', kwargs={'pk': self.pk})
 
     class Meta:
-        ordering = ['-number', '-creation_date']
+        ordering = ['number', '-creation_date']
 
 class Gallery(MetaDataMixin, MarshmallowMixin):
 

@@ -6,12 +6,24 @@
   margin-bottom: 40px;
 }
 
+.index-artist-thumbnail {
+  display: block;
+  max-width: auto;
+  max-height: 250px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
 .index-gallery-bg {
   color: #ffffff;
   background-color: #222222;
   border-radius: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.index-gallery-caption {
+  font-family: 'Tajawal', sans-serif;
 }
 
 .index-gallery-li {
@@ -25,7 +37,6 @@
   display: block;
   max-width: auto;
   max-height: 250px;
-  border-radius: 5px;
   margin-right: 20px;
   margin-bottom: 10px;
 }
@@ -37,7 +48,7 @@
 .index-headline-text {
   background-color: #222222;
   color: #ffffff;
-  font-family: 'Zilla Slab Highlight', cursive;
+  font-family: 'Ibarra Real Nova', serif;
   font-weight: bold;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   text-align: center;
@@ -76,16 +87,19 @@
   border-radius: 10px;
 }
 
+.index-link-caption {
+  font-family: 'Tajawal', sans-serif;
+}
+
 .index-link-li {
   color: #ffffff;
-  background-color: #333333;
+  background-color: #222222;
 }
 
 .index-link-thumbnail {
   display: block;
   max-width: auto;
-  max-height: 75px;
-  border-radius: 10px;
+  max-height: 55px;
   margin-right: 20px;
   margin-bottom: 10px;
 }
@@ -99,6 +113,9 @@
   font-family: 'Ibarra Real Nova', serif;
 }
 
+.index-update-caption {
+  font-family: 'Tajawal', sans-serif;
+}
 .index-update-li {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.8em;

@@ -1,6 +1,13 @@
 <div class="row">
   <div class="col">
-    <h3 class="updates-list-title">Updates</h3>
+    <h3 class="updates-list-title">
+      {% if user_only %}
+        {% if user.first_name and user.last_name %}
+          {{ user.first_name }} {{ user.last_name }}{% else %}{{ user }}{% endif %}'s Updates
+      {% else %}
+        Updates
+      {% endif %}
+    </h3>
   </div>
   {% if request.user.is_authenticated %}
     <div class="col-">

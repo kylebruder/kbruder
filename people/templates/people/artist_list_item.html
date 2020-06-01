@@ -1,7 +1,13 @@
 <li class="list-group-item people-artist-list-item">
-  <a href="{% url 'people:artist_detail' artist.slug %}" class="">
-    <h4 class="people-artist-title">{{ artist.name }}</h4>
-  </a>
-  <img src="{{ artist.image.thumbnail_file.url }}" class="people-artist-thumbnail float-left" alt="{{ artist.image.caption }}">
-  <p class="people-artist-caption">"{{ artist.statement }}"</p>
+  <div class="row">
+    <div class="col-sm-3">
+      <img src="{{ artist.image.thumbnail_file.url }}" class="people-artist-thumbnail" alt="{{ artist.image.caption }}">
+    </div>
+    <div class="col-sm">
+      <a href="{% url 'people:artist_detail' artist.slug %}" class="">
+        <h3 class="people-artist-caption">{{ artist.name }}</h3>
+      </a>
+      <p class="people-artist-caption">"{{ artist.statement }}"</p>
+    </div>
+  </div>
 </li>

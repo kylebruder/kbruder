@@ -1,23 +1,36 @@
-<li class="list-group-item updates-list-item">
-  <a href="{% url 'updates:update_detail' update.slug  %}" class="links-list-link">
-    <h4 class="updates-title">{{ update.title }}</h4>
-  </a>
-  <img src="{{ update.featured_img.thumbnail_file.url }}" class="updates-list-thumbnail float-left">
-  <p class="updates-list-caption">{{ update.headline }}</p>
-  <p class="updates-link clear">
-    <i>contributed by
-      {% if update.user.first_name and update.user.last_name %}
-        {{ update.user.first_name }} {{ update.user.last_name }}
-      {% else %}
-        {{ update.user }}
-      {% endif %}
-      {% if update.publication_date %}
-        on {{ update.publication_date|date:"M d, Y" }}
-      {% endif %}
-      {% if update.location %}
-        from {{ update.location }}
-      {% endif %}
-    </i>
-  </p>
-</li>
-
+{% if update.is_public or update.user == request.user %}  
+  <li class="list-group-item updates-list-item">
+    <div class="row">
+      <div class="col-sm-3">
+        {% if update.featured_img %}
+          <img src="{{ update.featured_img.thumbnail_file.url }}" class="updates-list-thumbnail float-left">
+        {% endif %}
+      </div>
+      <div class="col-sm">
+        <a href="{% url 'updates:update_detail' update.slug  %}" class="links-list-link">
+          <h3 class="updates-list-caption">{{ update.title }}</h3>
+        </a>
+        {% if not update.is_public %}
+          <span class="badge badge-secondary">Unpublished</span>
+        {% endif %}
+        <p class="updates-list-caption">{{ update.headline }}</p>
+        <p class="updates-list-date">
+          <i>contributed by
+            {% if update.user.first_name and update.user.last_name %}
+              {{ update.user.first_name }} {{ update.user.last_name }}
+            {% else %}
+              {{ update.user }}
+            {% endif %}
+            {% if update.publication_date %}
+              on {{ update.publication_date|date:"M d, Y" }}
+            {% endif %}
+            {% if update.location %}
+              from {{ update.location }}
+            {% endif %}
+          </i>
+        </p>
+      </div>
+    </div>
+  </li>
+{% endif %}
+  

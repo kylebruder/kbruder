@@ -29,5 +29,12 @@
     {% endfor %}
     </ul>
   {% endif %}
+  {% if can_allocate  %}
+    <a href="{% url 'people:artist_promote' object.pk  %}">
+      <button type="button" class="btn btn-default float-right">&#9829;</button>
+    </a>
+    <div class="clear"></div>
+    <br>
+  {% endif %}
 </div>
 {% endblock %}

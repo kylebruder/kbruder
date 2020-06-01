@@ -13,7 +13,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.core.files.images import ImageFile
 from accounts.mixins import UserObjectProtectionMixin
-from accounts.models import Member
+from accounts.models import User, Member
 from .models import Image, Gallery, Piece
 
 # Create your views here.
@@ -51,6 +51,23 @@ class ImageListView(ListView):
         context = super().get_context_data(**kwargs)
         return context
 
+class ImageUserListView(ListView):
+
+    model = Image
+    paginate_by = 12 
+    ordering = ['is_public', '-creation_date']
+
+    def get_queryset(self, *args, **kwargs):
+        target = User.objects.get(username=self.kwargs['user'])
+        return Image.objects.filter(user=target)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        target = User.objects.get(username=self.kwargs['user'])
+        context['user_only'] = True
+        context['target'] = target 
+        return context
+
 class ImageDetailView(DetailView):
 
     model = Image
@@ -67,7 +84,7 @@ class ImageDetailView(DetailView):
             context['can_allocate'] = False
         return context
 
-class ImageUpdateView(LoginRequiredMixin, UpdateView):
+class ImageUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView):
 
     model = Image
     fields = ['image_file', 'caption', 'title', 'credit', 'is_public']
@@ -98,8 +115,6 @@ class GalleryCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         next_url = self.request.GET.get('next')
-        if 'slug' in self.kwargs:
-            slug = self.kwargs['slug']
         if next_url:
             return next_url
         elif 'slug' in self.kwargs:
@@ -121,13 +136,21 @@ class GalleryCreateView(LoginRequiredMixin, CreateView):
 
 class GalleryListView(ListView):
 
-    paginate_by = 32
+    paginate_by = 16 
     queryset = Gallery.objects.filter(is_public=True)
     ordering = ['-weight', '-creation_date']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+class GalleryUserListView(LoginRequiredMixin, ListView):
+
+    paginate_by = 16
+    ordering = ['-weight', '-creation_date']
+
+    def get_queryset(self):
+        return Gallery.objects.filter(user=self.request.user)
 
 class GalleryDetailView(DetailView):
 
@@ -153,16 +176,15 @@ class GalleryUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateVie
 	
     def get_success_url(self):
         # return the slug with the success url
+        next_url = self.request.GET.get('next')
+        if next_url:
+            return next_url
         if 'slug' in self.kwargs:
             slug = self.kwargs['slug']
         else:
-            return reverse('images:gallery_list')
-        return reverse('images:gallery_detail', kwargs={'slug': slug})
+            return reverse_lazy('images:gallery_list')
+        return reverse_lazy('images:gallery_detail', kwargs={'slug': slug})
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-		
 class GalleryDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView):
 
     model = Gallery
@@ -205,7 +227,12 @@ class PieceCreateView(LoginRequiredMixin, CreateView):
         if next_url:
             return next_url
         else:
-            return reverse('studio')	
+            if 'slug' in self.kwargs:
+                slug = self.kwargs['slug']
+            else:
+                return reverse('images:piece_list')
+            return reverse('images:piece_detail', kwargs={'slug': slug})
+
 
 class PieceListView(ListView):
 
@@ -216,6 +243,15 @@ class PieceListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+class PieceUserListView(LoginRequiredMixin, ListView):
+
+    paginate_by = 32
+
+    def get_queryset(self):
+        return Piece.objects.filter(
+            user=self.request.user
+        ).order_by('is_public', '-creation_date')
 
 class PieceDetailView(DetailView):
 

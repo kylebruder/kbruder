@@ -1,0 +1,31 @@
+<h4 class="studio-gallery-title">Your Artists</h4>
+{% if artists %}
+  {% for a in artists %}
+    <ul class="list-group">
+      <li class="list-group-item studio-gallery-li">
+        {% if a.image %}
+          <img class="studio-gallery-thumbnail float-right" src="{{ a.image.thumbnail_file.url }}" alt="{{ a.image.caption }}">
+        {% endif %}
+        <h5 class="studio-gallery-title">
+          <a href="{% url 'people:artist_detail' a.slug %}">
+            {{ a.name }}
+          </a>
+        </h5>
+        {% if not a.is_public %}
+          <span class="badge badge-secondary">Unpublished</span>
+        {% endif %}
+        <p class="studio-gallery-status">
+          Created: {{ a.creation_date|date:"M d, Y" }}
+        </p>
+        <div class="clear"></div>
+    </li>
+  {% endfor %}
+  <p>
+    <a href="{% url 'people:artist_list' %}">more ...</a>
+  </p>
+{% else %}
+  <p>You have not profiled any artist yet</p>
+  <a href="{% url 'people:artist_create' %}">
+    <button class="btn btn-success">New Artist</button>
+  </a>
+{% endif %}

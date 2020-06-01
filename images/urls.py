@@ -4,7 +4,8 @@ from .views import (ImageCreateView, ImageListView, ImageDetailView,
     ImageUpdateView, ImageDeleteView, GalleryCreateView, GalleryListView,
     GalleryDetailView, GalleryUpdateView, GalleryDeleteView, PieceCreateView,
     PieceListView, PieceDetailView, PieceUpdateView, PieceDeleteView,
-    promote_gallery, promote_piece)
+    promote_gallery, promote_piece, ImageUserListView, GalleryUserListView,
+    PieceUserListView)
 
 app_name = "images"
 
@@ -19,6 +20,7 @@ urlpatterns = [
         ImageListView.as_view(),
         name='image_list'
     ),
+    
     path(
         '<int:pk>/',
         ImageDetailView.as_view(),
@@ -88,5 +90,20 @@ urlpatterns = [
         'artworks/promote/<int:pk>/',
         promote_piece,
         name='promote_piece'
+    ),
+    path(
+        'member/<slug:user>/',
+        ImageUserListView.as_view(),
+        name='image_user_list'
+    ),
+    path(
+        'gallery/member/<slug:user>/',
+        GalleryUserListView.as_view(),
+        name='gallery_user_list'
+    ),
+    path(
+        'artworks/member/<slug:user>/',
+        PieceUserListView.as_view(),
+        name='piece_user_list'
     ),
 ]
