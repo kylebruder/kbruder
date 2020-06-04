@@ -38,7 +38,7 @@ class ImageCreateView(LoginRequiredMixin, CreateView):
         if next_url:
             return next_url
         else:
-            return reverse('studio')
+            return reverse('images:image_detail', kwargs={'pk': self.object.pk})
 
 class ImageListView(ListView):
 

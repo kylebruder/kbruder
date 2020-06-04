@@ -1,44 +1,13 @@
 {% if object.gallery %}
-  <div class="row">
-    <div class="col">
-      <a href="{% url 'images:gallery_detail' object.gallery.slug %}">
-        <h3 class="updates-gallery-title">{{ object.gallery.title }}</h3>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="container">
-        <a href="{% url 'images:gallery_detail' object.gallery.slug %}">
-          <img class="images-gallery-image" src="{{ object.gallery.cover_image.image_file.url }}" alt="{{ object.gallery.cover_image.title }}">
-        </a>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <p class="updates-gallery-captioni float-left">{{ object.gallery.caption }}</p>
-    </div>
-    <div class="col-sm-3">
-      <div class="container">
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner updates-gallery-carousel-inner">
-            <div class="carousel-item active">
-              <a href="{% url 'images:gallery_detail' object.gallery.slug %}">
-                <img class="images-gallery-image" src="{{ object.gallery.pieces.first.image.thumbnail_file.url }}" alt="{{ object.gallery.cover_image.title }}">
-              </a>
-            </div>
-          </div>
-          {% for p in object.gallery.pieces.all %}
-            {% if p != object.gallery.pieces.first %}
-              <div class="carousel-item">
-                <a href="{% url 'images:gallery_detail' object.gallery.slug %}">
-                  <img class="images-gallery-image" src="{{ p.image.thumbnail_file.url }}" alt="{{ p.image.title }}">
-                </a>
-              </div>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
+  <a href="{% url 'images:gallery_detail' object.gallery.slug %}">
+    <h3 class="updates-gallery-title">{{ object.gallery.title }}</h3>
+  </a>
+  <br>
+  <a href="{% url 'images:gallery_detail' object.gallery.slug %}">
+    <img class="updates-gallery-image" src="{{ object.gallery.cover_image.image_file.url }}" alt="{{ object.gallery.cover_image.title }}">
+  </a>
+  <br>
+  <p class="updates-gallery-captioni float-left">{{ object.gallery.caption }}</p>
+  <div class="clear"></div>
   <br>
 {% endif %}

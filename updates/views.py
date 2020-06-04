@@ -23,6 +23,7 @@ from accounts.mixins import UserObjectProtectionMixin
 from images.models import Image, Gallery, Piece
 from links.models import Link
 from people.models import Artist
+from .forms import UpdateForm
 from .models import Update
 
 class HomePageView(TemplateView):
@@ -80,22 +81,6 @@ class HomePageView(TemplateView):
 class UpdatesCreateView(LoginRequiredMixin, CreateView):
 
     model = Update
-    fields = [
-        'title',
-        'slug',
-        'publication_date',
-        'location',
-        'headline',
-        'headline_img',
-        'featured_img',
-        'introduction',
-        'content',
-        'conclusion',
-        'gallery',
-        'links',
-        'tags',
-        'is_public',
-    ]
     template_name_suffix = '_create_form'
     
     def get_success_url(self, **kwargs):
@@ -111,6 +96,21 @@ class UpdatesCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+def create_update_form(request):
+    if request.method == 'POST':
+        form = UpdateForm(request.user, request.POST)
+        if form.is_valid():
+            print('is a POST!')
+            update = form.save(commit=False)
+            update.user = request.user
+            update.creation_date = timezone.now()
+            update.save()
+            form.save_m2m()
+            return redirect('updates:update_detail', update.slug)
+    else:
+        form = UpdateForm(user=request.user)
+    return render(request, 'updates/update_create_form.html', {'form': form}) 
 
 class UpdatesListView(ListView):
 

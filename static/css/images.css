@@ -38,6 +38,12 @@
   margin: 5px;
 }
 
+.images-form-selector {
+  scrollbar-color: dark;
+  overflow-y: scroll;
+  max-height: 400px;
+} 
+
 .images-gallery-bg {
   background-color: #222222;
   color: #ffffff;

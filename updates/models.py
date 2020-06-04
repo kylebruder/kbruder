@@ -2,8 +2,9 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
-from images.models import Image, Gallery
+from images.models import Image, Gallery, Piece
 from links.models import Link
+from people.models import Artist
 from tags.models import MetaDataMixin
 from marshmallows.models import MarshmallowMixin
 
@@ -15,7 +16,6 @@ class Update(MetaDataMixin, MarshmallowMixin):
     location = models.CharField(
         max_length=256,
         default="an undisclosed location",
-        blank=True,
     )
     headline = models.CharField(max_length=256, default="EXTRA!")
     headline_img = models.ForeignKey(
@@ -33,20 +33,17 @@ class Update(MetaDataMixin, MarshmallowMixin):
         null=True,
     )
     introduction = models.TextField(
-        max_length=500,
-        default="Introducing..",
+        max_length=5000,
         blank=True,
         null=True,
     )
     content = models.TextField(
         max_length=5000, 
-        default="A new kind of content...",
         blank=True,
         null=True,
     )
     conclusion = models.TextField(
         max_length=5000,
-        default="Coming to your world view.",
         blank=True,
         null=True,
     )
@@ -56,6 +53,8 @@ class Update(MetaDataMixin, MarshmallowMixin):
         blank=True,
         null=True,
     )
+    artwork = models.ManyToManyField(Piece, blank=True)
+    artists = models.ManyToManyField(Artist, blank=True)
     links = models.ManyToManyField(Link, blank=True)
 
     class Meta:
