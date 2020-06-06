@@ -1,0 +1,14 @@
+{% extends './qnd_base.html' %}
+{% block body_block %}
+<div class="container-fluid qnd-bg">
+  {% if object_list %}
+    {% include "page_control.html" %}
+    {% for objective in object_list %}
+      {% include "./objective_list_item.html" %}
+    {% endfor %}
+    {% include "page_control.html" %}
+  {% else %}
+    <p>There are no objectives to complete! Have a beer!</p>
+  {% endif %}
+</div>
+{% endblock %}

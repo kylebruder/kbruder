@@ -1,0 +1,18 @@
+.qnd-logo {
+  font-family: courier;
+  font-weight: bold;
+}
+
+.qnd-objective-card {
+  font-family: courier;
+  font-size: 14px;
+  min-width: 450px;
+  padding: 20px;
+  margin: 3px;
+}
+
+.qnd-objective-summary {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 16px;
+  padding: 3px;
+}

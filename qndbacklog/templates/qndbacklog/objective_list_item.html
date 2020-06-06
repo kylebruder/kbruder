@@ -1,0 +1,91 @@
+<div class="qnd-objective-card float-left" style="border-style: solid; border-color: #{{ objective.priority.color }};">
+  {% if objective.priority.label != "None" %}
+    <div class="row" style="color: black; background-color: #{{ objective.priority.color}};">
+      <div class="col-">
+        Priority:
+      </div>
+      <div class="col">
+        <span style="color: black; backgorund-color: white;">{{ objective.priority.label }}</span>
+      </div>
+    </div>
+  {% endif %}
+  <div class="row">
+    <div class="col-">
+      Added:
+    </div>
+    <div class="col">
+      <p>{{ objective.creation_date }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col qnd-objective-summary">
+      <p>{{ objective.summary }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-">
+      Assigned to:
+    </div>
+    <div class="col">
+      <p>{% if objective.assigned_to %}{{ objective.assigned_to }}{% else %}Unassigned{% endif %}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-">
+      Status:
+    </div>
+    <div class="col">
+      <p>{{ objective.status }}</p>
+    </div>
+  </div>
+  {% if objective.target_date %}
+    <div class="row">
+      <div class="col-">
+        Target:
+      </div>
+      <div class="col">
+        <p>{{ objective.target_date }}</p>
+      </div>
+    </div>
+  {% endif %}
+  {% if objective.git_branch %}
+    <div class="row">
+      <div class="col-">
+        Git branch:
+      </div>
+      <div class="col">
+        <p>{{ objective.git_branch }}</p>
+      </div>
+    </div>
+  {% endif %}
+  {% if objective.bounty %}
+    <div class="row">
+      <div class="col-">
+        Bounty:
+      </div>
+      <div class="col">
+        <p>{{objective.bounty_unit }}{{ objective.bounty }}</p>
+      </div>
+    </div>
+  {% endif %}
+  {% if objective.completion_date %}
+    <div class="row">
+      <div class="col-">
+        Completed on:
+      </div>
+      <div class="col">
+        <p>{{ objective.completion_date }}</p>
+      </div>
+    </div>
+    {% elif objective.assigned_to == request.user %}
+      <a href="{% url 'backlog:complete_objective' objective.pk %}">
+        <button class="btn-small btn-primary">Complete</button>
+      </a>
+    {% endif %}
+    {% if objective.completion_date and not committed and objective.assigned_to == request.user %}
+      <a href="{% url 'backlog:commit_objective' pk={{ objective.pk }}">
+        <button class="btn-small btn-success">Commit</button>
+      </a>
+    {% endif %}
+  </div>
+</div>

@@ -30,6 +30,7 @@ urlpatterns = [
     path('studio/', StudioView.as_view(), name='studio'),
     path('tags/', include('tags.urls')),
     path('people/', include('people.urls')),
+    path('backlog/', include('qndbacklog.urls')),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
