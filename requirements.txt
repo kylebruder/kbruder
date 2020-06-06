@@ -4,7 +4,7 @@ bcrypt==3.1.7
 beautifulsoup4==4.8.2
 bootstrap4==0.1.0
 cffi==1.14.0
-Django==3.0.4
+Django==3.0.7
 django-bootstrap4==1.1.1
 Faker==4.0.2
 numpy==1.18.1
