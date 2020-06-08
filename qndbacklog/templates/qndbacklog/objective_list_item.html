@@ -79,12 +79,12 @@
     </div>
     {% elif objective.assigned_to == request.user %}
       <a href="{% url 'backlog:complete_objective' objective.pk %}">
-        <button class="btn-small btn-primary">Complete</button>
+        <button class="btn-small btn-primary">&#x2713; Complete</button>
       </a>
     {% endif %}
     {% if objective.completion_date and not committed and objective.assigned_to == request.user %}
-      <a href="{% url 'backlog:commit_objective' pk={{ objective.pk }}">
-        <button class="btn-small btn-success">Commit</button>
+      <a href="{% url 'backlog:commit_objective' objective.pk %}">
+        <button class="btn-small btn-success">&#x2713; Committed</button>
       </a>
     {% endif %}
   </div>

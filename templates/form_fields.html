@@ -1,10 +1,13 @@
 {% for field in form %}
   {{ field.errors }}
   <div class="row">
-    <div class="col-2">
+    <div class="col-sm">
       <h5 class="form-label">{{ field.label_tag }}</h5>
     </div>
-    <div class="col-sm-10">
+    <div class="col-sm">
+      {% if field.help_text %}
+        <p class="form-help">{{ field.help_text }}<p>
+      {% endif %}
       {{ field }}
     </div>
   </div>

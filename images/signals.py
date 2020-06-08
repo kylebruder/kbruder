@@ -40,4 +40,5 @@ def add_thumbnail(sender, instance, created, **kwargs):
         q = p / thumb_file_name
         instance.thumbnail_file = str(q)
         instance.save()
-
+    else:
+       pass 

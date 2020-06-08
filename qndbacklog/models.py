@@ -91,7 +91,7 @@ class Objective(MetaDataMixin, models.Model):
         priority, created = Priority.objects.get_or_create(
             label=None,
             color='666666',
-            urgency=0,
+            urgency=999999,
         )
         status, created = Status.objects.get_or_create(
             label=instance.completion_label
@@ -110,9 +110,9 @@ class Objective(MetaDataMixin, models.Model):
         
         instance - an instance of an Objective database object
         '''
-        if instance.status == completion_label:
+        if str(instance.status) == Objective.completion_label:
             status, created = Status.objects.get_or_create(
-                label=commit_label
+                label=Objective.commit_label
             )
             instance.status = status
             instance.committed = True
@@ -127,7 +127,7 @@ class Objective(MetaDataMixin, models.Model):
         
         instance - an instance of an Objective database object
         '''
-        if instance.status == completion_label and instance.committed == True:
+        if instance.status == Objective.completion_label and instance.committed == True:
             instance.committed = True
             instance.save()
 
