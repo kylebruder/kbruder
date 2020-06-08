@@ -94,7 +94,7 @@ class ImageUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView)
         context = super().get_context_data(**kwargs)
         return context
 		
-class ImageDeleteView(LoginRequiredMixin, DeleteView):
+class ImageDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView):
 
     model = Image
     success_url = reverse_lazy('images:image_list')
@@ -190,6 +190,7 @@ class GalleryUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateVie
             return reverse_lazy('images:gallery_list')
         return reverse_lazy('images:gallery_detail', kwargs={'slug': slug})
 
+
 class GalleryDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView):
 
     model = Gallery
@@ -237,7 +238,6 @@ class PieceCreateView(LoginRequiredMixin, CreateView):
             else:
                 return reverse('images:piece_list')
             return reverse('images:piece_detail', kwargs={'slug': slug})
-
 
 class PieceListView(ListView):
 

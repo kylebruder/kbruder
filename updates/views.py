@@ -178,6 +178,10 @@ class UpdatesUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateVie
     ]
 
     template_name_suffix = '_update_form'
+
+    def form_valid(self, form):
+        form.instance.last_modified = timezone.now()
+        return super().form_valid(form)
     
     def get_success_url(self):
         next_url = self.request.GET.get('next')

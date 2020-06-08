@@ -22,6 +22,7 @@ class MetaDataMixin(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     creation_date = models.DateTimeField(default=timezone.now)
+    last_modified = models.DateTimeField(default=timezone.now)
     is_public = models.BooleanField(default=False)
     publication_date = models.DateTimeField(
         default=timezone.now,
@@ -29,3 +30,7 @@ class MetaDataMixin(models.Model):
         null=True
     )
     tags = models.ManyToManyField(Tag, blank=True)
+
+    def form_valid(self, form):
+        form.instance.last_modified = timezone.now()
+        return super().form_valid(form)
