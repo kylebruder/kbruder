@@ -8,6 +8,7 @@
     <br>
     <div class="container">
       <form  method="post" enctype="multipart/form-data">
+        <img class="images-image" src="{{ object.image_file.url }}" alt="{{ object.caption }}"><br>
         {% csrf_token %}
         {% include 'form_fields.html' %}
         <input type="submit" value="Modify" class="btn btn-success">

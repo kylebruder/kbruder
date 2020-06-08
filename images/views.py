@@ -14,7 +14,7 @@ from django.views.generic.list import ListView
 from django.core.files.images import ImageFile
 from accounts.mixins import UserObjectProtectionMixin
 from accounts.models import User, Member
-from .forms import ImageForm
+from .forms import ImageCreateForm, ImageUpdateForm
 from .models import Image, Gallery, Piece
 
 # Create your views here.
@@ -22,7 +22,7 @@ from .models import Image, Gallery, Piece
 class ImageCreateView(LoginRequiredMixin, CreateView):
 
     model = Image
-    form_class = ImageForm
+    form_class = ImageCreateForm
     template_name_suffix = '_create_form'
 
     def form_valid(self, form):
@@ -88,7 +88,7 @@ class ImageDetailView(DetailView):
 class ImageUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView):
 
     model = Image
-    form_class = ImageForm
+    form_class = ImageUpdateForm
     template_name_suffix = '_update_form'
 	
     def get_context_data(self, **kwargs):
