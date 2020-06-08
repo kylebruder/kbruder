@@ -72,7 +72,7 @@ class Objective(MetaDataMixin, models.Model):
     
     class Meta:
 
-        ordering = ['-priority', '-target_date']
+        ordering = ['-priority', 'target_date']
         verbose_name = "Project Objective"
         verbose_name_plural = "project objectives"
 

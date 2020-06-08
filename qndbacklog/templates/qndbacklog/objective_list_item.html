@@ -68,6 +68,11 @@
       </div>
     </div>
   {% endif %}
+  {% if request.user.is_superuser %}
+      <a href="{% url 'backlog:objective_update' objective.pk %}">
+        <button class="btn-small btn-warning">Edit</button>
+      </a>
+  {% endif %}
   {% if objective.completion_date %}
     <div class="row">
       <div class="col-">
