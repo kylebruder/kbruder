@@ -11,11 +11,11 @@
         </a>
         <p class="studio-link">{{ l.url }}</p>
         <a href="{% url 'links:link_update' l.pk %}?next={{ request.path }}">
-          <button class="btn-sm btn-warning">Edit</button>
+          <button class="btn-sm btn-warning"><span class="studio-button-text">&#x1F589;</span></button>
         </a>
         {% if not l.is_public %}
           <a href="{% url 'links:link_delete' l.pk %}?next={{ request.path }}">
-            <button class="btn-sm btn-danger">Delete</button>
+            <button class="btn-sm btn-danger"><span class="studio-button-text">&#x2715;</span></button>
           </a>
         {% endif %}
       </li>

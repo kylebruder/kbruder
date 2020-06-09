@@ -14,18 +14,18 @@
             {{ u.title }}
           </a>
         </h5>
-          {% if not u.is_public %}
-            <span class="badge badge-secondary">Unpublished</span>
-          {% endif %}
         <p class="studio-update-status">
           Created: {{ u.creation_date|date:"M d, Y" }}
         </p>
+          {% if not u.is_public %}
+            <span class="badge badge-secondary">Unpublished</span>
+          {% endif %}
         <a href="{% url 'updates:update_update' u.slug %}?next={{ request.path }}">
-          <button class="btn-sm btn-warning">Edit</button>
+          <button class="btn-sm btn-warning"><span class="studio-button-text">&#x1F589;</span></button>
         </a>
         {% if not u.is_public %}
           <a href="{% url 'updates:update_delete' u.pk %}?next={{ request.path }}">
-            <button class="btn-sm btn-danger">Delete</button> 
+            <button class="btn-sm btn-danger"><span class="studio-button-text">&#x2715;</span></button>
           </a>
         {% endif %}
         <div class="clear"></div>
