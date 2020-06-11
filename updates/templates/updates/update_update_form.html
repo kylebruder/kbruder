@@ -10,6 +10,10 @@
       <input type="submit" value="Modify" class="btn btn-success">
     </form>
     <br>
+    <a href="{% url 'updates:publish_update' object.pk %}">
+      <button class="btn btn-success">Publish</button>
+    </a>
+    <br>
   </div>
 </div>
 {% endblock %}

@@ -36,7 +36,7 @@ class MetaDataMixin(models.Model):
         return super().form_valid(form)
 
 
-    def publish(instance, user):
+    def publish(self, instance, user):
         '''
         If the instance passed belongs to the user then set
         it as public and set the publication date to now.

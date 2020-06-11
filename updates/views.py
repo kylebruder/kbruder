@@ -208,6 +208,33 @@ class UpdatesDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteVie
             kwargs={'user': self.request.user}
         )
 
+def publish_update_view(request, pk):
+    user = request.user
+    instance = get_object_or_404(Update, pk=pk)
+    successful = instance.publish(instance, user)
+    if successful:
+        messages.add_message(
+            request,
+            messages.INFO,
+            '{} has been published'.format(
+                instance,
+            )
+        )
+    else:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            '{} could not be published'.format(
+                instance,
+            )
+        )    
+    return HttpResponseRedirect(
+        reverse(
+            'updates:update_detail', 
+            kwargs={'slug': instance.slug}
+        )
+    )
+    
 # promote view for marshmallow weight allocation
 def promote_update(request, pk):
     m = get_object_or_404(Member, pk=request.user.pk)

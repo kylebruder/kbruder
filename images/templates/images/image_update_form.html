@@ -13,7 +13,13 @@
         {% include 'form_fields.html' %}
         <input type="submit" value="Modify" class="btn btn-success">
       </form>
+      <br>
+      {% if not object.is_public %}
+        <a href="{% url 'images:publish_image' object.pk %}">
+          <button class="btn btn-success">Publish</button>
+        </a>
+      {% endif %}
+      <br>
     </div>
-    <br>
   </div>
 {% endblock %}

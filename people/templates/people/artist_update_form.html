@@ -12,6 +12,11 @@
         <input type="submit" value="Modify" class="btn btn-success">
       </form>
       <br>
+      {% if not object.is_public %}
+        <a href="{% url 'people:artist_publish' object.slug %}">
+          <button class="btn btn-success">Publish</button>
+        </a>
+      {% endif %}
     </div>
   </div>
 {% endblock %}

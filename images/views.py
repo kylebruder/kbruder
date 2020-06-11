@@ -324,6 +324,86 @@ class PieceDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView)
         context = super().get_context_data(**kwargs)
         return context
 
+def publish_image_view(request, pk):
+    user = request.user
+    instance = get_object_or_404(Image, pk=pk)
+    successful = instance.publish(instance, user)
+    if successful:
+        messages.add_message(
+            request,
+            messages.INFO,
+            '{} has been published'.format(
+                instance,
+            )
+        )
+    else:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            '{} could not be published'.format(
+                instance,
+            )
+        )
+    return HttpResponseRedirect(
+        reverse(
+            'images:image_detail',
+            kwargs={'pk': instance.pk}
+        )
+    )
+
+def publish_piece_view(request, slug):
+    user = request.user
+    instance = get_object_or_404(Piece, slug=slug)
+    successful = instance.publish(instance, user)
+    if successful:
+        messages.add_message(
+            request,
+            messages.INFO,
+            '{} has been published'.format(
+                instance,
+            )
+        )
+    else:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            '{} could not be published'.format(
+                instance,
+            )
+        )
+    return HttpResponseRedirect(
+        reverse(
+            'images:piece_detail',
+            kwargs={'slug': instance.slug}
+        )
+    )
+
+def publish_gallery_view(request, slug):
+    user = request.user
+    instance = get_object_or_404(Gallery, slug=slug)
+    successful = instance.publish(instance, user)
+    if successful:
+        messages.add_message(
+            request,
+            messages.INFO,
+            '{} has been published'.format(
+                instance,
+            )
+        )
+    else:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            '{} could not be published'.format(
+                instance,
+            )
+        )
+    return HttpResponseRedirect(
+        reverse(
+            'images:gallery_detail',
+            kwargs={'slug': instance.slug}
+        )
+    )
 
 def promote_piece(request, pk):
     m = get_object_or_404(Member, pk=request.user.pk)

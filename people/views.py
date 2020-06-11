@@ -128,6 +128,33 @@ class ArtistDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView
     def get_success_url(self):
         return reverse_lazy('people:artist_list')
 
+def publish_artist_view(request, slug):
+    user = request.user
+    instance = get_object_or_404(Artist, slug=slug)
+    successful = instance.publish(instance, user)
+    if successful:
+        messages.add_message(
+            request,
+            messages.INFO,
+            '{} has been published'.format(
+                instance,
+            )
+        )
+    else:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            '{} could not be published'.format(
+                instance,
+            )
+        )
+    return HttpResponseRedirect(
+        reverse(
+            'people:artist_detail',
+            kwargs={'slug': instance.slug}
+        )
+    )
+
 def promote_artist(request, pk):
     m = get_object_or_404(Member, pk=request.user.pk)
     o = get_object_or_404(Artist, pk=pk)

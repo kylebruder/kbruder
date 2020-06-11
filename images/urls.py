@@ -5,7 +5,8 @@ from .views import (ImageCreateView, ImageListView, ImageDetailView,
     GalleryDetailView, GalleryUpdateView, GalleryDeleteView, PieceCreateView,
     PieceListView, PieceDetailView, PieceUpdateView, PieceDeleteView,
     promote_gallery, promote_piece, ImageUserListView, GalleryUserListView,
-    PieceUserListView)
+    PieceUserListView, publish_image_view, publish_gallery_view,
+    publish_piece_view,)
 
 app_name = "images"
 
@@ -31,6 +32,8 @@ urlpatterns = [
         ImageUpdateView.as_view(),
         name='image_update'
     ),
+    path('publish/<int:pk>/', publish_image_view, name='publish_image'),
+    path('artwork/publish/<slug:slug>/', publish_piece_view, name='publish_piece'),
     path(
         'gallery/create/',
         GalleryCreateView.as_view(),
@@ -61,6 +64,7 @@ urlpatterns = [
         promote_gallery,
         name='promote_gallery'
     ),
+    path('gallery/publish/<slug:slug>/', publish_gallery_view, name='publish_gallery'),
     path(
         'artworks/add/',
         PieceCreateView.as_view(),
