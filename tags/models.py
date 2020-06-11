@@ -34,3 +34,25 @@ class MetaDataMixin(models.Model):
     def form_valid(self, form):
         form.instance.last_modified = timezone.now()
         return super().form_valid(form)
+
+
+    def publish(instance, user):
+        '''
+        If the instance passed belongs to the user then set
+        it as public and set the publication date to now.
+
+        Arguments:
+        instance - Any instance of a DB model instance that uses MetaDataMixin
+        user - Pass request.user when calling from a view
+
+        Returns:
+        True - If the instance belongs to the user
+        False - If the above condition is not met
+        '''
+        if instance.user == user:
+            instance.is_public = True
+            instance.publication_date = timezone.now()
+            instance.save()
+            return True
+        else:
+            return False 
