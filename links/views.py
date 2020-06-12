@@ -40,6 +40,7 @@ class LinkListView(ListView):
     model = Link
     paginate_by = 16 
     ordering = ['-weight', '-creation_date',]
+    queryset = Link.objects.filter(is_public=True)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
