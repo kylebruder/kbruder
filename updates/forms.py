@@ -31,51 +31,30 @@ class CustomModelMultipleChoiceField(forms.models.ModelMultipleChoiceField):
 
 class UpdateForm(forms.ModelForm):
 
-    title = forms.CharField(max_length=256)
-    slug = forms.SlugField(max_length=40)
-    location = forms.CharField(
-        max_length=256,
-        required=False,
-    )
-    headline = forms.CharField(max_length=256)
     headline_img = CustomModelChoiceField(
-        queryset = Image.objects.all(),
+        queryset=Image.objects.all(),
         required=False,
+        help_text=Update._meta.get_field('headline_img').help_text,
     )
     featured_img = CustomModelChoiceField(
-        queryset = Image.objects.all(),
+        queryset=Image.objects.all(),
         required=False,
-    )
-    introduction = forms.CharField(
-        max_length=5000,
-        widget = Textarea,
-        required=False,
-    )
-    content = forms.CharField(
-        max_length=5000,
-        widget = Textarea,
-        required=False,
-    )
-    conclusion = forms.CharField(
-        max_length=5000,
-        widget = Textarea,
-        required=False,
+        help_text=Update._meta.get_field('featured_img').help_text,
     )
     gallery = CustomModelChoiceField(
-        queryset = Gallery.objects.all(),
+        queryset=Gallery.objects.all(),
         required=False,
+        help_text=Update._meta.get_field('gallery').help_text,
     )
     artwork = CustomModelMultipleChoiceField(
-        queryset = Piece.objects.all(),
+        queryset=Piece.objects.all(),
         required=False,
+        help_text=Update._meta.get_field('artwork').help_text,
     )
     artists = CustomModelMultipleChoiceField(
-        queryset = Artist.objects.all(),
+        queryset=Artist.objects.all(),
         required=False,
-    )
-    links = forms.ModelMultipleChoiceField(
-        queryset = Link.objects.all(),
-        required=False,
+        help_text=Update._meta.get_field('artists').help_text,
     )
     
     class Meta:
@@ -97,11 +76,42 @@ class UpdateForm(forms.ModelForm):
             'links',
         )
 
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
         super(UpdateForm, self).__init__(*args, **kwargs)
-        self.fields['headline_img'].queryset = Image.objects.filter(user=user)
-        self.fields['featured_img'].queryset = Image.objects.filter(user=user)
-        self.fields['gallery'].queryset = Gallery.objects.filter(user=user)
-        self.fields['artwork'].queryset = Piece.objects.filter(user=user)
-        self.fields['artists'].queryset = Artist.objects.filter(user=user)
-        self.fields['links'].queryset = Link.objects.filter(user=user)
+        self.fields['headline_img'].queryset = Image.objects.filter(
+            user=user,
+        ).order_by(
+            '-creation_date',
+        )
+        self.fields['featured_img'].queryset = Image.objects.filter(
+            user=user,
+        ).order_by(
+            '-creation_date',
+        )
+        self.fields['gallery'].queryset = Gallery.objects.filter(
+            user=user,
+        ).filter(
+            is_public=True,
+        ).order_by(
+            '-publication_date',
+        )
+        self.fields['artwork'].queryset = Piece.objects.filter(
+            user=user,
+        ).filter(
+            is_public=True,
+        ).order_by(
+            '-publication_date',
+        )
+        self.fields['artists'].queryset = Artist.objects.filter(
+            user=user,
+        ).filter(
+            is_public=True,
+        ).order_by(
+            '-publication_date',
+        )
+        self.fields['links'].queryset = Link.objects.filter(
+            user=user,
+        ).order_by(
+            '-publication_date',
+        )

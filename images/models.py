@@ -66,11 +66,38 @@ class Piece(MetaDataMixin, MarshmallowMixin):
 
 class Gallery(MetaDataMixin, MarshmallowMixin):
 
-    slug = models.SlugField(max_length=40, unique=True)
-    title = models.CharField(max_length=64, default="Untitled")
-    caption = models.TextField(max_length=256, default="a curated collection of imagery")
-    cover_image = models.ForeignKey('images.image', on_delete=models.CASCADE, related_name="cover")
-    pieces = models.ManyToManyField(Piece)
+    slug = models.SlugField(
+        max_length=40,
+        unique=True,
+        help_text="The slug will be used in the URL for your update. Slugs may \
+only use letters, numbers, hyphens, and underscores. Spaces are not allowed. \
+To help your update appear in relevant search engine queries, please use a \
+slug that is similar to your title.",
+    )
+    title = models.CharField(
+        max_length=64,
+        default="Untitled",
+        help_text="The title will be shown in listings and on the top \
+of the page.",
+    )
+    caption = models.TextField(
+        max_length=256,
+        default="a curated collection of imagery",
+        help_text="Provide a short description the artists and art. Tell the \
+story behind the work.",
+     )
+    cover_image = models.ForeignKey(
+        'images.image',
+        on_delete=models.CASCADE,
+        related_name="cover",
+        help_text="Provide an advertisement to attract attention to the \
+gallery. This image will appear as the first image in the gallery and in \
+listings.",
+    )
+    pieces = models.ManyToManyField(
+        Piece,
+        help_text="Select the pieces that you want to include in the gallery.",
+    )
 
     def __str__(self):
         return self.title

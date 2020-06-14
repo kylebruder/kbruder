@@ -14,7 +14,7 @@ from django.views.generic.list import ListView
 from django.core.files.images import ImageFile
 from accounts.mixins import UserObjectProtectionMixin
 from accounts.models import User, Member
-from .forms import ImageCreateForm, ImageUpdateForm
+from .forms import ImageCreateForm, ImageUpdateForm, GalleryForm
 from .models import Image, Gallery, Piece
 
 # Create your views here.
@@ -107,7 +107,7 @@ class ImageDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView)
 class GalleryCreateView(LoginRequiredMixin, CreateView):
 
     model = Gallery
-    fields = ['title', 'slug', 'cover_image', 'caption', 'pieces', 'tags', 'is_public']
+    form_class = GalleryForm
     template_name_suffix = '_create_form'
 
     def form_valid(self, form):
@@ -124,12 +124,10 @@ class GalleryCreateView(LoginRequiredMixin, CreateView):
         else:
             return reverse('studio')	
 
-    def get_success_url(self):
-        # return the slug with the success url
-        if 'slug' in self.kwargs:
-            slug = self.kwargs['slug']
-        else:
-            return reverse('images:gallery_list')
+    def get_form_kwargs(self):
+        kwargs = super(GalleryCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -177,8 +175,8 @@ class GalleryDetailView(DetailView):
 class GalleryUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView):
 
     model = Gallery
-    fields = ['title', 'slug', 'cover_image', 'caption', 'pieces', 'tags', 'is_public']
-    template_name_suffix = '_update_form'
+    form_class = GalleryForm
+    template_name_suffix = '_create_form'
 	
     def get_success_url(self):
         # return the slug with the success url
@@ -191,6 +189,10 @@ class GalleryUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateVie
             return reverse_lazy('images:gallery_list')
         return reverse_lazy('images:gallery_detail', kwargs={'slug': slug})
 
+    def get_form_kwargs(self):
+        kwargs = super(GalleryUpdateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 class GalleryDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView):
 

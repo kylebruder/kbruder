@@ -3,7 +3,7 @@ from django.urls import path
 from .views import (
     UpdatesListView, UpdatesDetailView, UpdatesCreateView,
     UpdatesUpdateView, UpdatesDeleteView, create_update_form, promote_update,
-    UpdatesUserListView, publish_update_view
+    UpdatesUserListView, publish_update_view, update_update_form,
 )
 
 app_name = 'updates'

@@ -81,6 +81,7 @@ class HomePageView(TemplateView):
 class UpdatesCreateView(LoginRequiredMixin, CreateView):
 
     model = Update
+    form_class = UpdateForm
     template_name_suffix = '_create_form'
     
     def get_success_url(self, **kwargs):
@@ -92,6 +93,11 @@ class UpdatesCreateView(LoginRequiredMixin, CreateView):
         form.instance.creation_date = timezone.now()
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+    def get_form_kwargs(self):
+        kwargs = super(UpdatesUpdateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -160,29 +166,18 @@ class UpdatesDetailView(DetailView):
 class UpdatesUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView):
 
     model = Update
-    fields = [
-        'title',
-        'slug',
-        'publication_date',
-        'location',
-        'headline',
-        'headline_img',
-        'featured_img',
-        'introduction',
-        'content',
-        'conclusion',
-        'gallery',
-        'links',
-        'tags',
-        'is_public',
-    ]
-
-    template_name_suffix = '_update_form'
+    form_class = UpdateForm
+    template_name_suffix = '_create_form'
 
     def form_valid(self, form):
         form.instance.last_modified = timezone.now()
         return super().form_valid(form)
     
+    def get_form_kwargs(self):
+        kwargs = super(UpdatesUpdateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def get_success_url(self):
         next_url = self.request.GET.get('next')
         if next_url:
@@ -191,9 +186,6 @@ class UpdatesUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateVie
             return reverse_lazy('updates:update_detail', 
                 kwargs={'slug': self.object.slug}
             )
-
-    #def form_valid(self, form):
-    #    return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -207,6 +199,21 @@ class UpdatesDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteVie
         return reverse('updates:update_user_list',
             kwargs={'user': self.request.user}
         )
+
+def update_update_form(request, slug):
+    if request.method == 'POST':
+        u = Update.objects.get(slug=slug)
+        form = UpdateForm(request.user, request.POST, instance=u)
+        if form.is_valid():
+            update = form.save(commit=False)
+            update.user = request.user
+            update.creation_date = timezone.now()
+            update.save()
+            form.save_m2m()
+            return redirect('updates:update_detail', update.slug)
+    else:
+        form = UpdateForm(user=request.user)
+    return render(request, 'updates/update_create_form.html', {'form': form}) 
 
 def publish_update_view(request, pk):
     user = request.user
