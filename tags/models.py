@@ -25,7 +25,6 @@ class MetaDataMixin(models.Model):
     last_modified = models.DateTimeField(default=timezone.now)
     is_public = models.BooleanField(default=False)
     publication_date = models.DateTimeField(
-        default=timezone.now,
         blank=True,
         null=True
     )

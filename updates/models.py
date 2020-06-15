@@ -13,7 +13,6 @@ from marshmallows.models import MarshmallowMixin
 class Update(MetaDataMixin, MarshmallowMixin):
     title = models.CharField(
         max_length=256,
-        default="Untitled",
         help_text="The title will be shown in listings and below the headline \
 on the page.",
     )
@@ -27,14 +26,14 @@ slug that is similar to your title.",
     )
     location = models.CharField(
         max_length=256,
-        default="an undisclosed location",
+        blank=True,
+        null=True,
         help_text="Let your readers know where you are reporting from. Feel \
 free to skip this or to make something up if you don't feel safe or \
 comfortable disclosing your location.",
     )
     headline = models.CharField(
         max_length=256,
-        default="EXTRA!",
         help_text="Grab attention with a short gist of what your update is about. The headline will appear at the top of the page and on the home page if it has been published recently.",
     )
     headline_img = models.ForeignKey(

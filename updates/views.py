@@ -82,7 +82,6 @@ class UpdatesCreateView(LoginRequiredMixin, CreateView):
 
     model = Update
     form_class = UpdateForm
-    template_name_suffix = '_create_form'
     
     def get_success_url(self, **kwargs):
         # return the slug with the success url
@@ -95,28 +94,13 @@ class UpdatesCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_form_kwargs(self):
-        kwargs = super(UpdatesUpdateView, self).get_form_kwargs()
+        kwargs = super(UpdatesCreateView, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-
-def create_update_form(request):
-    if request.method == 'POST':
-        form = UpdateForm(request.user, request.POST)
-        if form.is_valid():
-            print('is a POST!')
-            update = form.save(commit=False)
-            update.user = request.user
-            update.creation_date = timezone.now()
-            update.save()
-            form.save_m2m()
-            return redirect('updates:update_detail', update.slug)
-    else:
-        form = UpdateForm(user=request.user)
-    return render(request, 'updates/update_create_form.html', {'form': form}) 
 
 class UpdatesListView(ListView):
 
@@ -167,7 +151,6 @@ class UpdatesUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateVie
 
     model = Update
     form_class = UpdateForm
-    template_name_suffix = '_create_form'
 
     def form_valid(self, form):
         form.instance.last_modified = timezone.now()
@@ -200,22 +183,7 @@ class UpdatesDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteVie
             kwargs={'user': self.request.user}
         )
 
-def update_update_form(request, slug):
-    if request.method == 'POST':
-        u = Update.objects.get(slug=slug)
-        form = UpdateForm(request.user, request.POST, instance=u)
-        if form.is_valid():
-            update = form.save(commit=False)
-            update.user = request.user
-            update.creation_date = timezone.now()
-            update.save()
-            form.save_m2m()
-            return redirect('updates:update_detail', update.slug)
-    else:
-        form = UpdateForm(user=request.user)
-    return render(request, 'updates/update_create_form.html', {'form': form}) 
-
-def publish_update_view(request, pk):
+def updates_publish_view(request, pk):
     user = request.user
     instance = get_object_or_404(Update, pk=pk)
     successful = instance.publish(instance, user)
