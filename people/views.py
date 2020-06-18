@@ -1,9 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.mixins import(
-    LoginRequiredMixin,
-    PermissionRequiredMixin,
-    )
+from django.contrib.auth.mixins import(LoginRequiredMixin,
+    PermissionRequiredMixin,)
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
@@ -13,24 +11,15 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from accounts.mixins import UserObjectProtectionMixin
 from accounts.models import Member
-from people.models import Artist
+from .forms import ArtistForm
+from .models import Artist
 
 # Create your views here.
 
 class ArtistCreateView(LoginRequiredMixin, CreateView):
 
     model = Artist
-    fields = [
-        'name',
-        'slug',
-        'home_town',
-        'image',
-        'links',
-        'statement',
-        'media',
-        'is_public',
-    ]
-    template_name_suffix = '_create_form'
+    form_class = ArtistForm
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -47,6 +36,10 @@ class ArtistCreateView(LoginRequiredMixin, CreateView):
                 return reverse('people:artist_list')
             return reverse_lazy('people:artist_detail', kwargs={'slug': slug})
 
+    def get_form_kwargs(self):
+        kwargs = super(ArtistCreateView, self).get_form_kwargs() 
+        kwargs['user'] = self.request.user
+        return kwargs
 
 class ArtistListView(ListView):
 
@@ -95,16 +88,7 @@ class ArtistDetailView(DetailView):
 class ArtistUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView):
 
     model = Artist
-    fields = [
-        'name',
-        'home_town',
-        'image',
-        'links',
-        'statement',
-        'media',
-        'is_public',
-    ]
-    template_name_suffix = '_update_form'
+    form_class = ArtistForm
 
     def get_success_url(self):
         next_url = self.request.GET.get('next')
@@ -116,6 +100,11 @@ class ArtistUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView
             else:
                 return reverse('people:artist_list')
             return reverse_lazy('people:artist_detail', kwargs={'slug': slug})
+
+    def get_form_kwargs(self):
+        kwargs = super(ArtistUpdateView, self).get_form_kwargs() 
+        kwargs['user'] = self.request.user
+        return kwargs
 
 class ArtistDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView):
 

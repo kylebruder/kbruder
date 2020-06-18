@@ -12,6 +12,7 @@ from django.views.generic.edit import CreateView, FormView, UpdateView, DeleteVi
 from django.views.generic.list import ListView
 from accounts.mixins import UserObjectProtectionMixin
 from accounts.models import Member
+from .forms import LinkForm
 from .models import Link
 
 # Create your views here.
@@ -19,9 +20,7 @@ from .models import Link
 class LinkCreateView(LoginRequiredMixin, CreateView):
 
     model = Link
-    fields = ['title', 'description', 'image', 'url']
-    template_name_suffix = '_create_form'
-    success_url = reverse_lazy('links:link_list')
+    form_class = LinkForm
 
     def get_success_url(self):
         return reverse('links:link_user_list', kwargs={'user': self.request.user})
@@ -34,6 +33,11 @@ class LinkCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+    def get_form_kwargs(self):
+        kwargs = super(LinkCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 class LinkListView(ListView):
 
@@ -87,8 +91,7 @@ class LinkDetailView(DetailView):
 class LinkUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView):
 
     model = Link
-    fields = ['title','description', 'url']
-    template_name_suffix = '_update_form'
+    form_class = LinkForm
 
     def get_success_url(self):
         next_url = self.request.GET.get('next')
@@ -102,6 +105,11 @@ class LinkUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+    def get_form_kwargs(self):
+        kwargs = super(UpdatesCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 class LinkDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView):
 
