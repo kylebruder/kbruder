@@ -14,7 +14,7 @@ from django.views.generic.list import ListView
 from django.core.files.images import ImageFile
 from accounts.mixins import UserObjectProtectionMixin
 from accounts.models import User, Member
-from .forms import ImageCreateForm, ImageUpdateForm, GalleryForm
+from .forms import ImageCreateForm, ImageUpdateForm, GalleryForm, PieceForm
 from .models import Image, Gallery, Piece
 
 # Create your views here.
@@ -108,7 +108,6 @@ class GalleryCreateView(LoginRequiredMixin, CreateView):
 
     model = Gallery
     form_class = GalleryForm
-    template_name_suffix = '_create_form'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -176,7 +175,6 @@ class GalleryUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateVie
 
     model = Gallery
     form_class = GalleryForm
-    template_name_suffix = '_create_form'
 	
     def get_success_url(self):
         # return the slug with the success url
@@ -208,24 +206,7 @@ class GalleryDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteVie
 class PieceCreateView(LoginRequiredMixin, CreateView):
 
     model = Piece
-    fields = [
-        'slug',
-        'image',
-        'detail_images',
-        'description',
-        'number',
-        'artists',
-        'medium',
-        'collection',
-        'is_public',
-        'price',
-        'currency',
-        'is_sold',
-        'contact_name',
-        'contact_email',
-        'contact_link',
-    ]
-    template_name_suffix = '_create_form'
+    form_class = PieceForm
  
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -241,6 +222,11 @@ class PieceCreateView(LoginRequiredMixin, CreateView):
             else:
                 return reverse('images:piece_list')
             return reverse('images:piece_detail', kwargs={'slug': slug})
+
+    def get_form_kwargs(self):
+        kwargs = super(PieceCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 class PieceListView(ListView):
 
@@ -285,23 +271,7 @@ class PieceDetailView(DetailView):
 class PieceUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView):
 
     model = Piece
-    fields = [
-        'image',
-        'detail_images',
-        'description',
-        'number',
-        'artists',
-        'medium',
-        'collection',
-        'price',
-        'currency',
-        'is_sold',
-        'is_public',
-        'contact_name',
-        'contact_email',
-        'contact_link',
-    ]
-    template_name_suffix = '_update_form'
+    form_class = PieceForm
 	
     def get_success_url(self):
         # return the slug with the success url
@@ -315,6 +285,11 @@ class PieceUpdateView(LoginRequiredMixin, UserObjectProtectionMixin, UpdateView)
         context = super().get_context_data(**kwargs)
         return context
 		
+    def get_form_kwargs(self):
+        kwargs = super(PieceUpdateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
 class PieceDeleteView(LoginRequiredMixin, UserObjectProtectionMixin, DeleteView):
 
     model = Piece

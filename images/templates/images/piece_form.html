@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block body_block %}
+{% load crispy_forms_tags %}
+<div class ="container create-bg">
+    <div class="container">
+      <h2 class="images-title">New Piece Submission Form</h2>
+      <p>
+        Pieces are single works of art that are exhibited in a Gallery. Each piece has one uploaded Image along with information about the artists, medium, contacts, links and price. Pieces are also ordered. Pieces with lower numbers will appear first in the Gallery views. If two or more Pieces have the same number, the Piece that was added first will appear before the others. If the Image, Artists or Tags you would like to include have already been added, select select them from the menus below. Otherwise, you can add them on the fly by pressing one of the buttons below. Please note: only the Administrator can add new types of currency.
+
+      </p>
+    </div>
+    <div class="container">
+      {% include './piece_form_button_bar.html' %}
+    </div>
+    <form  method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <!-- Custom model choice form field for Image -->
+      <div class="row">
+        <div class="col-sm-2">
+          <h5 class="form-label">{{ form.image.label_tag }}</h5>
+        </div>
+        <div class="col-sm-10 images-form-selector">
+          {{ form.image.errors }}
+          <p>{{ form.image.help_text}}</p>
+          {% if form.image.field.choices.queryset.all|length == 0 %}
+            <p><i>You haven't uploaded any images yet.</i></p>
+          {% else %}
+            {% for value in form.image.field.choices %}
+              {% if value|first != '' %}
+                <div class="studio-images-card float-left" style="background-image:url('/media/{{ value.2.thumbnail_file }}')">
+                  <p>&nbsp;<input type="radio" value="{{ value|first }}" name="headline_img" {% if object.image.pk == value|first %}checked{% endif %}></p>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+      <br>
+      <br>
+      <!-- Custom multiple model choice form field for Detail Images -->
+      <div class="row">
+        <div class="col-sm-2">
+          <h5 class="form-label">{{ form.detail_images.label_tag }}</h5>
+        </div>
+        <div class="col-sm-10 images-form-selector">
+          {{ form.detail_images.errors }}
+          <p>{{ form.detail_images.help_text}}</p>
+          {% if form.detail_images.field.choices.queryset.all|length == 0 %}
+            <p><i>You haven't published any images yet.</i></p>
+          {% else %}
+            {% for value, label, obj in form.detail_images.field.choices %}
+              {% if value != '' %}
+                <div class="studio-images-card float-left" style="background-image:url('/media/{{ obj.thumbnail_file }}')">
+                  <p>&nbsp;<input type="checkbox" value="{{ value }}" name="detail_images" {% if obj in object.detail_images.all %}checked{% endif %}></p>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+      <br>
+      <br>
+      <!-- Custom multiple model choice form field for Artists -->
+      <div class="row">
+        <div class="col-sm-2">
+          <h5 class="form-label">{{ form.artists.label_tag }}</h5>
+        </div>
+        <div class="col-sm-10 images-form-selector">
+          {{ form.artists.errors }}
+          <p>{{ form.artists.help_text}}</p>
+          {% if form.artists.field.choices.queryset.all|length == 0 %}
+            <p><i>You haven't published any artist profiles yet.</i></p>
+          {% else %}
+            {% for value, label, obj in form.artists.field.choices %}
+              {% if value != '' %}
+                <div class="studio-images-card float-left" style="background-image:url('/media/{{ obj.image.thumbnail_file }}')">
+                  <p>&nbsp;<input type="checkbox" value="{{ value }}" name="artists" {% if obj in object.artists.all %}checked{% endif %}></p>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+      <br>
+      <br>
+      <!-- Standard field iterator -->
+      {% for field in form %}
+        {% if field != form.image and field != form.detail_images  and field != form.artists %}
+          {{ field.errors }}
+          <div class="row">
+            <div class="col-sm-2">
+              <h5 class="form-label">{{ field.label_tag }}</h5>
+            </div>
+            <div class="col-sm-10">
+              <p>{{ field.help_text }}</p>
+              {{ field }}
+            </div>
+          </div>
+          <br>
+          <br>
+        {% endif %}
+      {% endfor %}
+      <input type="submit" value="Upload" class="btn btn-success">
+    </form>
+    <br>
+    <br>
+</div>
+{% endblock %}

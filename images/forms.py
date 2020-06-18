@@ -1,6 +1,7 @@
 from django import forms
 from templates.widgets import ImagePreviewWidget
 from .models import Image, Gallery, Piece
+from people.models import Artist
 
 class CustomModelChoiceIterator(forms.models.ModelChoiceIterator):
 
@@ -107,6 +108,23 @@ class GalleryForm(forms.ModelForm):
 
 class PieceForm(forms.ModelForm):
 
+    image = CustomModelChoiceField(
+        queryset=Image.objects.all(),
+        required=True,
+        help_text=Piece._meta.get_field('image').help_text,
+    )
+
+    detail_images = CustomModelMultipleChoiceField(
+        queryset=Image.objects.all(),
+        help_text=Piece._meta.get_field('detail_images').help_text,
+    )
+
+    artists = CustomModelMultipleChoiceField(
+        queryset=Artist.objects.all(),
+        required=True,
+        help_text=Piece._meta.get_field('artists').help_text,
+    )
+
     class Meta:
         model = Piece
 
@@ -150,3 +168,4 @@ class PieceForm(forms.ModelForm):
         ).order_by(
             '-creation_date',
         ) 
+

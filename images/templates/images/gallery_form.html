@@ -7,7 +7,7 @@
       <p>Galleries are ordered sets of Pieces and a Cover Image. The Cover Image and Pieces will be displayed in a slide show. If you have not yet created the Pieces you wish to include in the Gallery, use one of the buttons below to upload a new Image or to create a new Piece from an existing Image. The order of the Pieces is specified by number when creating them. Lower numbered Pieces will appear first.
       <br>
       <br>
-      {% include './gallery_create_button_bar.html' %}
+      {% include './gallery_form_button_bar.html' %}
     </div>
     <div class="container">
       <form  method="post" enctype="multipart/form-data">
@@ -37,13 +37,17 @@
           <div class="col-sm-10 images-form-selector">
             {{ form.cover_image.errors }}
             <p>{{ form.cover_image.help_text }}</p>
-            {% for value in form.cover_image.field.choices %}
-              {% if value|first != '' %}
-                <div class="studio-images-card float-left" style="background-image:url('/media/{{ value.2.thumbnail_file }}')">
-                  <p>&nbsp;<input type="radio" value="{{ value|first }}" name="cover_image" {% if object.cover_image.pk == value|first %}checked{% endif %}></p>
-                </div>
-              {% endif %}
-            {% endfor %}
+            {% if form.cover_image.field.choices.queryset.all|length == 0 %}
+              <p><i>You haven't uploaded any images yet.</i></p>
+            {% else %}
+              {% for value in form.cover_image.field.choices %}
+                {% if value|first != '' %}
+                  <div class="studio-images-card float-left" style="background-image:url('/media/{{ value.2.thumbnail_file }}')">
+                    <p>&nbsp;<input type="radio" value="{{ value|first }}" name="cover_image" {% if object.cover_image.pk == value|first %}checked{% endif %}></p>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
           </div>
         </div>
         <br>
@@ -56,11 +60,17 @@
           <div class="col-sm-10 images-form-selector">
             {{ form.pieces.errors }}
             <p>{{ form.pieces.help_text}}</p>
-            {% for value, label, obj in form.pieces.field.choices %}
-              <div class="studio-images-card float-left" style="background-image:url('/media/{{ obj.image.thumbnail_file }}')">
-                <p>&nbsp;<input type="checkbox" value="{{ value }}" name="pieces" {% if obj in object.pieces.all %}checked{% endif %}></p>
-              </div>
-            {% endfor %}
+            {% if form.pieces.field.choices.queryset.all|length == 0 %}
+              <p><i>You haven't published any artwork yet.</i></p>
+            {% else %}
+              {% for value, label, obj in form.pieces.field.choices %}
+                {% if value != '' %}
+                  <div class="studio-images-card float-left" style="background-image:url('/media/{{ obj.image.thumbnail_file }}')">
+                    <p>&nbsp;<input type="checkbox" value="{{ value }}" name="pieces" {% if obj in object.pieces.all %}checked{% endif %}></p>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
           </div>
         </div>
         <br>
