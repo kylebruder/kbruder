@@ -41,7 +41,7 @@ class HomePageView(TemplateView):
         ).order_by(
             '-weight', 
             '-creation_date'
-        )[0]
+        ).first()
         context['galleries'] = Gallery.objects.filter(
              is_public=True
         ).order_by(
@@ -57,7 +57,7 @@ class HomePageView(TemplateView):
         ).order_by(
             '-weight',
             '-creation_date'
-        )[0]
+        ).first()
         context['artists'] = Artist.objects.filter(
             is_public=True
         ).order_by(
@@ -69,7 +69,7 @@ class HomePageView(TemplateView):
         ).order_by(
             '-weight',
             '-creation_date'
-        )[0]
+        ).first()
         context['pieces'] = Piece.objects.filter(
             is_public=True
         ).order_by(

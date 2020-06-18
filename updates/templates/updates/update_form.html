@@ -153,12 +153,12 @@
         <div class="col-sm-10">
           {{ form.links.errors }}
           <p>{{ form.links.help_text }}</p>
-          {% if field.choices.queryset.all|length == 0 %}
+          {% if form.links.field.choices.queryset.all|length == 0 %}
             <p>
               <i>You haven't added any links yet.</i>
             </p>
           {% else %}
-            {{ form.links.field }}
+            {{ form.links }}
           {% endif %}
         </div>
       </div>
